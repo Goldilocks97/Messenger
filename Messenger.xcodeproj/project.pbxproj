@@ -9,23 +9,67 @@
 /* Begin PBXBuildFile section */
 		2C2487EC28C38F4800D2EB2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2487EB28C38F4800D2EB2B /* AppDelegate.swift */; };
 		2C2487EE28C38F4800D2EB2B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2487ED28C38F4800D2EB2B /* SceneDelegate.swift */; };
-		2C2487F028C38F4800D2EB2B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2487EF28C38F4800D2EB2B /* ViewController.swift */; };
-		2C2487F328C38F4800D2EB2B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C2487F128C38F4800D2EB2B /* Main.storyboard */; };
 		2C2487F628C38F4900D2EB2B /* Messenger.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2C2487F428C38F4900D2EB2B /* Messenger.xcdatamodeld */; };
 		2C2487F828C38F4A00D2EB2B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2C2487F728C38F4A00D2EB2B /* Assets.xcassets */; };
 		2C2487FB28C38F4A00D2EB2B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2C2487F928C38F4A00D2EB2B /* LaunchScreen.storyboard */; };
+		2C24880428C38F9F00D2EB2B /* Coordinatorable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24880328C38F9F00D2EB2B /* Coordinatorable.swift */; };
+		2C24880728C38FCA00D2EB2B /* BaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24880628C38FCA00D2EB2B /* BaseCoordinator.swift */; };
+		2C24880928C3936D00D2EB2B /* SceneCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24880828C3936D00D2EB2B /* SceneCoordinator.swift */; };
+		2C24880C28C3950900D2EB2B /* PresentableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24880B28C3950900D2EB2B /* PresentableObject.swift */; };
+		2C24880E28C3966100D2EB2B /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24880D28C3966100D2EB2B /* Router.swift */; };
+		2C24881028C3966D00D2EB2B /* Routerable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24880F28C3966D00D2EB2B /* Routerable.swift */; };
+		2C24881428C39F7B00D2EB2B /* CoordinatorFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24881328C39F7B00D2EB2B /* CoordinatorFactory.swift */; };
+		2C24881628C3A0B500D2EB2B /* MainCoordinatorFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24881528C3A0B500D2EB2B /* MainCoordinatorFactoriable.swift */; };
+		2C24881828C3A0EE00D2EB2B /* ModuleFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24881728C3A0EE00D2EB2B /* ModuleFactory.swift */; };
+		2C24881A28C3A18C00D2EB2B /* CoordinatorFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24881928C3A18C00D2EB2B /* CoordinatorFactoriable.swift */; };
+		2C24881C28C3A1B100D2EB2B /* ModuleFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24881B28C3A1B100D2EB2B /* ModuleFactoriable.swift */; };
+		2C24881F28C3A40100D2EB2B /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24881E28C3A40100D2EB2B /* MainCoordinator.swift */; };
+		2C24882128C3A8E100D2EB2B /* DialogsModuleFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24882028C3A8E100D2EB2B /* DialogsModuleFactoriable.swift */; };
+		2C24882328C3A93600D2EB2B /* BaseModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24882228C3A93600D2EB2B /* BaseModule.swift */; };
+		2C24882628C3A9A900D2EB2B /* DialogsModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24882528C3A9A900D2EB2B /* DialogsModule.swift */; };
+		2C24882C28C3AB1C00D2EB2B /* DialogsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24882B28C3AB1C00D2EB2B /* DialogsController.swift */; };
+		2C24882E28C3B12F00D2EB2B /* Navigationable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24882D28C3B12F00D2EB2B /* Navigationable.swift */; };
+		2C24883028C3B15D00D2EB2B /* Dismissable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24882F28C3B15D00D2EB2B /* Dismissable.swift */; };
+		2C24883228C3B20600D2EB2B /* Presentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24883128C3B20600D2EB2B /* Presentable.swift */; };
+		2C24883528C3C26800D2EB2B /* AuthorizationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24883428C3C26800D2EB2B /* AuthorizationCoordinator.swift */; };
+		2C24883728C3C42D00D2EB2B /* AuthorizationModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24883628C3C42D00D2EB2B /* AuthorizationModule.swift */; };
+		2C24883928C3C46B00D2EB2B /* AuthorizationModuleFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24883828C3C46B00D2EB2B /* AuthorizationModuleFactoriable.swift */; };
+		2C24883B28C3C4CE00D2EB2B /* AuthorizationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24883A28C3C4CE00D2EB2B /* AuthorizationController.swift */; };
+		2C24883D28C3C58600D2EB2B /* AuthorizationCoordinatorFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24883C28C3C58600D2EB2B /* AuthorizationCoordinatorFactoriable.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		2C2487E828C38F4800D2EB2B /* Messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C2487EB28C38F4800D2EB2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C2487ED28C38F4800D2EB2B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		2C2487EF28C38F4800D2EB2B /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		2C2487F228C38F4800D2EB2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2C2487F528C38F4900D2EB2B /* Messenger.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Messenger.xcdatamodel; sourceTree = "<group>"; };
 		2C2487F728C38F4A00D2EB2B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		2C2487FA28C38F4A00D2EB2B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2C2487FC28C38F4A00D2EB2B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2C24880328C38F9F00D2EB2B /* Coordinatorable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Coordinatorable.swift; sourceTree = "<group>"; };
+		2C24880628C38FCA00D2EB2B /* BaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseCoordinator.swift; sourceTree = "<group>"; };
+		2C24880828C3936D00D2EB2B /* SceneCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneCoordinator.swift; sourceTree = "<group>"; };
+		2C24880B28C3950900D2EB2B /* PresentableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentableObject.swift; sourceTree = "<group>"; };
+		2C24880D28C3966100D2EB2B /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
+		2C24880F28C3966D00D2EB2B /* Routerable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routerable.swift; sourceTree = "<group>"; };
+		2C24881328C39F7B00D2EB2B /* CoordinatorFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorFactory.swift; sourceTree = "<group>"; };
+		2C24881528C3A0B500D2EB2B /* MainCoordinatorFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinatorFactoriable.swift; sourceTree = "<group>"; };
+		2C24881728C3A0EE00D2EB2B /* ModuleFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleFactory.swift; sourceTree = "<group>"; };
+		2C24881928C3A18C00D2EB2B /* CoordinatorFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorFactoriable.swift; sourceTree = "<group>"; };
+		2C24881B28C3A1B100D2EB2B /* ModuleFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleFactoriable.swift; sourceTree = "<group>"; };
+		2C24881E28C3A40100D2EB2B /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
+		2C24882028C3A8E100D2EB2B /* DialogsModuleFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogsModuleFactoriable.swift; sourceTree = "<group>"; };
+		2C24882228C3A93600D2EB2B /* BaseModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModule.swift; sourceTree = "<group>"; };
+		2C24882528C3A9A900D2EB2B /* DialogsModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogsModule.swift; sourceTree = "<group>"; };
+		2C24882B28C3AB1C00D2EB2B /* DialogsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogsController.swift; sourceTree = "<group>"; };
+		2C24882D28C3B12F00D2EB2B /* Navigationable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Navigationable.swift; sourceTree = "<group>"; };
+		2C24882F28C3B15D00D2EB2B /* Dismissable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dismissable.swift; sourceTree = "<group>"; };
+		2C24883128C3B20600D2EB2B /* Presentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presentable.swift; sourceTree = "<group>"; };
+		2C24883428C3C26800D2EB2B /* AuthorizationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationCoordinator.swift; sourceTree = "<group>"; };
+		2C24883628C3C42D00D2EB2B /* AuthorizationModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationModule.swift; sourceTree = "<group>"; };
+		2C24883828C3C46B00D2EB2B /* AuthorizationModuleFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationModuleFactoriable.swift; sourceTree = "<group>"; };
+		2C24883A28C3C4CE00D2EB2B /* AuthorizationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationController.swift; sourceTree = "<group>"; };
+		2C24883C28C3C58600D2EB2B /* AuthorizationCoordinatorFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationCoordinatorFactoriable.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,16 +102,110 @@
 		2C2487EA28C38F4800D2EB2B /* Messenger */ = {
 			isa = PBXGroup;
 			children = (
+				2C24881228C39DB600D2EB2B /* CoordinatorFactory */,
+				2C24881128C39DAD00D2EB2B /* ModuleFactory */,
+				2C24880A28C3950000D2EB2B /* Router */,
+				2C24880528C38FA500D2EB2B /* Coordinator */,
+				2C24880228C38F8100D2EB2B /* Scene */,
+				2C24881D28C3A3F000D2EB2B /* Flows */,
 				2C2487EB28C38F4800D2EB2B /* AppDelegate.swift */,
-				2C2487ED28C38F4800D2EB2B /* SceneDelegate.swift */,
-				2C2487EF28C38F4800D2EB2B /* ViewController.swift */,
-				2C2487F128C38F4800D2EB2B /* Main.storyboard */,
 				2C2487F728C38F4A00D2EB2B /* Assets.xcassets */,
 				2C2487F928C38F4A00D2EB2B /* LaunchScreen.storyboard */,
 				2C2487FC28C38F4A00D2EB2B /* Info.plist */,
 				2C2487F428C38F4900D2EB2B /* Messenger.xcdatamodeld */,
 			);
 			path = Messenger;
+			sourceTree = "<group>";
+		};
+		2C24880228C38F8100D2EB2B /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				2C2487ED28C38F4800D2EB2B /* SceneDelegate.swift */,
+				2C24880828C3936D00D2EB2B /* SceneCoordinator.swift */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		2C24880528C38FA500D2EB2B /* Coordinator */ = {
+			isa = PBXGroup;
+			children = (
+				2C24880328C38F9F00D2EB2B /* Coordinatorable.swift */,
+				2C24880628C38FCA00D2EB2B /* BaseCoordinator.swift */,
+			);
+			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		2C24880A28C3950000D2EB2B /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				2C24880D28C3966100D2EB2B /* Router.swift */,
+				2C24880F28C3966D00D2EB2B /* Routerable.swift */,
+				2C24882D28C3B12F00D2EB2B /* Navigationable.swift */,
+				2C24882F28C3B15D00D2EB2B /* Dismissable.swift */,
+				2C24883128C3B20600D2EB2B /* Presentable.swift */,
+				2C24880B28C3950900D2EB2B /* PresentableObject.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		2C24881128C39DAD00D2EB2B /* ModuleFactory */ = {
+			isa = PBXGroup;
+			children = (
+				2C24881728C3A0EE00D2EB2B /* ModuleFactory.swift */,
+				2C24881B28C3A1B100D2EB2B /* ModuleFactoriable.swift */,
+				2C24882028C3A8E100D2EB2B /* DialogsModuleFactoriable.swift */,
+				2C24883828C3C46B00D2EB2B /* AuthorizationModuleFactoriable.swift */,
+				2C24882428C3A99900D2EB2B /* Module */,
+			);
+			path = ModuleFactory;
+			sourceTree = "<group>";
+		};
+		2C24881228C39DB600D2EB2B /* CoordinatorFactory */ = {
+			isa = PBXGroup;
+			children = (
+				2C24881328C39F7B00D2EB2B /* CoordinatorFactory.swift */,
+				2C24881928C3A18C00D2EB2B /* CoordinatorFactoriable.swift */,
+				2C24881528C3A0B500D2EB2B /* MainCoordinatorFactoriable.swift */,
+				2C24883C28C3C58600D2EB2B /* AuthorizationCoordinatorFactoriable.swift */,
+			);
+			path = CoordinatorFactory;
+			sourceTree = "<group>";
+		};
+		2C24881D28C3A3F000D2EB2B /* Flows */ = {
+			isa = PBXGroup;
+			children = (
+				2C24883328C3C23000D2EB2B /* AuthorizationFlow */,
+				2C24882A28C3AAED00D2EB2B /* MainFlow */,
+			);
+			path = Flows;
+			sourceTree = "<group>";
+		};
+		2C24882428C3A99900D2EB2B /* Module */ = {
+			isa = PBXGroup;
+			children = (
+				2C24882228C3A93600D2EB2B /* BaseModule.swift */,
+				2C24882528C3A9A900D2EB2B /* DialogsModule.swift */,
+				2C24883628C3C42D00D2EB2B /* AuthorizationModule.swift */,
+			);
+			path = Module;
+			sourceTree = "<group>";
+		};
+		2C24882A28C3AAED00D2EB2B /* MainFlow */ = {
+			isa = PBXGroup;
+			children = (
+				2C24881E28C3A40100D2EB2B /* MainCoordinator.swift */,
+				2C24882B28C3AB1C00D2EB2B /* DialogsController.swift */,
+			);
+			path = MainFlow;
+			sourceTree = "<group>";
+		};
+		2C24883328C3C23000D2EB2B /* AuthorizationFlow */ = {
+			isa = PBXGroup;
+			children = (
+				2C24883428C3C26800D2EB2B /* AuthorizationCoordinator.swift */,
+				2C24883A28C3C4CE00D2EB2B /* AuthorizationController.swift */,
+			);
+			path = AuthorizationFlow;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -130,7 +268,6 @@
 			files = (
 				2C2487FB28C38F4A00D2EB2B /* LaunchScreen.storyboard in Resources */,
 				2C2487F828C38F4A00D2EB2B /* Assets.xcassets in Resources */,
-				2C2487F328C38F4800D2EB2B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -141,9 +278,32 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2C2487F028C38F4800D2EB2B /* ViewController.swift in Sources */,
+				2C24880E28C3966100D2EB2B /* Router.swift in Sources */,
+				2C24880728C38FCA00D2EB2B /* BaseCoordinator.swift in Sources */,
+				2C24883528C3C26800D2EB2B /* AuthorizationCoordinator.swift in Sources */,
+				2C24881F28C3A40100D2EB2B /* MainCoordinator.swift in Sources */,
+				2C24882E28C3B12F00D2EB2B /* Navigationable.swift in Sources */,
+				2C24882328C3A93600D2EB2B /* BaseModule.swift in Sources */,
 				2C2487EC28C38F4800D2EB2B /* AppDelegate.swift in Sources */,
+				2C24883028C3B15D00D2EB2B /* Dismissable.swift in Sources */,
+				2C24882628C3A9A900D2EB2B /* DialogsModule.swift in Sources */,
+				2C24883928C3C46B00D2EB2B /* AuthorizationModuleFactoriable.swift in Sources */,
+				2C24880C28C3950900D2EB2B /* PresentableObject.swift in Sources */,
+				2C24883228C3B20600D2EB2B /* Presentable.swift in Sources */,
+				2C24881C28C3A1B100D2EB2B /* ModuleFactoriable.swift in Sources */,
+				2C24881828C3A0EE00D2EB2B /* ModuleFactory.swift in Sources */,
+				2C24882C28C3AB1C00D2EB2B /* DialogsController.swift in Sources */,
+				2C24883D28C3C58600D2EB2B /* AuthorizationCoordinatorFactoriable.swift in Sources */,
+				2C24883B28C3C4CE00D2EB2B /* AuthorizationController.swift in Sources */,
+				2C24881028C3966D00D2EB2B /* Routerable.swift in Sources */,
+				2C24881428C39F7B00D2EB2B /* CoordinatorFactory.swift in Sources */,
+				2C24880428C38F9F00D2EB2B /* Coordinatorable.swift in Sources */,
+				2C24880928C3936D00D2EB2B /* SceneCoordinator.swift in Sources */,
 				2C2487EE28C38F4800D2EB2B /* SceneDelegate.swift in Sources */,
+				2C24883728C3C42D00D2EB2B /* AuthorizationModule.swift in Sources */,
+				2C24881628C3A0B500D2EB2B /* MainCoordinatorFactoriable.swift in Sources */,
+				2C24881A28C3A18C00D2EB2B /* CoordinatorFactoriable.swift in Sources */,
+				2C24882128C3A8E100D2EB2B /* DialogsModuleFactoriable.swift in Sources */,
 				2C2487F628C38F4900D2EB2B /* Messenger.xcdatamodeld in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -151,14 +311,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		2C2487F128C38F4800D2EB2B /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2C2487F228C38F4800D2EB2B /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		2C2487F928C38F4A00D2EB2B /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -296,7 +448,6 @@
 				INFOPLIST_FILE = Messenger/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -324,7 +475,6 @@
 				INFOPLIST_FILE = Messenger/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
