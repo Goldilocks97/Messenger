@@ -37,15 +37,37 @@ final class AuthorizationCoordinator: BaseCoordinator, Authorizationable {
     // MARK: - Show Module Methods
 
     private func showAuthorization() {
-        let module = moduleFactory.makeAuthorizationModule()
-        router.setRootModule(module, animated: true)
-        module.onLogin = { [weak self] (username, password) in
+        let loginModule = moduleFactory.makeAuthorizationModule()
+        model.onLogin = { [weak self] (message) in
+            guard
+                let result = self?.authorizationDidSucces(response: message),
+                result
+            else {
+                loginModule.loginDidFail()
+                return
+            }
+            loginModule.loginDidSucces()
+        }
+        router.setRootModule(loginModule, animated: true)
+        loginModule.onLogin = { [weak self] (username, password) in
             self?.model.authorization(username: username, password: password)
         }
-        module.onRegistration = { [weak self] in
-            if let module = self?.moduleFactory.makeRegistrationModule() {
-                self?.router.push(module, animated: true)
+        loginModule.onRegistration = { [weak self] in
+            if let regModule = self?.moduleFactory.makeRegistrationModule() {
+                self?.router.push(regModule, animated: true)
             }
         }
+        loginModule.onFinishing = { [weak self] (user) in
+            print(user)
+        }
+    }
+    
+    // MARK: - Private Methods
+    
+    private func authorizationDidSucces(response: String) -> Bool {
+        if let id = Int(response) {
+            return true
+        }
+        return false
     }
 }

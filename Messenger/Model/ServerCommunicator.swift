@@ -67,8 +67,8 @@ class ServerCommunicator: NSObject, StreamDelegate {
     
     private func startReceiving() {
         connection.receive(
-            minimumIncompleteLength: Constants.minimumIncompleteLength,
-            maximumLength: Constants.minimumIncompleteLength)
+            minimumIncompleteLength: ModelConstants.minimumIncompleteLength,
+            maximumLength: ModelConstants.minimumIncompleteLength)
         {
             [weak self] (content, contentContext, isComplete, error) in
             
@@ -92,7 +92,7 @@ class ServerCommunicator: NSObject, StreamDelegate {
     
     // MARK: - Constants
     
-    private enum Constants {
+    private enum ModelConstants {
 
         static let minimumIncompleteLength = 1
         static let maximumLength = 1024

@@ -43,6 +43,8 @@
 		2C24884F28C65DC600D2EB2B /* RegistrationModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24884E28C65DC600D2EB2B /* RegistrationModule.swift */; };
 		2C24885128C65E9C00D2EB2B /* RegistrationFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24885028C65E9C00D2EB2B /* RegistrationFactoriable.swift */; };
 		2C24885328C65F2700D2EB2B /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24885228C65F2700D2EB2B /* RegistrationController.swift */; };
+		2C24885528C6727B00D2EB2B /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24885428C6727B00D2EB2B /* Parser.swift */; };
+		2C8C127528C6868E00F3A650 /* Commands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C127428C6868E00F3A650 /* Commands.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -84,6 +86,8 @@
 		2C24884E28C65DC600D2EB2B /* RegistrationModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationModule.swift; sourceTree = "<group>"; };
 		2C24885028C65E9C00D2EB2B /* RegistrationFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationFactoriable.swift; sourceTree = "<group>"; };
 		2C24885228C65F2700D2EB2B /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
+		2C24885428C6727B00D2EB2B /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		2C8C127428C6868E00F3A650 /* Commands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Commands.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -256,7 +260,9 @@
 			children = (
 				2C24884A28C5090800D2EB2B /* Model.swift */,
 				2C24884C28C61C6B00D2EB2B /* ServerCommunicator.swift */,
+				2C24885428C6727B00D2EB2B /* Parser.swift */,
 				2C24883E28C4FA2D00D2EB2B /* User.swift */,
+				2C8C127428C6868E00F3A650 /* Commands.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -350,6 +356,7 @@
 				2C24885128C65E9C00D2EB2B /* RegistrationFactoriable.swift in Sources */,
 				2C24883D28C3C58600D2EB2B /* AuthorizationCoordinatorFactoriable.swift in Sources */,
 				2C24884B28C5090800D2EB2B /* Model.swift in Sources */,
+				2C8C127528C6868E00F3A650 /* Commands.swift in Sources */,
 				2C24883B28C3C4CE00D2EB2B /* LoginController.swift in Sources */,
 				2C24881028C3966D00D2EB2B /* Routerable.swift in Sources */,
 				2C24881428C39F7B00D2EB2B /* CoordinatorFactory.swift in Sources */,
@@ -358,6 +365,7 @@
 				2C24883F28C4FA2D00D2EB2B /* User.swift in Sources */,
 				2C24880928C3936D00D2EB2B /* SceneCoordinator.swift in Sources */,
 				2C24884128C4FAF500D2EB2B /* Authorizationable.swift in Sources */,
+				2C24885528C6727B00D2EB2B /* Parser.swift in Sources */,
 				2C2487EE28C38F4800D2EB2B /* SceneDelegate.swift in Sources */,
 				2C24883728C3C42D00D2EB2B /* LoginModule.swift in Sources */,
 				2C24884D28C61C6B00D2EB2B /* ServerCommunicator.swift in Sources */,

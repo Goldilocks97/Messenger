@@ -9,15 +9,23 @@ import Foundation
 
 final class Model {
     
+    // MARK: - Main Properties
+    
     private let communicator: ServerCommunicator
+    private var parser: Parser
+    
+    //MARK: - Callbacks
+    
+    var onLogin: ((String) -> Void)?
     
     // MARK: - Initialization
     
     init() {
         let host = "185.204.0.32"
         let port = 3389 as UInt16
+        self.parser = Parser()
         self.communicator = ServerCommunicator(host: host, port: port)
-        communicator.onDidReceiveData = { [weak self] (data) in
+        self.communicator.onDidReceiveData = { [weak self] (data) in
             self?.didReceiveData(data: data)
         }
     }
@@ -37,10 +45,24 @@ final class Model {
 
     }
     
+    // MARK: - Processing Callback
+    
+    private func callBack(for command: Command, and message: String) {
+        switch(command) {
+        case .login:
+            onLogin?(message)
+        default:
+            print("Ooops...Nobody cares about this command:\n\(command)")
+        }
+    }
+    
     // MARK: - Processing Data
     
     private func didReceiveData(data: Data) {
-        
+        parser.parse(data: data) { [weak self] (command, message) in
+            print(command, message)
+            self?.callBack(for: command, and: message)
+        }
     }
     
 }
