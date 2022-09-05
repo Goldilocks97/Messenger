@@ -13,8 +13,16 @@ final class ModuleFactory: ModuleFactoriable {
         return DialogsController()
     }
     
-    func makeAuthorizationModule() -> AuthorizationModule {
-        return AuthorizationController()
+    // MARK: - Authorization Module
+    
+    func makeAuthorizationModule() -> LoginModule {
+        return LoginController()
+    }
+    
+    // MARK: - Registration Module
+    
+    func makeRegistrationModule() -> RegistrationModule {
+        return RegistrationController()
     }
     
 }

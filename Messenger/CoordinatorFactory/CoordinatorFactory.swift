@@ -15,8 +15,8 @@ final class CoordinatorFactory: CoordinatorFactoriable {
     
     // MARK: - Authorization Coordinator
     
-    func makeAuthorizationCoordinator(router: Routerable) -> Coordinatorable {
-        return AuthorizationCoordinator(router: router)
+    func makeAuthorizationCoordinator(router: Routerable, model: Model) -> Authorizationable {
+        return AuthorizationCoordinator(router: router, model: model)
     }
     
 }

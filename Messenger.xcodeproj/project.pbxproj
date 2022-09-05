@@ -32,10 +32,17 @@
 		2C24883028C3B15D00D2EB2B /* Dismissable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24882F28C3B15D00D2EB2B /* Dismissable.swift */; };
 		2C24883228C3B20600D2EB2B /* Presentable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24883128C3B20600D2EB2B /* Presentable.swift */; };
 		2C24883528C3C26800D2EB2B /* AuthorizationCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24883428C3C26800D2EB2B /* AuthorizationCoordinator.swift */; };
-		2C24883728C3C42D00D2EB2B /* AuthorizationModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24883628C3C42D00D2EB2B /* AuthorizationModule.swift */; };
+		2C24883728C3C42D00D2EB2B /* LoginModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24883628C3C42D00D2EB2B /* LoginModule.swift */; };
 		2C24883928C3C46B00D2EB2B /* AuthorizationModuleFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24883828C3C46B00D2EB2B /* AuthorizationModuleFactoriable.swift */; };
-		2C24883B28C3C4CE00D2EB2B /* AuthorizationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24883A28C3C4CE00D2EB2B /* AuthorizationController.swift */; };
+		2C24883B28C3C4CE00D2EB2B /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24883A28C3C4CE00D2EB2B /* LoginController.swift */; };
 		2C24883D28C3C58600D2EB2B /* AuthorizationCoordinatorFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24883C28C3C58600D2EB2B /* AuthorizationCoordinatorFactoriable.swift */; };
+		2C24883F28C4FA2D00D2EB2B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24883E28C4FA2D00D2EB2B /* User.swift */; };
+		2C24884128C4FAF500D2EB2B /* Authorizationable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24884028C4FAF500D2EB2B /* Authorizationable.swift */; };
+		2C24884B28C5090800D2EB2B /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24884A28C5090800D2EB2B /* Model.swift */; };
+		2C24884D28C61C6B00D2EB2B /* ServerCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24884C28C61C6B00D2EB2B /* ServerCommunicator.swift */; };
+		2C24884F28C65DC600D2EB2B /* RegistrationModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24884E28C65DC600D2EB2B /* RegistrationModule.swift */; };
+		2C24885128C65E9C00D2EB2B /* RegistrationFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24885028C65E9C00D2EB2B /* RegistrationFactoriable.swift */; };
+		2C24885328C65F2700D2EB2B /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24885228C65F2700D2EB2B /* RegistrationController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -66,10 +73,17 @@
 		2C24882F28C3B15D00D2EB2B /* Dismissable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Dismissable.swift; sourceTree = "<group>"; };
 		2C24883128C3B20600D2EB2B /* Presentable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Presentable.swift; sourceTree = "<group>"; };
 		2C24883428C3C26800D2EB2B /* AuthorizationCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationCoordinator.swift; sourceTree = "<group>"; };
-		2C24883628C3C42D00D2EB2B /* AuthorizationModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationModule.swift; sourceTree = "<group>"; };
+		2C24883628C3C42D00D2EB2B /* LoginModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginModule.swift; sourceTree = "<group>"; };
 		2C24883828C3C46B00D2EB2B /* AuthorizationModuleFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationModuleFactoriable.swift; sourceTree = "<group>"; };
-		2C24883A28C3C4CE00D2EB2B /* AuthorizationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationController.swift; sourceTree = "<group>"; };
+		2C24883A28C3C4CE00D2EB2B /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		2C24883C28C3C58600D2EB2B /* AuthorizationCoordinatorFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationCoordinatorFactoriable.swift; sourceTree = "<group>"; };
+		2C24883E28C4FA2D00D2EB2B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		2C24884028C4FAF500D2EB2B /* Authorizationable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authorizationable.swift; sourceTree = "<group>"; };
+		2C24884A28C5090800D2EB2B /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		2C24884C28C61C6B00D2EB2B /* ServerCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerCommunicator.swift; sourceTree = "<group>"; };
+		2C24884E28C65DC600D2EB2B /* RegistrationModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationModule.swift; sourceTree = "<group>"; };
+		2C24885028C65E9C00D2EB2B /* RegistrationFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationFactoriable.swift; sourceTree = "<group>"; };
+		2C24885228C65F2700D2EB2B /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,9 +119,9 @@
 				2C24881228C39DB600D2EB2B /* CoordinatorFactory */,
 				2C24881128C39DAD00D2EB2B /* ModuleFactory */,
 				2C24880A28C3950000D2EB2B /* Router */,
-				2C24880528C38FA500D2EB2B /* Coordinator */,
 				2C24880228C38F8100D2EB2B /* Scene */,
 				2C24881D28C3A3F000D2EB2B /* Flows */,
+				2C24884728C4FD0E00D2EB2B /* Model */,
 				2C2487EB28C38F4800D2EB2B /* AppDelegate.swift */,
 				2C2487F728C38F4A00D2EB2B /* Assets.xcassets */,
 				2C2487F928C38F4A00D2EB2B /* LaunchScreen.storyboard */,
@@ -131,6 +145,7 @@
 			children = (
 				2C24880328C38F9F00D2EB2B /* Coordinatorable.swift */,
 				2C24880628C38FCA00D2EB2B /* BaseCoordinator.swift */,
+				2C24884028C4FAF500D2EB2B /* Authorizationable.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -139,11 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				2C24880D28C3966100D2EB2B /* Router.swift */,
-				2C24880F28C3966D00D2EB2B /* Routerable.swift */,
-				2C24882D28C3B12F00D2EB2B /* Navigationable.swift */,
-				2C24882F28C3B15D00D2EB2B /* Dismissable.swift */,
-				2C24883128C3B20600D2EB2B /* Presentable.swift */,
-				2C24880B28C3950900D2EB2B /* PresentableObject.swift */,
+				2C24884628C4FCC700D2EB2B /* RouterProtocols */,
 			);
 			path = Router;
 			sourceTree = "<group>";
@@ -152,9 +163,7 @@
 			isa = PBXGroup;
 			children = (
 				2C24881728C3A0EE00D2EB2B /* ModuleFactory.swift */,
-				2C24881B28C3A1B100D2EB2B /* ModuleFactoriable.swift */,
-				2C24882028C3A8E100D2EB2B /* DialogsModuleFactoriable.swift */,
-				2C24883828C3C46B00D2EB2B /* AuthorizationModuleFactoriable.swift */,
+				2C24884528C4FCA800D2EB2B /* ModuleFactoryProtocols */,
 				2C24882428C3A99900D2EB2B /* Module */,
 			);
 			path = ModuleFactory;
@@ -164,9 +173,8 @@
 			isa = PBXGroup;
 			children = (
 				2C24881328C39F7B00D2EB2B /* CoordinatorFactory.swift */,
-				2C24881928C3A18C00D2EB2B /* CoordinatorFactoriable.swift */,
-				2C24881528C3A0B500D2EB2B /* MainCoordinatorFactoriable.swift */,
-				2C24883C28C3C58600D2EB2B /* AuthorizationCoordinatorFactoriable.swift */,
+				2C24884428C4FC7700D2EB2B /* CoordinatorFactoryProtocols */,
+				2C24880528C38FA500D2EB2B /* Coordinator */,
 			);
 			path = CoordinatorFactory;
 			sourceTree = "<group>";
@@ -185,7 +193,8 @@
 			children = (
 				2C24882228C3A93600D2EB2B /* BaseModule.swift */,
 				2C24882528C3A9A900D2EB2B /* DialogsModule.swift */,
-				2C24883628C3C42D00D2EB2B /* AuthorizationModule.swift */,
+				2C24883628C3C42D00D2EB2B /* LoginModule.swift */,
+				2C24884E28C65DC600D2EB2B /* RegistrationModule.swift */,
 			);
 			path = Module;
 			sourceTree = "<group>";
@@ -203,9 +212,53 @@
 			isa = PBXGroup;
 			children = (
 				2C24883428C3C26800D2EB2B /* AuthorizationCoordinator.swift */,
-				2C24883A28C3C4CE00D2EB2B /* AuthorizationController.swift */,
+				2C24883A28C3C4CE00D2EB2B /* LoginController.swift */,
+				2C24885228C65F2700D2EB2B /* RegistrationController.swift */,
 			);
 			path = AuthorizationFlow;
+			sourceTree = "<group>";
+		};
+		2C24884428C4FC7700D2EB2B /* CoordinatorFactoryProtocols */ = {
+			isa = PBXGroup;
+			children = (
+				2C24881928C3A18C00D2EB2B /* CoordinatorFactoriable.swift */,
+				2C24881528C3A0B500D2EB2B /* MainCoordinatorFactoriable.swift */,
+				2C24883C28C3C58600D2EB2B /* AuthorizationCoordinatorFactoriable.swift */,
+			);
+			path = CoordinatorFactoryProtocols;
+			sourceTree = "<group>";
+		};
+		2C24884528C4FCA800D2EB2B /* ModuleFactoryProtocols */ = {
+			isa = PBXGroup;
+			children = (
+				2C24881B28C3A1B100D2EB2B /* ModuleFactoriable.swift */,
+				2C24882028C3A8E100D2EB2B /* DialogsModuleFactoriable.swift */,
+				2C24883828C3C46B00D2EB2B /* AuthorizationModuleFactoriable.swift */,
+				2C24885028C65E9C00D2EB2B /* RegistrationFactoriable.swift */,
+			);
+			path = ModuleFactoryProtocols;
+			sourceTree = "<group>";
+		};
+		2C24884628C4FCC700D2EB2B /* RouterProtocols */ = {
+			isa = PBXGroup;
+			children = (
+				2C24880F28C3966D00D2EB2B /* Routerable.swift */,
+				2C24882D28C3B12F00D2EB2B /* Navigationable.swift */,
+				2C24882F28C3B15D00D2EB2B /* Dismissable.swift */,
+				2C24883128C3B20600D2EB2B /* Presentable.swift */,
+				2C24880B28C3950900D2EB2B /* PresentableObject.swift */,
+			);
+			path = RouterProtocols;
+			sourceTree = "<group>";
+		};
+		2C24884728C4FD0E00D2EB2B /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				2C24884A28C5090800D2EB2B /* Model.swift */,
+				2C24884C28C61C6B00D2EB2B /* ServerCommunicator.swift */,
+				2C24883E28C4FA2D00D2EB2B /* User.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -282,6 +335,7 @@
 				2C24880728C38FCA00D2EB2B /* BaseCoordinator.swift in Sources */,
 				2C24883528C3C26800D2EB2B /* AuthorizationCoordinator.swift in Sources */,
 				2C24881F28C3A40100D2EB2B /* MainCoordinator.swift in Sources */,
+				2C24885328C65F2700D2EB2B /* RegistrationController.swift in Sources */,
 				2C24882E28C3B12F00D2EB2B /* Navigationable.swift in Sources */,
 				2C24882328C3A93600D2EB2B /* BaseModule.swift in Sources */,
 				2C2487EC28C38F4800D2EB2B /* AppDelegate.swift in Sources */,
@@ -293,14 +347,20 @@
 				2C24881C28C3A1B100D2EB2B /* ModuleFactoriable.swift in Sources */,
 				2C24881828C3A0EE00D2EB2B /* ModuleFactory.swift in Sources */,
 				2C24882C28C3AB1C00D2EB2B /* DialogsController.swift in Sources */,
+				2C24885128C65E9C00D2EB2B /* RegistrationFactoriable.swift in Sources */,
 				2C24883D28C3C58600D2EB2B /* AuthorizationCoordinatorFactoriable.swift in Sources */,
-				2C24883B28C3C4CE00D2EB2B /* AuthorizationController.swift in Sources */,
+				2C24884B28C5090800D2EB2B /* Model.swift in Sources */,
+				2C24883B28C3C4CE00D2EB2B /* LoginController.swift in Sources */,
 				2C24881028C3966D00D2EB2B /* Routerable.swift in Sources */,
 				2C24881428C39F7B00D2EB2B /* CoordinatorFactory.swift in Sources */,
+				2C24884F28C65DC600D2EB2B /* RegistrationModule.swift in Sources */,
 				2C24880428C38F9F00D2EB2B /* Coordinatorable.swift in Sources */,
+				2C24883F28C4FA2D00D2EB2B /* User.swift in Sources */,
 				2C24880928C3936D00D2EB2B /* SceneCoordinator.swift in Sources */,
+				2C24884128C4FAF500D2EB2B /* Authorizationable.swift in Sources */,
 				2C2487EE28C38F4800D2EB2B /* SceneDelegate.swift in Sources */,
-				2C24883728C3C42D00D2EB2B /* AuthorizationModule.swift in Sources */,
+				2C24883728C3C42D00D2EB2B /* LoginModule.swift in Sources */,
+				2C24884D28C61C6B00D2EB2B /* ServerCommunicator.swift in Sources */,
 				2C24881628C3A0B500D2EB2B /* MainCoordinatorFactoriable.swift in Sources */,
 				2C24881A28C3A18C00D2EB2B /* CoordinatorFactoriable.swift in Sources */,
 				2C24882128C3A8E100D2EB2B /* DialogsModuleFactoriable.swift in Sources */,

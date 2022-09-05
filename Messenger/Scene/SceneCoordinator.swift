@@ -11,6 +11,7 @@ final class SceneCoordinator: BaseCoordinator {
     
     private let router: Routerable
     private let coordinatorFactory: CoordinatorFactoriable
+    private let model: Model
     private lazy var scenario: Scenario = {
         return defineScenario()
     }()
@@ -23,6 +24,7 @@ final class SceneCoordinator: BaseCoordinator {
     
     init(rootModule: PresentableObject) {
         self.rootModule = rootModule
+        self.model = Model()
         self.router = Router(rootModule: rootModule)
         self.coordinatorFactory = CoordinatorFactory()
         super.init()
@@ -50,9 +52,13 @@ final class SceneCoordinator: BaseCoordinator {
     }
     
     private func runAuthorizationFlow() {
-        let coordinator = coordinatorFactory.makeAuthorizationCoordinator(router: router)
+        let coordinator = coordinatorFactory.makeAuthorizationCoordinator(router: router, model: model)
         addDependency(coordinator)
         coordinator.start()
+        coordinator.onFinishing = { [weak self] user in
+            self?.removeDependency(coordinator)
+            self?.runMainFlow()
+        }
     }
 
     // MARK: - Private methods

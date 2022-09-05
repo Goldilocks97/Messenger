@@ -7,6 +7,6 @@
 
 protocol AuthorizationCoordinatorFactoriable {
     
-    func makeAuthorizationCoordinator(router: Routerable) -> Coordinatorable
+    func makeAuthorizationCoordinator(router: Routerable, model: Model) -> Authorizationable
     
 }

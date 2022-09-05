@@ -7,6 +7,6 @@
 
 protocol AuthorizationModuleFactoriable {
     
-    func makeAuthorizationModule() -> AuthorizationModule
+    func makeAuthorizationModule() -> LoginModule
     
 }

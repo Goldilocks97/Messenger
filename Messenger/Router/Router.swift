@@ -43,7 +43,7 @@ final class Router: Routerable {
             rootModule is UINavigationController,
             module.toPresent() is UINavigationController == false
         else { return }
-        (rootModule as! UINavigationController).pushViewController(rootModule.toPresent(), animated: animated)
+        (rootModule as! UINavigationController).pushViewController(module.toPresent(), animated: animated)
     }
     
     func setRootModule(_ module: PresentableObject, animated: Bool = false) {
