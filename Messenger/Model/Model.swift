@@ -22,7 +22,7 @@ final class Model {
     
     init() {
         let host = "185.204.0.32"
-        let port = 3389 as UInt16
+        let port = 1119 as UInt16
         self.parser = Parser()
         self.communicator = ServerCommunicator(host: host, port: port)
         self.communicator.onDidReceiveData = { [weak self] (data) in

@@ -44,6 +44,7 @@
 		2C24885128C65E9C00D2EB2B /* RegistrationFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24885028C65E9C00D2EB2B /* RegistrationFactoriable.swift */; };
 		2C24885328C65F2700D2EB2B /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24885228C65F2700D2EB2B /* RegistrationController.swift */; };
 		2C24885528C6727B00D2EB2B /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24885428C6727B00D2EB2B /* Parser.swift */; };
+		2C585F9E28CA1B040042167D /* Mainable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585F9D28CA1B040042167D /* Mainable.swift */; };
 		2C8C127528C6868E00F3A650 /* Commands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C127428C6868E00F3A650 /* Commands.swift */; };
 /* End PBXBuildFile section */
 
@@ -87,6 +88,7 @@
 		2C24885028C65E9C00D2EB2B /* RegistrationFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationFactoriable.swift; sourceTree = "<group>"; };
 		2C24885228C65F2700D2EB2B /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 		2C24885428C6727B00D2EB2B /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		2C585F9D28CA1B040042167D /* Mainable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mainable.swift; sourceTree = "<group>"; };
 		2C8C127428C6868E00F3A650 /* Commands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Commands.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -150,6 +152,7 @@
 				2C24880328C38F9F00D2EB2B /* Coordinatorable.swift */,
 				2C24880628C38FCA00D2EB2B /* BaseCoordinator.swift */,
 				2C24884028C4FAF500D2EB2B /* Authorizationable.swift */,
+				2C585F9D28CA1B040042167D /* Mainable.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -359,6 +362,7 @@
 				2C8C127528C6868E00F3A650 /* Commands.swift in Sources */,
 				2C24883B28C3C4CE00D2EB2B /* LoginController.swift in Sources */,
 				2C24881028C3966D00D2EB2B /* Routerable.swift in Sources */,
+				2C585F9E28CA1B040042167D /* Mainable.swift in Sources */,
 				2C24881428C39F7B00D2EB2B /* CoordinatorFactory.swift in Sources */,
 				2C24884F28C65DC600D2EB2B /* RegistrationModule.swift in Sources */,
 				2C24880428C38F9F00D2EB2B /* Coordinatorable.swift in Sources */,
@@ -518,6 +522,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -545,6 +550,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

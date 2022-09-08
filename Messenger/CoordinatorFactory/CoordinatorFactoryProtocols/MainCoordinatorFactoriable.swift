@@ -7,6 +7,10 @@
 
 protocol MainCoordinatorFactoriable {
     
-    func makeMainCoordinator(router: Routerable, coordinatorFactory: CoordinatorFactoriable) -> Coordinatorable
+    func makeMainCoordinator(
+        router: Routerable,
+        coordinatorFactory: CoordinatorFactoriable,
+        user: User
+    ) -> Mainable
     
 }

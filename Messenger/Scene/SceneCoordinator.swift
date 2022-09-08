@@ -12,6 +12,7 @@ final class SceneCoordinator: BaseCoordinator {
     private let router: Routerable
     private let coordinatorFactory: CoordinatorFactoriable
     private let model: Model
+    private var user: User?
     private lazy var scenario: Scenario = {
         return defineScenario()
     }()
@@ -44,9 +45,11 @@ final class SceneCoordinator: BaseCoordinator {
     // MARK: - Run child flows
     
     private func runMainFlow() {
+        guard let user = self.user else { return }
         let coordinator = coordinatorFactory.makeMainCoordinator(
             router: router,
-            coordinatorFactory: coordinatorFactory)
+            coordinatorFactory: coordinatorFactory,
+            user: user)
         addDependency(coordinator)
         coordinator.start()
     }
@@ -56,6 +59,7 @@ final class SceneCoordinator: BaseCoordinator {
         addDependency(coordinator)
         coordinator.start()
         coordinator.onFinishing = { [weak self] user in
+            self?.user = user
             self?.removeDependency(coordinator)
             self?.runMainFlow()
         }

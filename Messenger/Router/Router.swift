@@ -53,5 +53,10 @@ final class Router: Routerable {
         else { return }
         (rootModule as! UINavigationController).setViewControllers([module.toPresent()], animated: animated)
     }
+    
+    func pop(animated: Bool) {
+        guard rootModule is UINavigationController else { return }
+        (rootModule as! UINavigationController).popViewController(animated: animated)
+    }
 
 }

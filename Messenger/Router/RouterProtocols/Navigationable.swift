@@ -10,4 +10,6 @@ protocol Navigationable {
     func push(_ module: PresentableObject, animated: Bool)
     func setRootModule(_ module: PresentableObject, animated: Bool)
     
+    func pop(animated: Bool)
+    
 }

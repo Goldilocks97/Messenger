@@ -22,6 +22,7 @@ final class LoginController: UIViewController, LoginModule {
     
     func loginDidFail() {
         print("failed...Sad...")
+        view.backgroundColor = .black
     }
     func loginDidSucces() {
         onFinishing?(User(name: username, password: password))
@@ -63,6 +64,7 @@ final class LoginController: UIViewController, LoginModule {
         let textField = UITextField()
         textField.placeholder = "Username"
         textField.backgroundColor = .white
+        textField.autocorrectionType = .no
         //textField.borderStyle = .roundedRect
         return textField
     }()
@@ -72,6 +74,7 @@ final class LoginController: UIViewController, LoginModule {
         textField.placeholder = "Password"
         textField.isSecureTextEntry = true
         textField.backgroundColor = .white
+        textField.autocorrectionType = .no
         //textField.borderStyle = .roundedRect
         return textField
     }()
@@ -90,6 +93,17 @@ final class LoginController: UIViewController, LoginModule {
         return button
     }()
     
+    // MARK: - Initialization
+    
+    init() {
+        super.init(nibName: nil, bundle: nil)
+        subscribeToKeyboardNotifications()
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
@@ -106,7 +120,7 @@ final class LoginController: UIViewController, LoginModule {
         navigationItem.largeTitleDisplayMode = .always
     }
     
-    // MARK: - Configuring View
+    // MARK: - Configurate View
     
     private func addSubviews() {
         view.addSubview(loginStack)
@@ -152,5 +166,34 @@ final class LoginController: UIViewController, LoginModule {
     
     @objc private func doRegister() {
         onRegistration?()
+    }
+    
+    // MARK : - Keyboard Events
+    
+    private func subscribeToKeyboardNotifications() {
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillShow),
+            name: UIResponder.keyboardWillShowNotification,
+            object: nil)
+        NotificationCenter.default.addObserver(
+            self,
+            selector: #selector(keyboardWillHide),
+            name: UIResponder.keyboardWillHideNotification,
+            object: nil)
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+//        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+//            if self.view.frame.origin.y == 0 {
+//                self.view.frame.origin.y -= keyboardSize.height
+//            }
+//        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+//        if self.view.frame.origin.y != 0 {
+//            self.view.frame.origin.y = 0
+//        }
     }
 }
