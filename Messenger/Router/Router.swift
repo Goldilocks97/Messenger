@@ -79,12 +79,12 @@ final class Router: Routerable {
 //                if controller is ProfileModule {
 //                    root.selectedIndex = index
 //                }
-//            case .dialogs:
-//                if controller is DialogsModule {
+//            case .chats:
+//                if controller is ChatsModule {
 //                    root.selectedIndex = index
 //                }
 //            case .contacts:
-//                if controller is DialogsModule {
+//                if controller is ContactsModule {
 //                    root.selectedIndex = index
 //                }
 //            }

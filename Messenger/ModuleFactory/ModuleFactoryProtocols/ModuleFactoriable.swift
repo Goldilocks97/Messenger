@@ -6,7 +6,7 @@
 //
 
 protocol ModuleFactoriable:
-    DialogsModuleFactoriable,
+    ChatsModuleFactoriable,
     AuthorizationModuleFactoriable,
     RegistrationFactoriable,
     ContactsFactoriable,

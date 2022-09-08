@@ -24,7 +24,7 @@
 		2C24881A28C3A18C00D2EB2B /* CoordinatorFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24881928C3A18C00D2EB2B /* CoordinatorFactoriable.swift */; };
 		2C24881C28C3A1B100D2EB2B /* ModuleFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24881B28C3A1B100D2EB2B /* ModuleFactoriable.swift */; };
 		2C24881F28C3A40100D2EB2B /* MainCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24881E28C3A40100D2EB2B /* MainCoordinator.swift */; };
-		2C24882128C3A8E100D2EB2B /* DialogsModuleFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24882028C3A8E100D2EB2B /* DialogsModuleFactoriable.swift */; };
+		2C24882128C3A8E100D2EB2B /* ChatsModuleFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24882028C3A8E100D2EB2B /* ChatsModuleFactoriable.swift */; };
 		2C24882328C3A93600D2EB2B /* BaseModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24882228C3A93600D2EB2B /* BaseModule.swift */; };
 		2C24882628C3A9A900D2EB2B /* ChatsModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24882528C3A9A900D2EB2B /* ChatsModule.swift */; };
 		2C24882C28C3AB1C00D2EB2B /* ChatsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24882B28C3AB1C00D2EB2B /* ChatsController.swift */; };
@@ -79,7 +79,7 @@
 		2C24881928C3A18C00D2EB2B /* CoordinatorFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoordinatorFactoriable.swift; sourceTree = "<group>"; };
 		2C24881B28C3A1B100D2EB2B /* ModuleFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModuleFactoriable.swift; sourceTree = "<group>"; };
 		2C24881E28C3A40100D2EB2B /* MainCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainCoordinator.swift; sourceTree = "<group>"; };
-		2C24882028C3A8E100D2EB2B /* DialogsModuleFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialogsModuleFactoriable.swift; sourceTree = "<group>"; };
+		2C24882028C3A8E100D2EB2B /* ChatsModuleFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsModuleFactoriable.swift; sourceTree = "<group>"; };
 		2C24882228C3A93600D2EB2B /* BaseModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseModule.swift; sourceTree = "<group>"; };
 		2C24882528C3A9A900D2EB2B /* ChatsModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsModule.swift; sourceTree = "<group>"; };
 		2C24882B28C3AB1C00D2EB2B /* ChatsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsController.swift; sourceTree = "<group>"; };
@@ -267,7 +267,7 @@
 			isa = PBXGroup;
 			children = (
 				2C24881B28C3A1B100D2EB2B /* ModuleFactoriable.swift */,
-				2C24882028C3A8E100D2EB2B /* DialogsModuleFactoriable.swift */,
+				2C24882028C3A8E100D2EB2B /* ChatsModuleFactoriable.swift */,
 				2C24883828C3C46B00D2EB2B /* AuthorizationModuleFactoriable.swift */,
 				2C24885028C65E9C00D2EB2B /* RegistrationFactoriable.swift */,
 				2C585FA528CA38520042167D /* ContactsFactoriable.swift */,
@@ -440,7 +440,7 @@
 				2C585FA028CA36160042167D /* TabBarable.swift in Sources */,
 				2C24881628C3A0B500D2EB2B /* MainCoordinatorFactoriable.swift in Sources */,
 				2C24881A28C3A18C00D2EB2B /* CoordinatorFactoriable.swift in Sources */,
-				2C24882128C3A8E100D2EB2B /* DialogsModuleFactoriable.swift in Sources */,
+				2C24882128C3A8E100D2EB2B /* ChatsModuleFactoriable.swift in Sources */,
 				2C585FA628CA38520042167D /* ContactsFactoriable.swift in Sources */,
 				2C585FB328CA84E30042167D /* TabBarModule.swift in Sources */,
 				2C585FAA28CA38680042167D /* ProfileFactoriable.swift in Sources */,

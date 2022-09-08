@@ -24,6 +24,6 @@ final class TabBarController: UITabBarController, TabBarModule {
 
 //enum Tab {
 //    case contacts
-//    case dialogs
+//    case chats
 //    case profile
 //}

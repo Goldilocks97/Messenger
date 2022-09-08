@@ -31,16 +31,16 @@ final class MainCoordinator: BaseCoordinator, Mainable {
     
     override func start() {
         let contactsModule = moduleFactory.makeContactsModule()
-        let dialogsModule = moduleFactory.makeDialogsModule()
+        let chatsModule = moduleFactory.makeChatsModule()
         let profileModule = moduleFactory.makeProfileModule()
         
-        router.addTabs([contactsModule, dialogsModule, profileModule])
+        router.addTabs([contactsModule, chatsModule, profileModule])
     }
     
     // MARK: - Show Module methods
     
-    private func showDialogs() {
-        //let module = moduleFactory.makeDialogsModule()
+    private func showChats() {
+        //let module = moduleFactory.makeChatsModule()
         //router.setRootModule(module, animated: true)
     }
     
