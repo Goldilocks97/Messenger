@@ -7,4 +7,4 @@
 
 import UIKit
 
-protocol Mainable: Coordinatorable, UITabBarControllerDelegate {}
+protocol Mainable: Coordinatorable {}

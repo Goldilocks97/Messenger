@@ -5,6 +5,8 @@
 //  Created by Ivan Pavlov on 03.09.2022.
 //
 
+import UIKit
+
 final class ModuleFactory: ModuleFactoriable {
 
     // MARK: - Authorization Module
@@ -35,6 +37,12 @@ final class ModuleFactory: ModuleFactoriable {
     
     func makeProfileModule() -> ProfileModule {
         return ProfileController()
+    }
+    
+    // MARK: - TabBar Module
+    
+    func makeTabBarModule() -> TabBarModule {
+        return TabBarController()
     }
     
 }

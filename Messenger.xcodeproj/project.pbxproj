@@ -53,6 +53,9 @@
 		2C585FAA28CA38680042167D /* ProfileFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FA928CA38680042167D /* ProfileFactoriable.swift */; };
 		2C585FAF28CA39CC0042167D /* ContactsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FAE28CA39CC0042167D /* ContactsController.swift */; };
 		2C585FB128CA39D90042167D /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FB028CA39D90042167D /* ProfileController.swift */; };
+		2C585FB328CA84E30042167D /* TabBarModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FB228CA84E30042167D /* TabBarModule.swift */; };
+		2C585FB528CA84FD0042167D /* TabBarFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FB428CA84FD0042167D /* TabBarFactoriable.swift */; };
+		2C585FB728CA85FE0042167D /* TabBarController + Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FB628CA85FE0042167D /* TabBarController + Tab.swift */; };
 		2C8C127528C6868E00F3A650 /* Commands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C127428C6868E00F3A650 /* Commands.swift */; };
 /* End PBXBuildFile section */
 
@@ -105,6 +108,9 @@
 		2C585FA928CA38680042167D /* ProfileFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileFactoriable.swift; sourceTree = "<group>"; };
 		2C585FAE28CA39CC0042167D /* ContactsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsController.swift; sourceTree = "<group>"; };
 		2C585FB028CA39D90042167D /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
+		2C585FB228CA84E30042167D /* TabBarModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarModule.swift; sourceTree = "<group>"; };
+		2C585FB428CA84FD0042167D /* TabBarFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarFactoriable.swift; sourceTree = "<group>"; };
+		2C585FB628CA85FE0042167D /* TabBarController + Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TabBarController + Tab.swift"; sourceTree = "<group>"; };
 		2C8C127428C6868E00F3A650 /* Commands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Commands.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -220,6 +226,7 @@
 				2C585FA128CA37D30042167D /* ContactsModule.swift */,
 				2C24882528C3A9A900D2EB2B /* DialogsModule.swift */,
 				2C585FA328CA38240042167D /* ProfileModule.swift */,
+				2C585FB228CA84E30042167D /* TabBarModule.swift */,
 			);
 			path = Module;
 			sourceTree = "<group>";
@@ -231,6 +238,7 @@
 				2C585FAC28CA397B0042167D /* DialogsFlow */,
 				2C585FAD28CA39840042167D /* ProfileFlow */,
 				2C24881E28C3A40100D2EB2B /* MainCoordinator.swift */,
+				2C585FB628CA85FE0042167D /* TabBarController + Tab.swift */,
 			);
 			path = MainFlow;
 			sourceTree = "<group>";
@@ -265,6 +273,7 @@
 				2C585FA528CA38520042167D /* ContactsFactoriable.swift */,
 				2C585FA728CA38600042167D /* DialogsFactoriable.swift */,
 				2C585FA928CA38680042167D /* ProfileFactoriable.swift */,
+				2C585FB428CA84FD0042167D /* TabBarFactoriable.swift */,
 			);
 			path = ModuleFactoryProtocols;
 			sourceTree = "<group>";
@@ -402,6 +411,7 @@
 				2C24882628C3A9A900D2EB2B /* DialogsModule.swift in Sources */,
 				2C24883928C3C46B00D2EB2B /* AuthorizationModuleFactoriable.swift in Sources */,
 				2C24880C28C3950900D2EB2B /* PresentableObject.swift in Sources */,
+				2C585FB528CA84FD0042167D /* TabBarFactoriable.swift in Sources */,
 				2C24883228C3B20600D2EB2B /* Presentable.swift in Sources */,
 				2C585FA828CA38600042167D /* DialogsFactoriable.swift in Sources */,
 				2C24881C28C3A1B100D2EB2B /* ModuleFactoriable.swift in Sources */,
@@ -420,6 +430,7 @@
 				2C24883F28C4FA2D00D2EB2B /* User.swift in Sources */,
 				2C24880928C3936D00D2EB2B /* SceneCoordinator.swift in Sources */,
 				2C585FAF28CA39CC0042167D /* ContactsController.swift in Sources */,
+				2C585FB728CA85FE0042167D /* TabBarController + Tab.swift in Sources */,
 				2C585FA428CA38240042167D /* ProfileModule.swift in Sources */,
 				2C24884128C4FAF500D2EB2B /* Authorizationable.swift in Sources */,
 				2C24885528C6727B00D2EB2B /* Parser.swift in Sources */,
@@ -431,6 +442,7 @@
 				2C24881A28C3A18C00D2EB2B /* CoordinatorFactoriable.swift in Sources */,
 				2C24882128C3A8E100D2EB2B /* DialogsModuleFactoriable.swift in Sources */,
 				2C585FA628CA38520042167D /* ContactsFactoriable.swift in Sources */,
+				2C585FB328CA84E30042167D /* TabBarModule.swift in Sources */,
 				2C585FAA28CA38680042167D /* ProfileFactoriable.swift in Sources */,
 				2C2487F628C38F4900D2EB2B /* Messenger.xcdatamodeld in Sources */,
 			);

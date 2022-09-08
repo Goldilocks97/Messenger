@@ -67,9 +67,27 @@ final class Router: Routerable {
         (rootModule as! UITabBarController).selectedIndex = 1
     }
     
-    func setTab(index: Int) {
-        guard rootModule is UITabBarController else { return }
-        (rootModule as! UITabBarController).selectedIndex = index
+    func setTab(_ tab: Tab) {
+        guard
+            let root = rootModule as? UITabBarController,
+            let controllers = root.viewControllers
+        else { return }
+        for (index, controller) in controllers.enumerated() {
+            switch(tab) {
+            case .profile:
+                if controller is ProfileModule {
+                    root.selectedIndex = index
+                }
+            case .dialogs:
+                if controller is DialogsModule {
+                    root.selectedIndex = index
+                }
+            case .contacts:
+                if controller is DialogsModule {
+                    root.selectedIndex = index
+                }
+            }
+        }
     }
     
 }

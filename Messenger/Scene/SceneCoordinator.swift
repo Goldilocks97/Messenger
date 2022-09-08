@@ -14,7 +14,6 @@ final class SceneCoordinator: BaseCoordinator {
     private let router: Routerable
     private let coordinatorFactory: CoordinatorFactoriable
     private let model: Model
-    private var user: User?
     private lazy var scenario: Scenario = {
         return defineScenario()
     }()
@@ -47,32 +46,27 @@ final class SceneCoordinator: BaseCoordinator {
     // MARK: - Run child flows
     
     private func runMainFlow() {
-        guard let user = self.user else { return }
-        let newRootController = UITabBarController() // use factory?
-//        let apperance = UITabBarAppearance()
-//        apperance.configureWithDefaultBackground()
-//        apperance.backgroundColor = .black
-//        apperance.backgroundEffect = .some(UIBlurEffect(style: .systemMaterial))
-//        newRootController.tabBar.standardAppearance = apperance
+        let moduleFactory = ModuleFactory()
+        let newRootController = moduleFactory.makeTabBarModule()
         let newRouter = Router(rootModule: newRootController)
-        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
-            sceneDelegate.scene(changeRootViewController: newRootController)
-        }
+        
+        changeRootViewControllerOfWindowScene(newRootController)
         let coordinator = coordinatorFactory.makeMainCoordinator(
             router: newRouter,
             coordinatorFactory: coordinatorFactory,
-            user: user)
+            moduleFactory: moduleFactory)
+
         addDependency(coordinator)
-        newRootController.delegate = coordinator
         coordinator.start()
     }
     
     private func runAuthorizationFlow() {
-        let coordinator = coordinatorFactory.makeAuthorizationCoordinator(router: router, model: model)
+        let coordinator = coordinatorFactory.makeAuthorizationCoordinator(
+            router: router,
+            model: model)
         addDependency(coordinator)
         coordinator.start()
-        coordinator.onFinishing = { [weak self] user in
-            self?.user = user
+        coordinator.onFinishing = { [weak self] (user) in
             self?.removeDependency(coordinator)
             self?.runMainFlow()
         }
@@ -90,6 +84,17 @@ final class SceneCoordinator: BaseCoordinator {
         case main
         case authorization
     
+    }
+    
+    private func changeRootViewControllerOfWindowScene(
+        _ rootController: PresentableObject)
+    {
+        if let sceneDelegate =
+            UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
+        {
+            sceneDelegate.scene(
+                changeRootViewController: rootController.toPresent())
+        }
     }
     
 }

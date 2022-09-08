@@ -11,5 +11,6 @@ protocol ModuleFactoriable:
     RegistrationFactoriable,
     ContactsFactoriable,
     DialogsFactoriable,
-    ProfileFactoriable
+    ProfileFactoriable,
+    TabBarFactoriable
 {}

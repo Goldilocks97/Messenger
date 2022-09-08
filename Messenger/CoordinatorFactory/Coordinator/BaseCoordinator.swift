@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BaseCoordinator: NSObject, Coordinatorable {
+class BaseCoordinator: Coordinatorable {
     
     // MARK: - Child Flows
     

@@ -5,6 +5,7 @@
 //  Created by Ivan Pavlov on 03.09.2022.
 //
 
-protocol CoordinatorFactoriable: MainCoordinatorFactoriable, AuthorizationCoordinatorFactoriable {
-    
-}
+protocol CoordinatorFactoriable:
+    MainCoordinatorFactoriable,
+    AuthorizationCoordinatorFactoriable
+{}
