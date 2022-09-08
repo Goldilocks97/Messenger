@@ -8,7 +8,7 @@
 protocol TabBarable {
     
     func addTabs(_ tabs: [BaseModule])
-    func setTab(_ tab: Tab)
+    //func setTab(_ tab: Tab)
 
 }
 

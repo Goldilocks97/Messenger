@@ -7,13 +7,14 @@
 
 import UIKit
 
-final class DialogsController: UIViewController, DialogsModule {
+final class ChatsController: UIViewController, ChatsModule {
     
     // MARK: - Initialization
     
     init() {
         super.init(nibName: nil, bundle: nil)
         tabBarItem.image = UIImage(systemName: "envelope.fill")
+        tabBarItem.title = "Chats"
     }
     
     required init?(coder: NSCoder) {

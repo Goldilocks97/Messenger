@@ -7,6 +7,6 @@
 
 protocol DialogsModuleFactoriable {
     
-    func makeDialogsModule() -> DialogsModule
+    func makeChatsModule() -> ChatsModule
     
 }

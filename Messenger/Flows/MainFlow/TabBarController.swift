@@ -14,6 +14,7 @@ final class TabBarController: UITabBarController, TabBarModule {
     
     init() {
         super.init(nibName: nil, bundle: nil)
+        tabBar.scrollEdgeAppearance = tabBar.standardAppearance
     }
     
     required init?(coder: NSCoder) {
@@ -21,8 +22,8 @@ final class TabBarController: UITabBarController, TabBarModule {
     }
 }
 
-enum Tab {
-    case contacts
-    case dialogs
-    case profile
-}
+//enum Tab {
+//    case contacts
+//    case dialogs
+//    case profile
+//}

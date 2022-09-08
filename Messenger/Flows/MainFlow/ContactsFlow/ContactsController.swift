@@ -14,6 +14,7 @@ final class ContactsController: UIViewController, ContactsModule {
     init() {
         super.init(nibName: nil, bundle: nil)
         tabBarItem.image = UIImage(systemName: "person.crop.circle")
+        tabBarItem.title = "Contacts"
     }
     
     required init?(coder: NSCoder) {

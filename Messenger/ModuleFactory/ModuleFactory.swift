@@ -27,10 +27,10 @@ final class ModuleFactory: ModuleFactoriable {
         return ContactsController()
     }
     
-    // MARK: - Dialogs Module
+    // MARK: - Chats Module
     
-    func makeDialogsModule() -> DialogsModule {
-        return DialogsController()
+    func makeChatsModule() -> ChatsModule {
+        return ChatsController()
     }
 
     // MARK: - Profile Module

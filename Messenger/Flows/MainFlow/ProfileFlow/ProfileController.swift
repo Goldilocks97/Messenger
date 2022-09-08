@@ -14,6 +14,7 @@ final class ProfileController: UIViewController, ProfileModule {
     init() {
         super.init(nibName: nil, bundle: nil)
         tabBarItem.image = UIImage(systemName: "brain.head.profile")
+        tabBarItem.title = "Profile"
     }
     
     required init?(coder: NSCoder) {

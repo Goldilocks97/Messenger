@@ -10,7 +10,7 @@ protocol ModuleFactoriable:
     AuthorizationModuleFactoriable,
     RegistrationFactoriable,
     ContactsFactoriable,
-    DialogsFactoriable,
+    ChatsFactoriable,
     ProfileFactoriable,
     TabBarFactoriable
 {}
