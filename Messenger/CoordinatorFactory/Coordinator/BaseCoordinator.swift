@@ -5,7 +5,9 @@
 //  Created by Ivan Pavlov on 03.09.2022.
 //
 
-class BaseCoordinator: Coordinatorable {
+import UIKit
+
+class BaseCoordinator: NSObject, Coordinatorable {
     
     // MARK: - Child Flows
     

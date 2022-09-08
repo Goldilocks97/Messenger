@@ -5,6 +5,8 @@
 //  Created by Ivan Pavlov on 03.09.2022.
 //
 
+import UIKit
+
 final class SceneCoordinator: BaseCoordinator {
     
     // MARK: - Private properties
@@ -46,11 +48,22 @@ final class SceneCoordinator: BaseCoordinator {
     
     private func runMainFlow() {
         guard let user = self.user else { return }
+        let newRootController = UITabBarController() // use factory?
+//        let apperance = UITabBarAppearance()
+//        apperance.configureWithDefaultBackground()
+//        apperance.backgroundColor = .black
+//        apperance.backgroundEffect = .some(UIBlurEffect(style: .systemMaterial))
+//        newRootController.tabBar.standardAppearance = apperance
+        let newRouter = Router(rootModule: newRootController)
+        if let sceneDelegate = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate {
+            sceneDelegate.scene(changeRootViewController: newRootController)
+        }
         let coordinator = coordinatorFactory.makeMainCoordinator(
-            router: router,
+            router: newRouter,
             coordinatorFactory: coordinatorFactory,
             user: user)
         addDependency(coordinator)
+        newRootController.delegate = coordinator
         coordinator.start()
     }
     

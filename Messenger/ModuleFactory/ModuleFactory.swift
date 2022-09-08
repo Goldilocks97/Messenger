@@ -6,13 +6,7 @@
 //
 
 final class ModuleFactory: ModuleFactoriable {
-        
-    // MARK: - Dialogs Module
-    
-    func makeDialogsModule() -> DialogsModule {
-        return DialogsController()
-    }
-    
+
     // MARK: - Authorization Module
     
     func makeAuthorizationModule() -> LoginModule {
@@ -23,6 +17,24 @@ final class ModuleFactory: ModuleFactoriable {
     
     func makeRegistrationModule() -> RegistrationModule {
         return RegistrationController()
+    }
+    
+    // MARK: - Contacts Module
+    
+    func makeContactsModule() -> ContactsModule {
+        return ContactsController()
+    }
+    
+    // MARK: - Dialogs Module
+    
+    func makeDialogsModule() -> DialogsModule {
+        return DialogsController()
+    }
+
+    // MARK: - Profile Module
+    
+    func makeProfileModule() -> ProfileModule {
+        return ProfileController()
     }
     
 }

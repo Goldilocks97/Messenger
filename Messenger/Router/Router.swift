@@ -59,4 +59,17 @@ final class Router: Routerable {
         (rootModule as! UINavigationController).popViewController(animated: animated)
     }
 
+    // MARK: - TabBar module methods
+    
+    func addTabs(_ tabs: [BaseModule]) {
+        guard rootModule is UITabBarController else { return }
+        (rootModule as! UITabBarController).viewControllers = tabs.map { $0.toPresent() }
+        (rootModule as! UITabBarController).selectedIndex = 1
+    }
+    
+    func setTab(index: Int) {
+        guard rootModule is UITabBarController else { return }
+        (rootModule as! UITabBarController).selectedIndex = index
+    }
+    
 }

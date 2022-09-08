@@ -8,5 +8,8 @@
 protocol ModuleFactoriable:
     DialogsModuleFactoriable,
     AuthorizationModuleFactoriable,
-    RegistrationFactoriable
-{ }
+    RegistrationFactoriable,
+    ContactsFactoriable,
+    DialogsFactoriable,
+    ProfileFactoriable
+{}
