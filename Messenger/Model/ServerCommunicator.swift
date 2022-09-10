@@ -101,7 +101,7 @@ class ServerCommunicator: NSObject, StreamDelegate {
     
 }
 
-enum Response {
-    case succes
-    case error
-}
+//enum Response {
+//    case succes
+//    case error
+//}

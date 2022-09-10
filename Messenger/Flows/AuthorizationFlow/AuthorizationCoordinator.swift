@@ -58,14 +58,13 @@ final class AuthorizationCoordinator: BaseCoordinator, Authorizationable {
     private func setupRegistrationModule(_ module: RegistrationModule) {
         module.onRegistration = { [weak self] (name, username, password) in
             self?.model.registration(name: name, username: username, password: password) {
-                [weak self] (response) in
-                    if response == .succes {
-                        
-                        // TODO: implement it in model???
-                        
-                        self?.model.user = User(name: name, tag: username, password: password)
-                        self?.onFinishing?()
-                    }
+                [weak self] (result) in
+                if result.response == .success {
+                    // TODO: implement it in model???
+                    
+                    self?.model.user = User(name: name, tag: username, password: password)
+                    self?.onFinishing?()
+                }
             }
         }
         module.onBackPressed = { [weak self] in
@@ -75,10 +74,10 @@ final class AuthorizationCoordinator: BaseCoordinator, Authorizationable {
 
     private func setupLoginModule(_ module: LoginModule) {
         module.onLogin = { [weak self] (username, password) in
-            self?.model.login(username: username, password: password) { [weak self] (response) in
-                    if response == .succes {
-                        self?.onFinishing?()
-                    }
+            self?.model.login(username: username, password: password) { [weak self] (result) in
+                if result.response == .success {
+                    self?.onFinishing?()
+                }
             }
         }
         module.onRegistration = { [weak self] in

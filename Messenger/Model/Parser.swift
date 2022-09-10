@@ -66,7 +66,7 @@ struct Parser {
         static let bufferLength = 1024
         
     }
-    
+
     // MARK: - Automate States
         
     private enum AutomateState {

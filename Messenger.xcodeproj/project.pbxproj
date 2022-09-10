@@ -36,7 +36,7 @@
 		2C24883928C3C46B00D2EB2B /* AuthorizationModuleFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24883828C3C46B00D2EB2B /* AuthorizationModuleFactoriable.swift */; };
 		2C24883B28C3C4CE00D2EB2B /* LoginController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24883A28C3C4CE00D2EB2B /* LoginController.swift */; };
 		2C24883D28C3C58600D2EB2B /* AuthorizationCoordinatorFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24883C28C3C58600D2EB2B /* AuthorizationCoordinatorFactoriable.swift */; };
-		2C24883F28C4FA2D00D2EB2B /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24883E28C4FA2D00D2EB2B /* User.swift */; };
+		2C24883F28C4FA2D00D2EB2B /* ServerData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24883E28C4FA2D00D2EB2B /* ServerData.swift */; };
 		2C24884128C4FAF500D2EB2B /* Authorizationable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24884028C4FAF500D2EB2B /* Authorizationable.swift */; };
 		2C24884B28C5090800D2EB2B /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24884A28C5090800D2EB2B /* Model.swift */; };
 		2C24884D28C61C6B00D2EB2B /* ServerCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24884C28C61C6B00D2EB2B /* ServerCommunicator.swift */; };
@@ -100,7 +100,7 @@
 		2C24883828C3C46B00D2EB2B /* AuthorizationModuleFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationModuleFactoriable.swift; sourceTree = "<group>"; };
 		2C24883A28C3C4CE00D2EB2B /* LoginController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginController.swift; sourceTree = "<group>"; };
 		2C24883C28C3C58600D2EB2B /* AuthorizationCoordinatorFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthorizationCoordinatorFactoriable.swift; sourceTree = "<group>"; };
-		2C24883E28C4FA2D00D2EB2B /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		2C24883E28C4FA2D00D2EB2B /* ServerData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerData.swift; sourceTree = "<group>"; };
 		2C24884028C4FAF500D2EB2B /* Authorizationable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Authorizationable.swift; sourceTree = "<group>"; };
 		2C24884A28C5090800D2EB2B /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		2C24884C28C61C6B00D2EB2B /* ServerCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServerCommunicator.swift; sourceTree = "<group>"; };
@@ -320,8 +320,8 @@
 			children = (
 				2C24884A28C5090800D2EB2B /* Model.swift */,
 				2C24884C28C61C6B00D2EB2B /* ServerCommunicator.swift */,
+				2C24883E28C4FA2D00D2EB2B /* ServerData.swift */,
 				2C24885428C6727B00D2EB2B /* Parser.swift */,
-				2C24883E28C4FA2D00D2EB2B /* User.swift */,
 				2C8C127428C6868E00F3A650 /* Commands.swift */,
 			);
 			path = Model;
@@ -461,7 +461,7 @@
 				2C24881428C39F7B00D2EB2B /* CoordinatorFactory.swift in Sources */,
 				2C24884F28C65DC600D2EB2B /* RegistrationModule.swift in Sources */,
 				2C24880428C38F9F00D2EB2B /* Coordinatorable.swift in Sources */,
-				2C24883F28C4FA2D00D2EB2B /* User.swift in Sources */,
+				2C24883F28C4FA2D00D2EB2B /* ServerData.swift in Sources */,
 				2C24880928C3936D00D2EB2B /* SceneCoordinator.swift in Sources */,
 				2C585FAF28CA39CC0042167D /* ContactsController.swift in Sources */,
 				2C585FB728CA85FE0042167D /* TabBarController.swift in Sources */,
