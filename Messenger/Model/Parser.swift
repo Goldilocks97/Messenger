@@ -25,11 +25,14 @@ struct Parser {
 
     mutating func parse(data: Data) {
         guard let str = String(data: data, encoding: .ascii) else { return }
+        print(str, terminator: "")
         for char in str {
             automate(char: char)
             if state == .finished {
                 state = .none
                 onCookedData?(String(commandBuffer), String(dataBuffer))
+                commandBuffer = []
+                dataBuffer = []
             }
         }
     }

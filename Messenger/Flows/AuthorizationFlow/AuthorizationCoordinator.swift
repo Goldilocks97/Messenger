@@ -64,13 +64,13 @@ final class AuthorizationCoordinator: BaseCoordinator, Authorizationable {
 
     private func setupLoginModule(_ module: LoginModule) {
         module.onLogin = { [weak self] (username, password) in
-            self?.onFinishing?()
+            //self?.onFinishing?()
 
-//            self?.model.login(username: username, password: password) { [weak self] (result) in
-//                if result.response == .success {
-//                    self?.onFinishing?()
-//                }
-//            }
+            self?.model.login(username: username, password: password) { [weak self] (result) in
+                if result.response == .success {
+                    self?.onFinishing?()
+                }
+            }
         }
         module.onRegistration = { [weak self] in
             if let regModule = self?.moduleFactory.makeRegistrationModule() {

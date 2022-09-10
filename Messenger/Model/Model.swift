@@ -66,6 +66,13 @@ final class Model {
             communicator.send(message: message)
         }
     }
+    
+    func chats(completionHandler: @escaping ChatsHandler) {
+        handlerStorage.chatsHandler = completionHandler
+        if let message = ("#chats\n").data(using: .ascii) {
+            communicator.send(message: message)
+        }
+    }
 
     // MARK: - Processing Callbacks
 
@@ -80,6 +87,12 @@ final class Model {
         case .register:
             if let handler = handlerStorage.regHandler,
                let data = data as? Registration
+            {
+                handlerQueue.async { handler(data) }
+            }
+        case .chats:
+            if let handler = handlerStorage.chatsHandler,
+               let data = data as? Chats
             {
                 handlerQueue.async { handler(data) }
             }
@@ -109,6 +122,7 @@ final class Model {
         case "chats":
             return .chats
         default:
+            print(command)
             return .unknown
         }
     }

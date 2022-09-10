@@ -14,6 +14,9 @@ final class ChatsCoordinator: TabBarableBaseCoordinator, Chatsable {
     override func start() {
         let vc = ChatsTableController()
         router.setRootModule(vc, animated: true)
+        model.chats() { [weak self] (chats) in
+            vc.chats = chats.value
+        }
     }
     
 }

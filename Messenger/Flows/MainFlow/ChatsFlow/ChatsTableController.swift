@@ -9,6 +9,12 @@ import UIKit
 
 final class ChatsTableController: UITableViewController {
     
+    var chats = [Chat]() {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     // MARK: - Private properties
     
     let cellID = "cellID"
@@ -29,7 +35,7 @@ final class ChatsTableController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .gray
+        view.backgroundColor = .clear
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -43,13 +49,13 @@ final class ChatsTableController: UITableViewController {
     // MARK: - Table View Supply
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return chats.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
         var config = cell.defaultContentConfiguration()
-        config.text = "PUBLIC"
+        config.text = chats[indexPath.row].name
         cell.contentConfiguration = config
         return cell
     }
