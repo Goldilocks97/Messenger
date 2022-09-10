@@ -9,9 +9,9 @@ import UIKit
 
 final class MainCoordinator: BaseCoordinator, Mainable {
     
-    // MARK: - Private properties
+    // MARK: - Private Properties
     
-    private let router: TabBarable
+    private let router: Routerable
     private let moduleFactory: ModuleFactoriable
     private let coordinatorFactory: CoordinatorFactoriable
     private let model: Model
@@ -19,12 +19,11 @@ final class MainCoordinator: BaseCoordinator, Mainable {
     // MARK: - Initialization
     
     init(
-        router: TabBarable,
+        router: Routerable,
         coordinatorFactory: CoordinatorFactoriable,
-        moduleFactory: ModuleFactoriable,
         model: Model)
     {
-        self.moduleFactory = moduleFactory
+        self.moduleFactory = ModuleFactory()
         self.router = router
         self.coordinatorFactory = coordinatorFactory
         self.model = model
@@ -33,20 +32,13 @@ final class MainCoordinator: BaseCoordinator, Mainable {
     // MARK: - Coordinatorable Implementation
     
     override func start() {
-        let contactsModule = moduleFactory.makeContactsModule(
-            systemImage: "person.crop.circle.fill",
-            imageColor: .red,
-            title: "Contacts")
-        let chatsModule = moduleFactory.makeChatsModule(
-            systemImage: "envelope.fill",
-            imageColor: .red,
-            title: "Chats")
-        let profileModule = moduleFactory.makeProfileModule(
-            systemImage: "brain.head.profile",
-            imageColor: .red,
-            title: "Profile")
+        let contactsModule = moduleFactory.makeContactsModule()
+        let chatsModule = moduleFactory.makeChatsModule()
+        let profileModule = moduleFactory.makeProfileModule()
+        let tabs = [contactsModule, chatsModule, profileModule]
+        let tabBarModule = moduleFactory.makeTabBarModule(tabs: tabs)
         
-        router.addTabs([contactsModule, chatsModule, profileModule])
+        router.setRootModule(tabBarModule, animated: true)
         runChatsFlow(rootModule: chatsModule)
         runProfileFlow(rootModule: profileModule)
         runContactsFlow(rootModule: contactsModule)
@@ -55,22 +47,34 @@ final class MainCoordinator: BaseCoordinator, Mainable {
     // MARK: - Run Flows methods
 
     private func runContactsFlow(rootModule: ContactsModule) {
-        let router = Router(rootModule: rootModule)
-        let coordinator = ContactsCoordinator(model: model, router: router, moduleFactory: moduleFactory)
+        let coordinator = ContactsCoordinator(
+            router: router,
+            model: model,
+            moduleFactory: moduleFactory,
+            coordinatorFactory: coordinatorFactory,
+            rootModule: rootModule)
         addDependency(coordinator)
         coordinator.start()
     }
 
     private func runProfileFlow(rootModule: ProfileModule) {
-        let router = Router(rootModule: rootModule)
-        let coordinator = ProfileCoordinator(model: model, router: router, moduleFactory: moduleFactory)
+        let coordinator = ProfileCoordinator(
+            router: router,
+            model: model,
+            moduleFactory: moduleFactory,
+            coordinatorFactory: coordinatorFactory,
+            rootModule: rootModule)
         addDependency(coordinator)
         coordinator.start()
     }
 
     private func runChatsFlow(rootModule: ChatsModule) {
-        let router = Router(rootModule: rootModule)
-        let coordinator = ChatsCoordinator(model: model, router: router, moduleFactory: moduleFactory)
+        let coordinator = ChatsCoordinator(
+            router: router,
+            model: model,
+            moduleFactory: moduleFactory,
+            coordinatorFactory: coordinatorFactory,
+            rootModule: rootModule)
         addDependency(coordinator)
         coordinator.start()
     }

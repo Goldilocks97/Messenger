@@ -58,37 +58,5 @@ final class Router: Routerable {
         guard rootModule is UINavigationController else { return }
         (rootModule as! UINavigationController).popViewController(animated: animated)
     }
-
-    // MARK: - TabBar module methods
-    
-    func addTabs(_ tabs: [BaseModule]) {
-        guard rootModule is UITabBarController else { return }
-        (rootModule as! UITabBarController).viewControllers = tabs.map { $0.toPresent() }
-        (rootModule as! UITabBarController).selectedIndex = 1
-    }
-    
-// No Need
-//    func setTab(_ tab: Tab) {
-//        guard
-//            let root = rootModule as? UITabBarController,
-//            let controllers = root.viewControllers
-//        else { return }
-//        for (index, controller) in controllers.enumerated() {
-//            switch(tab) {
-//            case .profile:
-//                if controller is ProfileModule {
-//                    root.selectedIndex = index
-//                }
-//            case .chats:
-//                if controller is ChatsModule {
-//                    root.selectedIndex = index
-//                }
-//            case .contacts:
-//                if controller is ContactsModule {
-//                    root.selectedIndex = index
-//                }
-//            }
-//        }
-//    }
-    
+        
 }

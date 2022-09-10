@@ -10,7 +10,6 @@ protocol MainCoordinatorFactoriable {
     func makeMainCoordinator(
         router: Routerable,
         coordinatorFactory: CoordinatorFactoriable,
-        moduleFactory: ModuleFactoriable,
         model: Model
     ) -> Mainable
     

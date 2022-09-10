@@ -7,6 +7,6 @@
 
 protocol TabBarModuleFactoriable {
     
-    func makeTabBarModule() -> TabBarModule
+    func makeTabBarModule(tabs: [TabBarableBaseModule]) -> TabBarModule
     
 }

@@ -7,7 +7,16 @@
 
 import UIKit
 
-final class ChatsTableController: UITableViewController {
+final class ChatsTableController: UITableViewController, ChatsModule {
+    
+    // MARK: - ChatsModule Implementation
+    
+    var systemImage: String { return "envelope.fill" } 
+    var systemImageColor: UIColor { return .red }
+    var itemTitle: String { return "Chats" }
+    var navigationTitle: String { return "Chats" }
+
+    // MARK: - Data
     
     var chats = [Chat]() {
         didSet {
@@ -19,6 +28,10 @@ final class ChatsTableController: UITableViewController {
     
     let cellID = "cellID"
     
+    // MARK: - ChatsTable Module Implementation
+    
+    var onDidSelectChat: ((Chat) -> Void)?
+    
     // MARK: - Initialization
     
     init() {
@@ -29,22 +42,18 @@ final class ChatsTableController: UITableViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        view.backgroundColor = .clear
+        view.backgroundColor = .white
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         navigationItem.title = "Chats"
-
     }
-    
     
     // MARK: - Table View Supply
     
@@ -62,6 +71,10 @@ final class ChatsTableController: UITableViewController {
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
+    }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        onDidSelectChat?(chats[indexPath.row])
     }
     
 }

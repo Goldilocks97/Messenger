@@ -1,8 +1,12 @@
 //
-//  ChatsModule.swift
+//  ChatsTableModule.swift
 //  Messenger
 //
-//  Created by Ivan Pavlov on 03.09.2022.
+//  Created by Ivan Pavlov on 10.09.2022.
 //
 
-protocol ChatsModule: BaseModule {}
+protocol ChatsModule: TabBarableBaseModule {
+    
+    var onDidSelectChat: ((Chat) -> Void)? { get set}
+    
+}

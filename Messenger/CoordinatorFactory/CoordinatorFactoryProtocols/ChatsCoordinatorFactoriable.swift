@@ -10,7 +10,9 @@ protocol ChatsCoordinatorFactoriable {
     func makeChatsCoordinator(
         model: Model,
         router: Navigationable,
-        moduleFactory: ModuleFactoriable
+        moduleFactory: ModuleFactoriable,
+        coordinatorFactory: CoordinatorFactoriable,
+        rootModule: ChatsModule
     ) -> Chatsable
     
 }

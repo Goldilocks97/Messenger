@@ -10,7 +10,9 @@ protocol ContactsCoordinatorFactoriable {
     func makeContactsCoordinator(
         model: Model,
         router: Navigationable,
-        moduleFactory: ModuleFactoriable
+        moduleFactory: ModuleFactoriable,
+        coordinatorFactory: CoordinatorFactoriable,
+        rootModule: ContactsModule
     ) -> Contactsable
     
 }

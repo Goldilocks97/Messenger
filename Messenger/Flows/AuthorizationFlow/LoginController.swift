@@ -160,7 +160,7 @@ final class LoginController: UIViewController, LoginModule {
         onRegistration?()
     }
     
-    // MARK : - Keyboard Events
+    // MARK: - Keyboard Events
     
     private func subscribeToKeyboardNotifications() {
         NotificationCenter.default.addObserver(

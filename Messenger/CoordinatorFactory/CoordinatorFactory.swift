@@ -12,13 +12,11 @@ final class CoordinatorFactory: CoordinatorFactoriable {
     func makeMainCoordinator(
         router: Routerable,
         coordinatorFactory: CoordinatorFactoriable,
-        moduleFactory: ModuleFactoriable,
         model: Model
     ) -> Mainable {
         return MainCoordinator(
             router: router,
             coordinatorFactory: coordinatorFactory,
-            moduleFactory: moduleFactory,
             model: model)
     }
     
@@ -33,9 +31,16 @@ final class CoordinatorFactory: CoordinatorFactoriable {
     func makeChatsCoordinator(
         model: Model,
         router: Navigationable,
-        moduleFactory: ModuleFactoriable
+        moduleFactory: ModuleFactoriable,
+        coordinatorFactory: CoordinatorFactoriable,
+        rootModule: ChatsModule
     ) -> Chatsable {
-        return ChatsCoordinator(model: model, router: router, moduleFactory: moduleFactory)
+        return ChatsCoordinator(
+            router: router,
+            model: model,
+            moduleFactory: moduleFactory,
+            coordinatorFactory: coordinatorFactory,
+            rootModule: rootModule)
     }
     
     // MARK: - Contacts Coordinator
@@ -43,9 +48,16 @@ final class CoordinatorFactory: CoordinatorFactoriable {
     func makeContactsCoordinator(
         model: Model,
         router: Navigationable,
-        moduleFactory: ModuleFactoriable
+        moduleFactory: ModuleFactoriable,
+        coordinatorFactory: CoordinatorFactoriable,
+        rootModule: ContactsModule
     ) -> Contactsable {
-        return ContactsCoordinator(model: model, router: router, moduleFactory: moduleFactory)
+        return ContactsCoordinator(
+            router: router,
+            model: model,
+            moduleFactory: moduleFactory,
+            coordinatorFactory: coordinatorFactory,
+            rootModule: rootModule)
     }
     
     // MARK: - Profile Coordinator
@@ -53,9 +65,16 @@ final class CoordinatorFactory: CoordinatorFactoriable {
     func makeProfileCoordinator(
         model: Model,
         router: Navigationable,
-        moduleFactory: ModuleFactoriable
+        moduleFactory: ModuleFactoriable,
+        coordinatorFactory: CoordinatorFactoriable,
+        rootModule: ProfileModule
     ) -> Profiliable {
-        return ProfileCoordinator(model: model, router: router, moduleFactory: moduleFactory)
+        return ProfileCoordinator(
+            router: router,
+            model: model,
+            moduleFactory: moduleFactory,
+            coordinatorFactory: coordinatorFactory,
+            rootModule: rootModule)
     }
     
 }

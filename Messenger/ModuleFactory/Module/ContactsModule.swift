@@ -2,7 +2,7 @@
 //  ContactsModule.swift
 //  Messenger
 //
-//  Created by Ivan Pavlov on 08.09.2022.
+//  Created by Ivan Pavlov on 10.09.2022.
 //
 
-protocol ContactsModule: BaseModule {}
+protocol ContactsModule: TabBarableBaseModule {}

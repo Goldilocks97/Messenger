@@ -14,9 +14,9 @@ final class SceneCoordinator: BaseCoordinator {
     private let router: Routerable
     private let coordinatorFactory: CoordinatorFactoriable
     private let model: Model
-    private lazy var scenario: Scenario = {
-        return defineScenario()
-    }()
+    private lazy var scenario: Scenario = .none {
+        didSet { start() }
+    }
     
     // MARK: - Public properties
     
@@ -41,23 +41,18 @@ final class SceneCoordinator: BaseCoordinator {
             runMainFlow()
         case .authorization:
             runAuthorizationFlow()
+        case .none:
+            defineScenario()
         }
     }
 
     // MARK: - Run child flows
     
     private func runMainFlow() {
-        let moduleFactory = ModuleFactory()
-        let newRootController = moduleFactory.makeTabBarModule()
-        let newRouter = Router(rootModule: newRootController)
-        
-        changeRootViewControllerOfWindowScene(newRootController)
         let coordinator = coordinatorFactory.makeMainCoordinator(
-            router: newRouter,
+            router: router,
             coordinatorFactory: coordinatorFactory,
-            moduleFactory: moduleFactory,
             model: model)
-
         addDependency(coordinator)
         coordinator.start()
     }
@@ -67,17 +62,25 @@ final class SceneCoordinator: BaseCoordinator {
             router: router,
             model: model)
         addDependency(coordinator)
-        coordinator.start()
         coordinator.onFinishing = { [weak self] in
             self?.removeDependency(coordinator)
             self?.runMainFlow()
         }
+        coordinator.start()
     }
 
     // MARK: - Private methods
     
-    private func defineScenario() -> Scenario {
-        return .authorization
+    private func defineScenario() {
+        let login = "pinya2012"
+        let password = "123"
+        model.login(username: login, password: password) { [weak self] (response) in
+            if response.response == .success {
+                self?.scenario = .main
+            } else {
+                self?.scenario = .authorization
+            }
+        }
     }
     
     // MARK: - Private enums
@@ -85,18 +88,8 @@ final class SceneCoordinator: BaseCoordinator {
     private enum Scenario {
         case main
         case authorization
+        case none
     
-    }
-    
-    private func changeRootViewControllerOfWindowScene(
-        _ rootController: PresentableObject)
-    {
-        if let sceneDelegate =
-            UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
-        {
-            sceneDelegate.scene(
-                changeRootViewController: rootController.toPresent())
-        }
     }
     
 }
