@@ -9,48 +9,80 @@ import Foundation
 
 final class Model {
     
+    typealias CompletionHandler = (Response) -> Void
+    
+    // MARK: - User
+    
+    var user = User(name: "", tag: "", password: "")
+    
     // MARK: - Main Properties
     
     private let communicator: ServerCommunicator
     private var parser: Parser
     
-    //MARK: - Callbacks
+    //MARK: - Handlers
     
-    var onLogin: ((String) -> Void)?
+    private let handlerQueue: DispatchQueue
+    private var completionHandlers = [Command: CompletionHandler]()
     
     // MARK: - Initialization
     
-    init() {
-        let host = "185.204.0.32"
-        let port = 1119 as UInt16
+    init(handlerQueue: DispatchQueue) {
         self.parser = Parser()
-        self.communicator = ServerCommunicator(host: host, port: port)
+        self.handlerQueue = handlerQueue
+        self.communicator = ServerCommunicator(host: "185.204.0.32", port: (50000 as UInt16))
+        
         self.communicator.onDidReceiveData = { [weak self] (data) in
             self?.didReceiveData(data: data)
         }
+        self.parser.onCookedData = { [weak self] (stringCommand, message) in
+            if let command = self?.defineCommand(stringCommand) {
+                self?.completionHandler(for: command, and: message)
+            }
+        }
+
+        self.communicator.start()
     }
 
     // MARK: - Authorization on server
 
-    func authorization(username: String, password: String) {
-        communicator.start()
+    func login(
+        username: String,
+        password: String,
+        completionHandler: @escaping CompletionHandler)
+    {
+        completionHandlers[.login] = completionHandler
         if let message = ("#auth \(username) \(password)\n").data(using: .ascii) {
             communicator.send(message: message)
         }
     }
-
-    // MARK: - Network Communication
-
-    private func send(message: URLSessionWebSocketTask.Message) {
-
+    
+    func registration(
+        name: String,
+        username: String,
+        password: String,
+        completionHandler: @escaping CompletionHandler)
+    {
+        completionHandlers[.register] = completionHandler
+        if let message =
+            ("#register \(name) \(username) \(password)\n").data(using: .ascii)
+        {
+            communicator.send(message: message)
+        }
     }
-    
-    // MARK: - Processing Callback
-    
-    private func callBack(for command: Command, and message: String) {
+
+    // MARK: - Processing Callbacks
+
+    private func completionHandler(for command: Command, and message: String) {
         switch(command) {
         case .login:
-            onLogin?(message)
+            if let handler = completionHandlers[.login] {
+                handlerQueue.async { handler(.succes) }
+            }
+        case .register:
+            if let handler = completionHandlers[.register] {
+                handlerQueue.async { handler(.succes) }
+            }
         default:
             print("Ooops...Nobody cares about this command:\n\(command)")
         }
@@ -59,9 +91,19 @@ final class Model {
     // MARK: - Processing Data
     
     private func didReceiveData(data: Data) {
-        parser.parse(data: data) { [weak self] (command, message) in
-            print(command, message)
-            self?.callBack(for: command, and: message)
+        parser.parse(data: data)
+    }
+    
+    private func defineCommand(_ stringCommand: String) -> Command {
+        switch(stringCommand) {
+        case "auth":
+            return .login
+        case "register":
+            return .register
+        case "chats":
+            return .chats
+        default:
+            return .unknown
         }
     }
     

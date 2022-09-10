@@ -38,7 +38,7 @@ class ServerCommunicator: NSObject, StreamDelegate {
         startReceiving()
         connection.start(queue: DispatchQueue.global(qos: .utility))
     }
-    
+
     func send(message: Data) {
         connection.send(content: message, completion: .contentProcessed { error in
             if let error = error {
@@ -99,4 +99,9 @@ class ServerCommunicator: NSObject, StreamDelegate {
 
     }
     
+}
+
+enum Response {
+    case succes
+    case error
 }

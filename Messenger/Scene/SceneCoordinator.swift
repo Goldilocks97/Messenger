@@ -24,9 +24,10 @@ final class SceneCoordinator: BaseCoordinator {
         
     // MARK: - Inittialization
     
+    // TODO: - rootModule is not PresentableObject but rather NavigationModule
     init(rootModule: PresentableObject) {
         self.rootModule = rootModule
-        self.model = Model()
+        self.model = Model(handlerQueue: DispatchQueue.main)
         self.router = Router(rootModule: rootModule)
         self.coordinatorFactory = CoordinatorFactory()
         super.init()
@@ -54,7 +55,8 @@ final class SceneCoordinator: BaseCoordinator {
         let coordinator = coordinatorFactory.makeMainCoordinator(
             router: newRouter,
             coordinatorFactory: coordinatorFactory,
-            moduleFactory: moduleFactory)
+            moduleFactory: moduleFactory,
+            model: model)
 
         addDependency(coordinator)
         coordinator.start()
@@ -66,7 +68,7 @@ final class SceneCoordinator: BaseCoordinator {
             model: model)
         addDependency(coordinator)
         coordinator.start()
-        coordinator.onFinishing = { [weak self] (user) in
+        coordinator.onFinishing = { [weak self] in
             self?.removeDependency(coordinator)
             self?.runMainFlow()
         }

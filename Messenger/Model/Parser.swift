@@ -9,30 +9,27 @@ import Foundation
 
 struct Parser {
     
-    // MARK: - Current Parsing Command and LexicalAutomate state
-    private var command: Command = .none
-    private var automateState: AutomateState = .none
+    // MARK: - Lexical Automate state
+    private var state: AutomateState = .none
     
-    // MARK: - LexicalAutomate stuff
+    // MARK: - LexicalAutomate buffers
     
-    private var commandBuffer = String()
-    private var messageBuffer = String()
+    private var commandBuffer = [Character]()
+    private var dataBuffer = [Character]()
     
-    private var buffer = [String]()
+    // MARK: - CallBack
     
+    var onCookedData: ((String, String) -> Void)?
+
     // MARK: - API
-    
-    mutating func parse(data: Data, onCookedData: (Command, String) -> Void) {
+
+    mutating func parse(data: Data) {
         guard let str = String(data: data, encoding: .ascii) else { return }
         for char in str {
             automate(char: char)
-            if automateState == .finishedCommand {
-                defineCommand()
-            }
-            if automateState == .finishedMessage {
-                onCookedData(command, messageBuffer)
-                automateState = .none
-                command = .none
+            if state == .finished {
+                state = .none
+                onCookedData?(String(commandBuffer), String(dataBuffer))
             }
         }
     }
@@ -40,60 +37,29 @@ struct Parser {
     // MARK: - LexicalAutomate
     
     mutating private func automate(char: Character) {
-        if automateState == .error {
-            return
-        }
-        switch(command) {
+        switch(state) {
         case .none:
             if char == "#" {
-                command = .unfull
-                return
+                state = .command
             }
-            return
-        case .unfull:
-            if char != " " {
-                commandBuffer += String(char)
-                return
-            }
+        case .command:
             if char == " " {
-                automateState = .finishedCommand
+                state = .data
                 return
             }
-            automateState = .error
-        default:
-            switch(automateState) {
-            case .reading:
-                if char == "}" {
-                    automateState = .finishedMessage
-                    return
-                }
-                messageBuffer += String(char)
-            case .none:
-                if char == "{" {
-                    automateState = .reading
-                }
+            commandBuffer.append(char)
+        case .data:
+            if char == "\n" {
+                state = .finished
                 return
-            default:
-                print("I don't know what to do...")
             }
-        }
-    }
-    
-    mutating private func defineCommand() {
-        switch(commandBuffer) {
-        case "auth":
-            command = .login
-        case "reg":
-            command = .reg
-        case "chats":
-            command = .chats
+            dataBuffer.append(char)
         default:
-            command = .none
+            print("I don't know what to do...")
         }
-        automateState = .none
     }
-    
-    // MARK: - Constants
+
+    // TODO: - Restrict length of buffers
     
     private enum ParserConstants {
         
@@ -101,13 +67,12 @@ struct Parser {
         
     }
     
-    // MARK: - Type of Coomands of Server
+    // MARK: - Automate States
         
     private enum AutomateState {
-        case reading
-        case finishedCommand
-        case finishedMessage
-        case error
+        case finished
+        case command
+        case data
         case none
     }
     

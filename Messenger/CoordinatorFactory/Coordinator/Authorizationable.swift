@@ -7,6 +7,6 @@
 
 protocol Authorizationable: Coordinatorable {
     
-    var onFinishing: ((User) -> Void)? { set get }
+    var onFinishing: (() -> Void)? { set get }
     
 }

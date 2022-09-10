@@ -6,10 +6,9 @@
 //
 
 enum Command {
-    case none                  // A command has been just parsed so there is no current command
-    case unfull                // A command is being reading right know
     case login
     case chats
-    case reg
+    case register
+    case unknown
 }
 

@@ -12,12 +12,14 @@ final class CoordinatorFactory: CoordinatorFactoriable {
     func makeMainCoordinator(
         router: Routerable,
         coordinatorFactory: CoordinatorFactoriable,
-        moduleFactory: ModuleFactoriable
+        moduleFactory: ModuleFactoriable,
+        model: Model
     ) -> Mainable {
         return MainCoordinator(
             router: router,
             coordinatorFactory: coordinatorFactory,
-            moduleFactory: moduleFactory)
+            moduleFactory: moduleFactory,
+            model: model)
     }
     
     // MARK: - Authorization Coordinator

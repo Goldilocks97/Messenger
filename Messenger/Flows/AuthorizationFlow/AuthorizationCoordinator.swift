@@ -11,7 +11,7 @@ final class AuthorizationCoordinator: BaseCoordinator, Authorizationable {
     
     // MARK: - Authorizationable Implementation
     
-    var onFinishing: ((User) -> Void)?
+    var onFinishing: (() -> Void)?
 
     // MARK: - Private Properties
     
@@ -57,46 +57,35 @@ final class AuthorizationCoordinator: BaseCoordinator, Authorizationable {
     
     private func setupRegistrationModule(_ module: RegistrationModule) {
         module.onRegistration = { [weak self] (name, username, password) in
-            print(name, username, password)
-            let response = true
-            if response {
-                self?.router.pop(animated: true)
+            self?.model.registration(name: name, username: username, password: password) {
+                [weak self] (response) in
+                    if response == .succes {
+                        
+                        // TODO: implement it in model???
+                        
+                        self?.model.user = User(name: name, tag: username, password: password)
+                        self?.onFinishing?()
+                    }
             }
-            
         }
         module.onBackPressed = { [weak self] in
             self?.router.pop(animated: true)
         }
     }
-    
+
     private func setupLoginModule(_ module: LoginModule) {
         module.onLogin = { [weak self] (username, password) in
-            self?.onFinishing?(User(name: username, password: password))
-            //self?.model.authorization(username: username, password: password)
+            self?.model.login(username: username, password: password) { [weak self] (response) in
+                    if response == .succes {
+                        self?.onFinishing?()
+                    }
+            }
         }
         module.onRegistration = { [weak self] in
             if let regModule = self?.moduleFactory.makeRegistrationModule() {
                 self?.setupRegistrationModule(regModule)
                 self?.router.push(regModule, animated: true)
             }
-        }
-        module.onFinishing = { [weak self] (user) in
-            print(user)
-        }
-        self.model.onLogin = { [weak self] (message) in
-            guard
-                let result = self?.authorizationDidSucces(response: message),
-                result
-            else {
-                DispatchQueue.main.async {
-                    module.loginDidFail()
-                }
-                return
-            }
-            DispatchQueue.main.async {
-                module.loginDidSucces()
-            }
-
         }
     }
 }

@@ -9,23 +9,18 @@ import UIKit
 
 final class LoginController: UIViewController, LoginModule {
     
-    // MARK: - User Data
-    
-    private var username = ""
-    private var password = ""
-
-    // MARK: - AuthorizationModule Implementation
+    // MARK: - LoginModule Implementation
     
     var onLogin: ((String, String) -> Void)?
     var onRegistration: (() -> Void)?
-    var onFinishing: ((User) -> Void)?
+    var onFinishing: (() -> Void)?
     
     func loginDidFail() {
         print("failed...Sad...")
         view.backgroundColor = .black
     }
     func loginDidSucces() {
-        onFinishing?(User(name: username, password: password))
+        onFinishing?()
     }
     
     // MARK: - View Subviews
@@ -159,8 +154,6 @@ final class LoginController: UIViewController, LoginModule {
             let username = usernameTextField.text,
             let password = passwordTextField.text
         else { return }
-        self.username = username
-        self.password = password
         onLogin?(username, password)
     }
     

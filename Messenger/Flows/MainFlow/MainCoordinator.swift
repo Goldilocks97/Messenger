@@ -14,17 +14,20 @@ final class MainCoordinator: BaseCoordinator, Mainable {
     private let router: TabBarable
     private let moduleFactory: ModuleFactoriable
     private let coordinatorFactory: CoordinatorFactoriable
+    private let model: Model
     
     // MARK: - Initialization
     
     init(
         router: TabBarable,
         coordinatorFactory: CoordinatorFactoriable,
-        moduleFactory: ModuleFactoriable)
+        moduleFactory: ModuleFactoriable,
+        model: Model)
     {
         self.moduleFactory = moduleFactory
         self.router = router
         self.coordinatorFactory = coordinatorFactory
+        self.model = model
     }
     
     // MARK: - Coordinatorable Implementation

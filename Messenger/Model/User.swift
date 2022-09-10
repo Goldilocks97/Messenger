@@ -7,5 +7,6 @@
 
 struct User {
     var name: String
+    var tag: String
     var password: String
 }

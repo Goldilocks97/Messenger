@@ -9,7 +9,6 @@ protocol LoginModule: BaseModule {
     
     var onLogin: ((String, String) -> Void)? { get set }
     var onRegistration: (() -> Void)? { get set }
-    var onFinishing: ((User) -> Void)? { get set }
     
     func loginDidFail()
     func loginDidSucces()
