@@ -23,20 +23,20 @@ final class ModuleFactory: ModuleFactoriable {
     
     // MARK: - Contacts Module
     
-    func makeContactsModule() -> ContactsModule {
-        return ContactsController()
+    func makeContactsModule(systemImage: String, imageColor: UIColor, title: String) -> ContactsModule {
+        return ContactsController(systemImage: systemImage, imageColor: imageColor, title: title)
     }
     
     // MARK: - Chats Module
     
-    func makeChatsModule() -> ChatsModule {
-        return ChatsController()
+    func makeChatsModule(systemImage: String, imageColor: UIColor, title: String) -> ChatsModule {
+        return ChatsController(systemImage: systemImage, imageColor: imageColor, title: title)
     }
 
     // MARK: - Profile Module
     
-    func makeProfileModule() -> ProfileModule {
-        return ProfileController()
+    func makeProfileModule(systemImage: String, imageColor: UIColor, title: String) -> ProfileModule {
+        return ProfileController(systemImage: systemImage, imageColor: imageColor, title: title)
     }
     
     // MARK: - TabBar Module

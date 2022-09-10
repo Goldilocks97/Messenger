@@ -6,11 +6,10 @@
 //
 
 protocol ModuleFactoriable:
-    ChatsModuleFactoriable,
     AuthorizationModuleFactoriable,
-    RegistrationFactoriable,
-    ContactsFactoriable,
-    ChatsFactoriable,
-    ProfileFactoriable,
-    TabBarFactoriable
+    RegistrationModuleFactoriable,
+    ContactsModuleFactoriable,
+    ChatsModuleFactoriable,
+    ProfileModuleFactoriable,
+    TabBarModuleFactoriable
 {}

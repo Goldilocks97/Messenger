@@ -33,9 +33,18 @@ final class MainCoordinator: BaseCoordinator, Mainable {
     // MARK: - Coordinatorable Implementation
     
     override func start() {
-        let contactsModule = moduleFactory.makeContactsModule()
-        let chatsModule = moduleFactory.makeChatsModule()
-        let profileModule = moduleFactory.makeProfileModule()
+        let contactsModule = moduleFactory.makeContactsModule(
+            systemImage: "person.crop.circle.fill",
+            imageColor: .red,
+            title: "Contacts")
+        let chatsModule = moduleFactory.makeChatsModule(
+            systemImage: "envelope.fill",
+            imageColor: .red,
+            title: "Chats")
+        let profileModule = moduleFactory.makeProfileModule(
+            systemImage: "brain.head.profile",
+            imageColor: .red,
+            title: "Profile")
         
         router.addTabs([contactsModule, chatsModule, profileModule])
     }

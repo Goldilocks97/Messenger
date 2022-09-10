@@ -1,12 +1,14 @@
 //
-//  ChatsModuleFactoriable.swift
+//  ChatsFactoriable.swift
 //  Messenger
 //
-//  Created by Ivan Pavlov on 03.09.2022.
+//  Created by Ivan Pavlov on 08.09.2022.
 //
+
+import UIKit
 
 protocol ChatsModuleFactoriable {
     
-    func makeChatsModule() -> ChatsModule
+    func makeChatsModule(systemImage: String, imageColor: UIColor, title: String) -> ChatsModule
     
 }

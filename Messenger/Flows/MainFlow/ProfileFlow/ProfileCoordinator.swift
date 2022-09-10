@@ -7,4 +7,12 @@
 
 final class ProfileCoordinator: BaseCoordinator, Profiliable {
     
+    // MARK: - Coordinatorable Implementation
+    
+    override func start() {
+        
+    }
+    
+    // MARK: - Initialazation
+    
 }

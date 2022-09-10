@@ -32,6 +32,7 @@ final class LoginController: UIViewController, LoginModule {
         label.textColor = .red
         button.addTarget(self, action: #selector(doRegister), for: .touchUpInside)
         button.addSubview(label)
+        //button.backgroundColor = .blue
         label.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             label.leadingAnchor.constraint(equalTo: button.leadingAnchor),
@@ -44,17 +45,10 @@ final class LoginController: UIViewController, LoginModule {
     private lazy var newInMessengerLabel: UILabel = {
         let label = UILabel()
         label.text = "New in Messenger?"
+        //label.backgroundColor = .brown
         return label
     }()
-    
-    private lazy var registerStack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [newInMessengerLabel, registerButton])
-        stack.axis = .horizontal
-        stack.distribution = .equalCentering
-        //stack.backgroundColor = .blue
-        return stack
-    }()
-        
+
     private lazy var usernameTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Username"
@@ -120,13 +114,16 @@ final class LoginController: UIViewController, LoginModule {
     private func addSubviews() {
         view.addSubview(loginStack)
         view.addSubview(loginButton)
-        view.addSubview(registerStack)
+        view.addSubview(newInMessengerLabel)
+        view.addSubview(registerButton)
+
     }
     
     private func layoutSubviews() {
         loginStack.translatesAutoresizingMaskIntoConstraints = false
-        registerStack.translatesAutoresizingMaskIntoConstraints = false
         loginButton.translatesAutoresizingMaskIntoConstraints = false
+        newInMessengerLabel.translatesAutoresizingMaskIntoConstraints = false
+        registerButton.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             loginStack.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 3/5),
@@ -139,10 +136,12 @@ final class LoginController: UIViewController, LoginModule {
             loginButton.topAnchor.constraint(equalTo: loginStack.bottomAnchor, constant: 10),
             loginButton.heightAnchor.constraint(equalTo: loginStack.heightAnchor, multiplier: 1/3),
         
-            registerStack.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            registerStack.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            registerStack.bottomAnchor.constraint(equalTo: view.bottomAnchor),
-            registerStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/10)])
+            newInMessengerLabel.trailingAnchor.constraint(equalTo: view.centerXAnchor, constant: -5),
+            newInMessengerLabel.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            
+            registerButton.leadingAnchor.constraint(equalTo: view.centerXAnchor, constant: 5),
+            registerButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor),
+            registerButton.heightAnchor.constraint(equalTo: newInMessengerLabel.heightAnchor)])
     }
 
     // MARK: - Buttons actions

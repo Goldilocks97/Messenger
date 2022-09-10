@@ -7,19 +7,8 @@
 
 import UIKit
 
-final class ProfileController: UIViewController, ProfileModule {
-    
-    // MARK: - Initialization
-    
-    init() {
-        super.init(nibName: nil, bundle: nil)
-        tabBarItem.image = UIImage(systemName: "brain.head.profile")
-        tabBarItem.title = "Profile"
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+final class ProfileController: TabBarableControllerBase, ProfileModule {
+
     
     // MARK: - View Life Cycle
     

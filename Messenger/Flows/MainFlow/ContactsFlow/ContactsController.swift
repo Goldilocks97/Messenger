@@ -7,19 +7,7 @@
 
 import UIKit
 
-final class ContactsController: UIViewController, ContactsModule {
-    
-    // MARK: - Initialization
-    
-    init() {
-        super.init(nibName: nil, bundle: nil)
-        tabBarItem.image = UIImage(systemName: "person.crop.circle")
-        tabBarItem.title = "Contacts"
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+final class ContactsController: TabBarableControllerBase, ContactsModule {
     
     // MARK: - View Life Cycle
     

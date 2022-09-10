@@ -5,7 +5,7 @@
 //  Created by Ivan Pavlov on 05.09.2022.
 //
 
-protocol RegistrationFactoriable {
+protocol RegistrationModuleFactoriable {
     
     func makeRegistrationModule() -> RegistrationModule
     

@@ -7,19 +7,7 @@
 
 import UIKit
 
-final class ChatsController: UIViewController, ChatsModule {
-    
-    // MARK: - Initialization
-    
-    init() {
-        super.init(nibName: nil, bundle: nil)
-        tabBarItem.image = UIImage(systemName: "envelope.fill")
-        tabBarItem.title = "Chats"
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+final class ChatsController: TabBarableControllerBase, ChatsModule {
     
     // MARK: - View Life Cycle
     
