@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ProfileController: TabBarableControllerBase, ProfileModule {
+final class ProfileController: TabBarableBaseController, ProfileModule {
 
     
     // MARK: - View Life Cycle
@@ -16,6 +16,10 @@ final class ProfileController: TabBarableControllerBase, ProfileModule {
         super.viewDidLoad()
         
         view.backgroundColor = .white
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+
     }
     
 }

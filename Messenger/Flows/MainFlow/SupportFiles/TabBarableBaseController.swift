@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TabBarableControllerBase: UINavigationController {
+class TabBarableBaseController: UINavigationController {
     
     // MARK: - Initialization
     

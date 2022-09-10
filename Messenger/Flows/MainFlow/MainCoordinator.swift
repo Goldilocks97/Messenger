@@ -47,13 +47,32 @@ final class MainCoordinator: BaseCoordinator, Mainable {
             title: "Profile")
         
         router.addTabs([contactsModule, chatsModule, profileModule])
+        runChatsFlow(rootModule: chatsModule)
+        runProfileFlow(rootModule: profileModule)
+        runContactsFlow(rootModule: contactsModule)
     }
     
-    // MARK: - Show Module methods
-    
-    private func showChats() {
-        //let module = moduleFactory.makeChatsModule()
-        //router.setRootModule(module, animated: true)
+    // MARK: - Run Flows methods
+
+    private func runContactsFlow(rootModule: ContactsModule) {
+        let router = Router(rootModule: rootModule)
+        let coordinator = ContactsCoordinator(model: model, router: router, moduleFactory: moduleFactory)
+        addDependency(coordinator)
+        coordinator.start()
     }
-    
+
+    private func runProfileFlow(rootModule: ProfileModule) {
+        let router = Router(rootModule: rootModule)
+        let coordinator = ProfileCoordinator(model: model, router: router, moduleFactory: moduleFactory)
+        addDependency(coordinator)
+        coordinator.start()
+    }
+
+    private func runChatsFlow(rootModule: ChatsModule) {
+        let router = Router(rootModule: rootModule)
+        let coordinator = ChatsCoordinator(model: model, router: router, moduleFactory: moduleFactory)
+        addDependency(coordinator)
+        coordinator.start()
+    }
+
 }

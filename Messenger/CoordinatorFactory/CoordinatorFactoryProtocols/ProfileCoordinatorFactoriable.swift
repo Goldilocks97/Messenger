@@ -5,4 +5,12 @@
 //  Created by Ivan Pavlov on 09.09.2022.
 //
 
-protocol ProfileCoordinatorFactoriable {}
+protocol ProfileCoordinatorFactoriable {
+    
+    func makeProfileCoordinator(
+        model: Model,
+        router: Navigationable,
+        moduleFactory: ModuleFactoriable
+    ) -> Profiliable
+    
+}

@@ -5,14 +5,14 @@
 //  Created by Ivan Pavlov on 09.09.2022.
 //
 
-final class ProfileCoordinator: BaseCoordinator, Profiliable {
+import UIKit
+
+final class ProfileCoordinator: TabBarableBaseCoordinator, Profiliable {
     
     // MARK: - Coordinatorable Implementation
     
     override func start() {
-        
+        //router.setRootModule(, animated: true)
     }
-    
-    // MARK: - Initialazation
     
 }

@@ -5,4 +5,12 @@
 //  Created by Ivan Pavlov on 09.09.2022.
 //
 
-protocol ContactsCoordinatorFactoriable {}
+protocol ContactsCoordinatorFactoriable {
+    
+    func makeContactsCoordinator(
+        model: Model,
+        router: Navigationable,
+        moduleFactory: ModuleFactoriable
+    ) -> Contactsable
+    
+}

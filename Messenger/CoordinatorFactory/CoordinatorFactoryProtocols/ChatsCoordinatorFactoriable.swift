@@ -5,4 +5,12 @@
 //  Created by Ivan Pavlov on 09.09.2022.
 //
 
-protocol ChatsCoordinatorFactoriable {}
+protocol ChatsCoordinatorFactoriable {
+    
+    func makeChatsCoordinator(
+        model: Model,
+        router: Navigationable,
+        moduleFactory: ModuleFactoriable
+    ) -> Chatsable
+    
+}

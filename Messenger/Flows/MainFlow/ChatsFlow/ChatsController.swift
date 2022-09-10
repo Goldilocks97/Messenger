@@ -7,14 +7,14 @@
 
 import UIKit
 
-final class ChatsController: TabBarableControllerBase, ChatsModule {
+final class ChatsController: TabBarableBaseController, ChatsModule {
     
     // MARK: - View Life Cycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         view.backgroundColor = .white
+        //navigationBar.prefersLargeTitles = true
     }
     
 }

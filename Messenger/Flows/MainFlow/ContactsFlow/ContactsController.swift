@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class ContactsController: TabBarableControllerBase, ContactsModule {
+final class ContactsController: TabBarableBaseController, ContactsModule {
     
     // MARK: - View Life Cycle
     

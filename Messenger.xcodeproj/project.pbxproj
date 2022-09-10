@@ -64,8 +64,9 @@
 		2C585FC528CAA4000042167D /* ChatsCoordinatorFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FC428CAA4000042167D /* ChatsCoordinatorFactoriable.swift */; };
 		2C585FC728CAA4270042167D /* ContactsCoordinatorFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FC628CAA4270042167D /* ContactsCoordinatorFactoriable.swift */; };
 		2C585FC928CAA4730042167D /* ProfileCoordinatorFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FC828CAA4730042167D /* ProfileCoordinatorFactoriable.swift */; };
-		2C585FCB28CCAF330042167D /* TabBarableCoordinatorBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FCA28CCAF330042167D /* TabBarableCoordinatorBase.swift */; };
-		2C585FCD28CCAF730042167D /* TabBarableControllerBase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FCC28CCAF730042167D /* TabBarableControllerBase.swift */; };
+		2C585FCB28CCAF330042167D /* TabBarableBaseCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FCA28CCAF330042167D /* TabBarableBaseCoordinator.swift */; };
+		2C585FCD28CCAF730042167D /* TabBarableBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FCC28CCAF730042167D /* TabBarableBaseController.swift */; };
+		2C585FD428CCBF030042167D /* ChatsTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FD328CCBF030042167D /* ChatsTableController.swift */; };
 		2C8C127528C6868E00F3A650 /* Commands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C127428C6868E00F3A650 /* Commands.swift */; };
 /* End PBXBuildFile section */
 
@@ -129,8 +130,9 @@
 		2C585FC428CAA4000042167D /* ChatsCoordinatorFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsCoordinatorFactoriable.swift; sourceTree = "<group>"; };
 		2C585FC628CAA4270042167D /* ContactsCoordinatorFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsCoordinatorFactoriable.swift; sourceTree = "<group>"; };
 		2C585FC828CAA4730042167D /* ProfileCoordinatorFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinatorFactoriable.swift; sourceTree = "<group>"; };
-		2C585FCA28CCAF330042167D /* TabBarableCoordinatorBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarableCoordinatorBase.swift; sourceTree = "<group>"; };
-		2C585FCC28CCAF730042167D /* TabBarableControllerBase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarableControllerBase.swift; sourceTree = "<group>"; };
+		2C585FCA28CCAF330042167D /* TabBarableBaseCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarableBaseCoordinator.swift; sourceTree = "<group>"; };
+		2C585FCC28CCAF730042167D /* TabBarableBaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarableBaseController.swift; sourceTree = "<group>"; };
+		2C585FD328CCBF030042167D /* ChatsTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsTableController.swift; sourceTree = "<group>"; };
 		2C8C127428C6868E00F3A650 /* Commands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Commands.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -343,6 +345,7 @@
 			children = (
 				2C585FC028CAA1F80042167D /* ChatsCoordinator.swift */,
 				2C24882B28C3AB1C00D2EB2B /* ChatsController.swift */,
+				2C585FD328CCBF030042167D /* ChatsTableController.swift */,
 			);
 			path = ChatsFlow;
 			sourceTree = "<group>";
@@ -359,8 +362,8 @@
 		2C585FCE28CCB1210042167D /* SupportFiles */ = {
 			isa = PBXGroup;
 			children = (
-				2C585FCC28CCAF730042167D /* TabBarableControllerBase.swift */,
-				2C585FCA28CCAF330042167D /* TabBarableCoordinatorBase.swift */,
+				2C585FCC28CCAF730042167D /* TabBarableBaseController.swift */,
+				2C585FCA28CCAF330042167D /* TabBarableBaseCoordinator.swift */,
 			);
 			path = SupportFiles;
 			sourceTree = "<group>";
@@ -458,9 +461,10 @@
 				2C585FB528CA84FD0042167D /* TabBarModuleFactoriable.swift in Sources */,
 				2C24883228C3B20600D2EB2B /* Presentable.swift in Sources */,
 				2C585FA828CA38600042167D /* ChatsModuleFactoriable.swift in Sources */,
+				2C585FD428CCBF030042167D /* ChatsTableController.swift in Sources */,
 				2C24881C28C3A1B100D2EB2B /* ModuleFactoriable.swift in Sources */,
 				2C24881828C3A0EE00D2EB2B /* ModuleFactory.swift in Sources */,
-				2C585FCB28CCAF330042167D /* TabBarableCoordinatorBase.swift in Sources */,
+				2C585FCB28CCAF330042167D /* TabBarableBaseCoordinator.swift in Sources */,
 				2C24882C28C3AB1C00D2EB2B /* ChatsController.swift in Sources */,
 				2C24885128C65E9C00D2EB2B /* RegistrationModuleFactoriable.swift in Sources */,
 				2C24883D28C3C58600D2EB2B /* AuthorizationCoordinatorFactoriable.swift in Sources */,
@@ -475,7 +479,7 @@
 				2C24880428C38F9F00D2EB2B /* Coordinatorable.swift in Sources */,
 				2C24883F28C4FA2D00D2EB2B /* ServerData.swift in Sources */,
 				2C24880928C3936D00D2EB2B /* SceneCoordinator.swift in Sources */,
-				2C585FCD28CCAF730042167D /* TabBarableControllerBase.swift in Sources */,
+				2C585FCD28CCAF730042167D /* TabBarableBaseController.swift in Sources */,
 				2C585FAF28CA39CC0042167D /* ContactsController.swift in Sources */,
 				2C585FB728CA85FE0042167D /* TabBarController.swift in Sources */,
 				2C585FA428CA38240042167D /* ProfileModule.swift in Sources */,

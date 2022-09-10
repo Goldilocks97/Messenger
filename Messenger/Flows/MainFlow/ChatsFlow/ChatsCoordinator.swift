@@ -5,6 +5,15 @@
 //  Created by Ivan Pavlov on 09.09.2022.
 //
 
-final class ChatsCoordinator: BaseCoordinator, Chatsable {
+import UIKit
+
+final class ChatsCoordinator: TabBarableBaseCoordinator, Chatsable {
+    
+    // MARK: - Coordinatorable Implementation
+    
+    override func start() {
+        let vc = ChatsTableController()
+        router.setRootModule(vc, animated: true)
+    }
     
 }
