@@ -11,6 +11,5 @@ protocol ModuleFactoriable:
     TabBarModuleFactoriable,
     ChatsModuleFactoriable,
     ProfileModuleFactoriable,
-    ContactsModuleFactoriable,
     ChatModuleFactoriable
 {}

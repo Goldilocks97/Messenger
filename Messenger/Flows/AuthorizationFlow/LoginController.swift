@@ -32,7 +32,6 @@ final class LoginController: UIViewController, LoginModule {
         label.textColor = .red
         button.addTarget(self, action: #selector(doRegister), for: .touchUpInside)
         button.addSubview(label)
-        //button.backgroundColor = .blue
         label.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
             label.leadingAnchor.constraint(equalTo: button.leadingAnchor),
@@ -45,7 +44,6 @@ final class LoginController: UIViewController, LoginModule {
     private lazy var newInMessengerLabel: UILabel = {
         let label = UILabel()
         label.text = "New in Messenger?"
-        //label.backgroundColor = .brown
         return label
     }()
 
@@ -105,7 +103,10 @@ final class LoginController: UIViewController, LoginModule {
     
     override func viewWillAppear(_ animated: Bool) {
         navigationItem.title = "Login"
+        
+        // TODO: - Shouln't it call its navigation controller?
         navigationController?.navigationBar.prefersLargeTitles = true
+        
         navigationItem.largeTitleDisplayMode = .always
     }
     
@@ -176,16 +177,16 @@ final class LoginController: UIViewController, LoginModule {
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
-//        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-//            if self.view.frame.origin.y == 0 {
-//                self.view.frame.origin.y -= keyboardSize.height
-//            }
-//        }
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.frame.origin.y == 0 {
+                self.view.frame.origin.y -= keyboardSize.height
+            }
+        }
     }
 
     @objc func keyboardWillHide(notification: NSNotification) {
-//        if self.view.frame.origin.y != 0 {
-//            self.view.frame.origin.y = 0
-//        }
+        if self.view.frame.origin.y != 0 {
+            self.view.frame.origin.y = 0
+        }
     }
 }

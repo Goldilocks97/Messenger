@@ -12,6 +12,7 @@ final class Model {
     // MARK: - User
     
     var user = User(name: "", tag: "", password: "")
+    let selfID = 4
     
     // MARK: - Main Properties
     

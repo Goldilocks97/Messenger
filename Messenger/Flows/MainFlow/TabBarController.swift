@@ -28,6 +28,7 @@ final class TabBarController: UITabBarController, TabBarModule, UITabBarControll
             
             controller.tabBarItem.image = image
             controller.tabBarItem.title = tab.itemTitle
+            //controller.tabBarItem.scrollEdgeAppearance = controller.tabBarItem.standardAppearance
             forTabBar.append(controller)
         }
         viewControllers = forTabBar

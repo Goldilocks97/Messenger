@@ -21,12 +21,6 @@ final class ModuleFactory: ModuleFactoriable {
         return RegistrationController()
     }
     
-    // MARK: - Contacts Module
-    
-    func makeContactsModule() -> ContactsModule {
-        return ContactsTableController()
-    }
-    
     // MARK: - Chats Module
 
     func makeChatsModule() -> ChatsModule {
@@ -47,8 +41,8 @@ final class ModuleFactory: ModuleFactoriable {
 
     // MARK: - Chat Module
     
-    func makeChatModule() -> ChatModule {
-        return ChatController()
+    func makeChatModule(chatName: String) -> ChatModule {
+        return ChatController(chatName: chatName)
     }
     
 }

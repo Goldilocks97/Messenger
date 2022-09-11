@@ -37,17 +37,21 @@ final class ChatsCoordinator: BaseCoordinator, Chatsable {
     
     override func start() {
         rootModule.onDidSelectChat = { [weak self] (chat) in
-            if let chatModule = self?.moduleFactory.makeChatModule() {
+            if let chatModule = self?.moduleFactory.makeChatModule(chatName: chat.name) {
+                self?.setupChatModule(chatModule)
                 self?.router.push(chatModule, animated: true)
             }
         }
         model.chats() { [weak self] (chats) in
-            
-            // TODO: - Change the way of setting new Chats
-            
-            if let vc = self?.rootModule as? ChatsTableController {
-                vc.chats = chats.value
-            }
+            self?.rootModule.chatsUpdate = chats.value
+        }
+    }
+    
+    // MARK: - Setup Modules
+    
+    private func setupChatModule(_ module: ChatModule) {
+        module.onSendMessage = { [weak self] (message) in
+            print(message)
         }
     }
     

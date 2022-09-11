@@ -9,6 +9,5 @@ protocol CoordinatorFactoriable:
     MainCoordinatorFactoriable,
     AuthorizationCoordinatorFactoriable,
     ChatsCoordinatorFactoriable,
-    ProfileCoordinatorFactoriable,
-    ContactsCoordinatorFactoriable
+    ProfileCoordinatorFactoriable
 {}

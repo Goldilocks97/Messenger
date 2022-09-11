@@ -32,30 +32,17 @@ final class MainCoordinator: BaseCoordinator, Mainable {
     // MARK: - Coordinatorable Implementation
     
     override func start() {
-        let contactsModule = moduleFactory.makeContactsModule()
         let chatsModule = moduleFactory.makeChatsModule()
         let profileModule = moduleFactory.makeProfileModule()
-        let tabs = [contactsModule, chatsModule, profileModule]
+        let tabs = [chatsModule, profileModule]
         let tabBarModule = moduleFactory.makeTabBarModule(tabs: tabs)
         
         router.setRootModule(tabBarModule, animated: true)
         runChatsFlow(rootModule: chatsModule)
         runProfileFlow(rootModule: profileModule)
-        runContactsFlow(rootModule: contactsModule)
     }
     
     // MARK: - Run Flows methods
-
-    private func runContactsFlow(rootModule: ContactsModule) {
-        let coordinator = ContactsCoordinator(
-            router: router,
-            model: model,
-            moduleFactory: moduleFactory,
-            coordinatorFactory: coordinatorFactory,
-            rootModule: rootModule)
-        addDependency(coordinator)
-        coordinator.start()
-    }
 
     private func runProfileFlow(rootModule: ProfileModule) {
         let coordinator = ProfileCoordinator(

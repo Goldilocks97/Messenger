@@ -42,24 +42,7 @@ final class CoordinatorFactory: CoordinatorFactoriable {
             coordinatorFactory: coordinatorFactory,
             rootModule: rootModule)
     }
-    
-    // MARK: - Contacts Coordinator
-    
-    func makeContactsCoordinator(
-        model: Model,
-        router: Navigationable,
-        moduleFactory: ModuleFactoriable,
-        coordinatorFactory: CoordinatorFactoriable,
-        rootModule: ContactsModule
-    ) -> Contactsable {
-        return ContactsCoordinator(
-            router: router,
-            model: model,
-            moduleFactory: moduleFactory,
-            coordinatorFactory: coordinatorFactory,
-            rootModule: rootModule)
-    }
-    
+
     // MARK: - Profile Coordinator
     
     func makeProfileCoordinator(

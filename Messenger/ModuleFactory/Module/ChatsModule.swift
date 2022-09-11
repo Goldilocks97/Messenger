@@ -8,5 +8,6 @@
 protocol ChatsModule: TabBarableBaseModule {
     
     var onDidSelectChat: ((Chat) -> Void)? { get set}
+    var chatsUpdate: [Chat] { get set }
     
 }

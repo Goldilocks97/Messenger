@@ -15,6 +15,14 @@ final class ChatsTableController: UITableViewController, ChatsModule {
     var systemImageColor: UIColor { return .red }
     var itemTitle: String { return "Chats" }
     var navigationTitle: String { return "Chats" }
+    var chatsUpdate: [Chat] {
+        get {
+            return []
+        }
+        set {
+            chats += newValue
+        }
+    }
 
     // MARK: - Data
     
@@ -48,11 +56,6 @@ final class ChatsTableController: UITableViewController, ChatsModule {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationItem.title = "Chats"
     }
     
     // MARK: - Table View Supply

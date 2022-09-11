@@ -15,7 +15,7 @@ final class SceneCoordinator: BaseCoordinator {
     private let coordinatorFactory: CoordinatorFactoriable
     private let model: Model
     private lazy var scenario: Scenario = .none {
-        didSet { start() }
+        didSet { print("called"); start() }
     }
     
     // MARK: - Public properties

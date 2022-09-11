@@ -41,18 +41,16 @@
 		2C24885128C65E9C00D2EB2B /* RegistrationModuleFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24885028C65E9C00D2EB2B /* RegistrationModuleFactoriable.swift */; };
 		2C24885328C65F2700D2EB2B /* RegistrationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24885228C65F2700D2EB2B /* RegistrationController.swift */; };
 		2C24885528C6727B00D2EB2B /* Parser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C24885428C6727B00D2EB2B /* Parser.swift */; };
+		2C33051328CE1EB4000A2239 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C33051228CE1EB4000A2239 /* MessageCell.swift */; };
 		2C585F9E28CA1B040042167D /* Mainable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585F9D28CA1B040042167D /* Mainable.swift */; };
 		2C585FB328CA84E30042167D /* TabBarModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FB228CA84E30042167D /* TabBarModule.swift */; };
 		2C585FB528CA84FD0042167D /* TabBarModuleFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FB428CA84FD0042167D /* TabBarModuleFactoriable.swift */; };
 		2C585FB728CA85FE0042167D /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FB628CA85FE0042167D /* TabBarController.swift */; };
 		2C585FB928CAA10E0042167D /* Profiliable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FB828CAA10E0042167D /* Profiliable.swift */; };
 		2C585FBB28CAA1620042167D /* Chatsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FBA28CAA1620042167D /* Chatsable.swift */; };
-		2C585FBD28CAA1720042167D /* Contactsable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FBC28CAA1720042167D /* Contactsable.swift */; };
-		2C585FBF28CAA1E50042167D /* ContactsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FBE28CAA1E50042167D /* ContactsCoordinator.swift */; };
 		2C585FC128CAA1F80042167D /* ChatsCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FC028CAA1F80042167D /* ChatsCoordinator.swift */; };
 		2C585FC328CAA2100042167D /* ProfileCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FC228CAA2100042167D /* ProfileCoordinator.swift */; };
 		2C585FC528CAA4000042167D /* ChatsCoordinatorFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FC428CAA4000042167D /* ChatsCoordinatorFactoriable.swift */; };
-		2C585FC728CAA4270042167D /* ContactsCoordinatorFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FC628CAA4270042167D /* ContactsCoordinatorFactoriable.swift */; };
 		2C585FC928CAA4730042167D /* ProfileCoordinatorFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FC828CAA4730042167D /* ProfileCoordinatorFactoriable.swift */; };
 		2C585FD428CCBF030042167D /* ChatsTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FD328CCBF030042167D /* ChatsTableController.swift */; };
 		2C585FD628CCE2F30042167D /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FD528CCE2F30042167D /* ChatController.swift */; };
@@ -62,11 +60,8 @@
 		2C585FDE28CCFA830042167D /* ChatModuleFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FDD28CCFA830042167D /* ChatModuleFactoriable.swift */; };
 		2C585FE028CD1DC70042167D /* TabBarableBaseModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FDF28CD1DC70042167D /* TabBarableBaseModule.swift */; };
 		2C585FE228CD21780042167D /* ProfileTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FE128CD21780042167D /* ProfileTableController.swift */; };
-		2C585FE428CD21A50042167D /* ContactsTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FE328CD21A50042167D /* ContactsTableController.swift */; };
 		2C585FE728CD22F90042167D /* ProfileModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FE628CD22F90042167D /* ProfileModule.swift */; };
-		2C585FE928CD23150042167D /* ContactsModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FE828CD23150042167D /* ContactsModule.swift */; };
 		2C585FEB28CD24D60042167D /* ProfileModuleFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FEA28CD24D60042167D /* ProfileModuleFactoriable.swift */; };
-		2C585FED28CD24FE0042167D /* ContactsModuleFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FEC28CD24FE0042167D /* ContactsModuleFactoriable.swift */; };
 		2C8C127528C6868E00F3A650 /* Commands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C127428C6868E00F3A650 /* Commands.swift */; };
 /* End PBXBuildFile section */
 
@@ -107,18 +102,16 @@
 		2C24885028C65E9C00D2EB2B /* RegistrationModuleFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationModuleFactoriable.swift; sourceTree = "<group>"; };
 		2C24885228C65F2700D2EB2B /* RegistrationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationController.swift; sourceTree = "<group>"; };
 		2C24885428C6727B00D2EB2B /* Parser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parser.swift; sourceTree = "<group>"; };
+		2C33051228CE1EB4000A2239 /* MessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		2C585F9D28CA1B040042167D /* Mainable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mainable.swift; sourceTree = "<group>"; };
 		2C585FB228CA84E30042167D /* TabBarModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarModule.swift; sourceTree = "<group>"; };
 		2C585FB428CA84FD0042167D /* TabBarModuleFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarModuleFactoriable.swift; sourceTree = "<group>"; };
 		2C585FB628CA85FE0042167D /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		2C585FB828CAA10E0042167D /* Profiliable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profiliable.swift; sourceTree = "<group>"; };
 		2C585FBA28CAA1620042167D /* Chatsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chatsable.swift; sourceTree = "<group>"; };
-		2C585FBC28CAA1720042167D /* Contactsable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contactsable.swift; sourceTree = "<group>"; };
-		2C585FBE28CAA1E50042167D /* ContactsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsCoordinator.swift; sourceTree = "<group>"; };
 		2C585FC028CAA1F80042167D /* ChatsCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsCoordinator.swift; sourceTree = "<group>"; };
 		2C585FC228CAA2100042167D /* ProfileCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinator.swift; sourceTree = "<group>"; };
 		2C585FC428CAA4000042167D /* ChatsCoordinatorFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsCoordinatorFactoriable.swift; sourceTree = "<group>"; };
-		2C585FC628CAA4270042167D /* ContactsCoordinatorFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsCoordinatorFactoriable.swift; sourceTree = "<group>"; };
 		2C585FC828CAA4730042167D /* ProfileCoordinatorFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCoordinatorFactoriable.swift; sourceTree = "<group>"; };
 		2C585FD328CCBF030042167D /* ChatsTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatsTableController.swift; sourceTree = "<group>"; };
 		2C585FD528CCE2F30042167D /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
@@ -128,11 +121,8 @@
 		2C585FDD28CCFA830042167D /* ChatModuleFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModuleFactoriable.swift; sourceTree = "<group>"; };
 		2C585FDF28CD1DC70042167D /* TabBarableBaseModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarableBaseModule.swift; sourceTree = "<group>"; };
 		2C585FE128CD21780042167D /* ProfileTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableController.swift; sourceTree = "<group>"; };
-		2C585FE328CD21A50042167D /* ContactsTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsTableController.swift; sourceTree = "<group>"; };
 		2C585FE628CD22F90042167D /* ProfileModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModule.swift; sourceTree = "<group>"; };
-		2C585FE828CD23150042167D /* ContactsModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsModule.swift; sourceTree = "<group>"; };
 		2C585FEA28CD24D60042167D /* ProfileModuleFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModuleFactoriable.swift; sourceTree = "<group>"; };
-		2C585FEC28CD24FE0042167D /* ContactsModuleFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsModuleFactoriable.swift; sourceTree = "<group>"; };
 		2C8C127428C6868E00F3A650 /* Commands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Commands.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -199,7 +189,6 @@
 				2C585F9D28CA1B040042167D /* Mainable.swift */,
 				2C585FB828CAA10E0042167D /* Profiliable.swift */,
 				2C585FBA28CAA1620042167D /* Chatsable.swift */,
-				2C585FBC28CAA1720042167D /* Contactsable.swift */,
 			);
 			path = Coordinator;
 			sourceTree = "<group>";
@@ -251,7 +240,6 @@
 				2C585FB228CA84E30042167D /* TabBarModule.swift */,
 				2C585FD728CCF8470042167D /* ChatsModule.swift */,
 				2C585FE628CD22F90042167D /* ProfileModule.swift */,
-				2C585FE828CD23150042167D /* ContactsModule.swift */,
 				2C585FDB28CCFA710042167D /* ChatModule.swift */,
 			);
 			path = Module;
@@ -262,7 +250,6 @@
 			children = (
 				2C24881E28C3A40100D2EB2B /* MainCoordinator.swift */,
 				2C585FB628CA85FE0042167D /* TabBarController.swift */,
-				2C585FAB28CA39710042167D /* ContactsFlow */,
 				2C585FAC28CA397B0042167D /* ChatsFlow */,
 				2C585FAD28CA39840042167D /* ProfileFlow */,
 			);
@@ -286,7 +273,6 @@
 				2C24881528C3A0B500D2EB2B /* MainCoordinatorFactoriable.swift */,
 				2C24883C28C3C58600D2EB2B /* AuthorizationCoordinatorFactoriable.swift */,
 				2C585FC428CAA4000042167D /* ChatsCoordinatorFactoriable.swift */,
-				2C585FC628CAA4270042167D /* ContactsCoordinatorFactoriable.swift */,
 				2C585FC828CAA4730042167D /* ProfileCoordinatorFactoriable.swift */,
 			);
 			path = CoordinatorFactoryProtocols;
@@ -301,7 +287,6 @@
 				2C585FB428CA84FD0042167D /* TabBarModuleFactoriable.swift */,
 				2C585FD928CCF85D0042167D /* ChatsModuleFactoriable.swift */,
 				2C585FEA28CD24D60042167D /* ProfileModuleFactoriable.swift */,
-				2C585FEC28CD24FE0042167D /* ContactsModuleFactoriable.swift */,
 				2C585FDD28CCFA830042167D /* ChatModuleFactoriable.swift */,
 			);
 			path = ModuleFactoryProtocols;
@@ -331,21 +316,13 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		2C585FAB28CA39710042167D /* ContactsFlow */ = {
-			isa = PBXGroup;
-			children = (
-				2C585FBE28CAA1E50042167D /* ContactsCoordinator.swift */,
-				2C585FE328CD21A50042167D /* ContactsTableController.swift */,
-			);
-			path = ContactsFlow;
-			sourceTree = "<group>";
-		};
 		2C585FAC28CA397B0042167D /* ChatsFlow */ = {
 			isa = PBXGroup;
 			children = (
 				2C585FC028CAA1F80042167D /* ChatsCoordinator.swift */,
 				2C585FD328CCBF030042167D /* ChatsTableController.swift */,
 				2C585FD528CCE2F30042167D /* ChatController.swift */,
+				2C33051228CE1EB4000A2239 /* MessageCell.swift */,
 			);
 			path = ChatsFlow;
 			sourceTree = "<group>";
@@ -445,7 +422,6 @@
 				2C24885328C65F2700D2EB2B /* RegistrationController.swift in Sources */,
 				2C585FE728CD22F90042167D /* ProfileModule.swift in Sources */,
 				2C585FB928CAA10E0042167D /* Profiliable.swift in Sources */,
-				2C585FBF28CAA1E50042167D /* ContactsCoordinator.swift in Sources */,
 				2C585FC928CAA4730042167D /* ProfileCoordinatorFactoriable.swift in Sources */,
 				2C585FBB28CAA1620042167D /* Chatsable.swift in Sources */,
 				2C24882E28C3B12F00D2EB2B /* Navigationable.swift in Sources */,
@@ -464,10 +440,8 @@
 				2C24881828C3A0EE00D2EB2B /* ModuleFactory.swift in Sources */,
 				2C24885128C65E9C00D2EB2B /* RegistrationModuleFactoriable.swift in Sources */,
 				2C24883D28C3C58600D2EB2B /* AuthorizationCoordinatorFactoriable.swift in Sources */,
-				2C585FED28CD24FE0042167D /* ContactsModuleFactoriable.swift in Sources */,
 				2C24884B28C5090800D2EB2B /* Model.swift in Sources */,
 				2C8C127528C6868E00F3A650 /* Commands.swift in Sources */,
-				2C585FBD28CAA1720042167D /* Contactsable.swift in Sources */,
 				2C24883B28C3C4CE00D2EB2B /* LoginController.swift in Sources */,
 				2C24881028C3966D00D2EB2B /* Routerable.swift in Sources */,
 				2C585F9E28CA1B040042167D /* Mainable.swift in Sources */,
@@ -479,9 +453,9 @@
 				2C585FE228CD21780042167D /* ProfileTableController.swift in Sources */,
 				2C24880928C3936D00D2EB2B /* SceneCoordinator.swift in Sources */,
 				2C585FB728CA85FE0042167D /* TabBarController.swift in Sources */,
+				2C33051328CE1EB4000A2239 /* MessageCell.swift in Sources */,
 				2C24884128C4FAF500D2EB2B /* Authorizationable.swift in Sources */,
 				2C24885528C6727B00D2EB2B /* Parser.swift in Sources */,
-				2C585FE928CD23150042167D /* ContactsModule.swift in Sources */,
 				2C2487EE28C38F4800D2EB2B /* SceneDelegate.swift in Sources */,
 				2C24883728C3C42D00D2EB2B /* LoginModule.swift in Sources */,
 				2C24884D28C61C6B00D2EB2B /* ServerCommunicator.swift in Sources */,
@@ -492,9 +466,7 @@
 				2C585FD828CCF8470042167D /* ChatsModule.swift in Sources */,
 				2C585FB328CA84E30042167D /* TabBarModule.swift in Sources */,
 				2C585FC128CAA1F80042167D /* ChatsCoordinator.swift in Sources */,
-				2C585FE428CD21A50042167D /* ContactsTableController.swift in Sources */,
 				2C585FE028CD1DC70042167D /* TabBarableBaseModule.swift in Sources */,
-				2C585FC728CAA4270042167D /* ContactsCoordinatorFactoriable.swift in Sources */,
 				2C2487F628C38F4900D2EB2B /* Messenger.xcdatamodeld in Sources */,
 				2C585FDC28CCFA710042167D /* ChatModule.swift in Sources */,
 			);

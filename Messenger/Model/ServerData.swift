@@ -5,6 +5,8 @@
 //  Created by Ivan Pavlov on 04.09.2022.
 //
 
+import Foundation
+
 protocol ServerData {}
 
 struct User: ServerData {
@@ -65,4 +67,12 @@ struct Login: ServerData {
         case wrongLogin
         case wrongPassword
     }
+}
+
+struct Message {
+    
+    let text: String
+    let sender: Int
+    let time: Date
+    
 }
