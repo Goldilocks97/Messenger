@@ -10,7 +10,7 @@ import Foundation
 final class Model {
 
     // MARK: - User
-    
+
     var user = User(name: "", tag: "", password: "")
     let selfID = 4
     
@@ -18,6 +18,7 @@ final class Model {
     
     private let communicator: ServerCommunicator
     private var parser: Parser
+    private var dataBase: DataBasable
     
     //MARK: - Handlers
     
@@ -28,6 +29,9 @@ final class Model {
     
     init(handlerQueue: DispatchQueue) {
         self.parser = Parser()
+        self.dataBase = DataBase(
+            readingQueue: DispatchQueue.global(qos: .userInitiated),
+            writingQueue: DispatchQueue.global(qos: .background))
         self.handlerQueue = handlerQueue
         self.communicator = ServerCommunicator(host: "185.204.0.32", port: (50000 as UInt16))
         
@@ -68,11 +72,16 @@ final class Model {
         }
     }
     
+    // MARK: - Getting Chats List
+    
     func chats(completionHandler: @escaping ChatsHandler) {
         handlerStorage.chatsHandler = completionHandler
-        if let message = ("#chats\n").data(using: .ascii) {
-            communicator.send(message: message)
+        dataBase.readChats { [weak self] (data) in
+            self?.callCompletionHandler(for: .chats, and: data)
         }
+//        if let message = ("#chats\n").data(using: .ascii) {
+//            communicator.send(message: message)
+//        }
     }
 
     // MARK: - Processing Callbacks
@@ -84,18 +93,22 @@ final class Model {
                let data = data as? Login
             {
                 handlerQueue.async { handler(data) }
+                dataBase.openDataBase(for: "pinya2012")
+                dataBase.writeChats(data: Chats(value: [Chat(id: 5, name: "My Public Chat", hostId: 6)]))
             }
         case .register:
             if let handler = handlerStorage.regHandler,
                let data = data as? Registration
             {
                 handlerQueue.async { handler(data) }
+                dataBase.openDataBase(for: "pinya2012")
             }
         case .chats:
             if let handler = handlerStorage.chatsHandler,
                let data = data as? Chats
             {
                 handlerQueue.async { handler(data) }
+                //dataBase.writeChats(data: data)
             }
         default:
             print("Ooops...Nobody cares about this command:\n\(command)")
@@ -137,10 +150,16 @@ final class Model {
             let separated = data.components(separatedBy: " ")
             var chats = [Chat]()
             for i in stride(from: 0, to: separated.count, by: 3) {
-                let id = separated[i]
+                let idString = separated[i]
                 let name = separated[i+1]
-                let hostId = separated[i+2]
-                chats.append(Chat(id: id, name: name, hostId: hostId))
+                let hostIdString = separated[i+2]
+                if let id = Int(idString),
+                   let hostID = Int(hostIdString)
+                {
+                    chats.append(Chat(id: id, name: name, hostId: hostID))
+                } else {
+                    chats.append(Chat(id: 0, name: name, hostId: 0))
+                }
             }
             return Chats(value: chats)
         case .login:

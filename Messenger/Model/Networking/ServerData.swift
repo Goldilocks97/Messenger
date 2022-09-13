@@ -24,9 +24,9 @@ struct Chats: ServerData {
 }
 
 struct Chat {
-    var id: String
+    var id: Int
     var name: String
-    var hostId: String?
+    var hostId: Int
 }
 
 struct Registration: ServerData {

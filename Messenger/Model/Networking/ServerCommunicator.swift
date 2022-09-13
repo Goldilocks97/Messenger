@@ -36,7 +36,7 @@ class ServerCommunicator: NSObject, StreamDelegate {
     func start() {
         connection.stateUpdateHandler = stateDidChange(to:)
         startReceiving()
-        connection.start(queue: DispatchQueue.global(qos: .utility))
+        connection.start(queue: DispatchQueue.global(qos: .userInitiated))
     }
 
     func send(message: Data) {
