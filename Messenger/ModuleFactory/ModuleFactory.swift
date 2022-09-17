@@ -41,8 +41,8 @@ final class ModuleFactory: ModuleFactoriable {
 
     // MARK: - Chat Module
     
-    func makeChatModule(chatName: String) -> ChatModule {
-        return ChatController(chatName: chatName)
+    func makeChatModule(chatName: String, chatID: Int) -> ChatModule {
+        return ChatController(chatName: chatName, chatID: chatID)
     }
     
 }

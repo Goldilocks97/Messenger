@@ -10,6 +10,7 @@ enum Command {
     case chats
     case register
     case history
+    case incomingMessage
     case unknown
 }
 

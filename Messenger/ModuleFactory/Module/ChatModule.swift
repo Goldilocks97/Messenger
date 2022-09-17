@@ -7,7 +7,8 @@
 
 protocol ChatModule: BaseModule {
     
-    var onSendMessage: ((String) -> Void)? { get set }
+    var onSendMessage: ((Message) -> Void)? { get set }
     var messagesUpdate: [Message] { get set }
+    var chatID: Int { get set }
     
 }

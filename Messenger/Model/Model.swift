@@ -8,6 +8,8 @@
 import Foundation
 
 final class Model {
+    
+    var onDidReceiveMessage: ((Message) -> Void)?
 
     // MARK: - User
 
@@ -90,7 +92,7 @@ final class Model {
         }
     }
     
-    // MARK: - Getting Messages for a Chat
+    // MARK: - Get Messages for a Chat
     
     func messages(for chatID: Int, completionHandler: @escaping MessagesHandler) {
         let condition = dataBase.hasTable(with: "Messages\(chatID)")
@@ -104,6 +106,15 @@ final class Model {
             dataBase.createMessagesTable(for: chatID)
             handlerStorage.messagesHandler = completionHandler
             communicator.send(message: message)
+        }
+    }
+    
+    // MARK: - Send Message
+    
+    func sendMessage(_ message: Message) {
+        if let messageServer = ("#message \(message.chatID) {\(message.text)}\n").data(using: .ascii) {
+            communicator.send(message: messageServer)
+            dataBase.writeMessages(data: Messages(value: [message]), to: message.chatID)
         }
     }
 
@@ -136,10 +147,17 @@ final class Model {
                let data = data as? Messages,
                let chatID = data.value.first?.chatID
             {
- 
+                
                 print("here?")
                 handlerQueue.async { handler(data) }
                 dataBase.writeMessages(data: data, to: chatID)
+            }
+        case .incomingMessage:
+            if let data = data as? Messages,
+               let message = data.value.first
+            {
+                handlerQueue.async { self.onDidReceiveMessage?(message) }
+                dataBase.writeMessages(data: data, to: message.chatID)
             }
         default:
             return
@@ -170,8 +188,10 @@ final class Model {
             return .chats
         case "history":
             return .history
+        case "incomingMessage":
+            return .incomingMessage
         default:
-            print(command)
+            print("unkown command: ", command)
             return .unknown
         }
     }
@@ -198,7 +218,7 @@ final class Model {
         case .login:
             guard let response = Int(data) else { return Login(response: -1)}
             return Login(response: response)
-        case .history:
+        case .history, .incomingMessage:
             //print(data)
             let separated = mySepar(data)
             //print(separated)

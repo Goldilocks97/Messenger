@@ -15,7 +15,11 @@ final class ChatController: UIViewController, ChatModule {
         get { return [] }
         set { messages += newValue }
     }
-    var onSendMessage: ((String) -> Void)?
+    var onSendMessage: ((Message) -> Void)?
+    var chatID: Int {
+        get { return prchatID }
+        set { }
+    }
     
     // MARK: - Private properties
     
@@ -24,6 +28,7 @@ final class ChatController: UIViewController, ChatModule {
     }
     let cellID = "cellID"
     let chatName: String
+    let prchatID: Int
     
     // MARK: - View Subviews
     
@@ -59,8 +64,9 @@ final class ChatController: UIViewController, ChatModule {
     
     // MARK: - Initialization
     
-    init(chatName: String) {
+    init(chatName: String, chatID: Int) {
         self.chatName = chatName
+        self.prchatID = chatID
         super.init(nibName: nil, bundle: nil)
         tableView.allowsSelection = false
         subscribeToKeyboardNotifications()
@@ -123,11 +129,12 @@ final class ChatController: UIViewController, ChatModule {
     // MARK: - Buttons actions
 
     @objc private func doSendMessage() {
-//        guard let message = messageField.text else { return }
-//        messageField.text = nil
-//        onSendMessage?(message)
-//        let dateFormate = "YYYY-MM-DD :mm:ss"
-//        messages.append(Message(text: message, sender: 5, time: dateFormate))
+        guard let text = messageField.text else { return }
+        messageField.text = nil
+        let message = Message(chatID: chatID, text: text, senderID: 4, senderUsername: "pinya", date: "", time: "")
+        onSendMessage?(message)
+        //let dateFormate = "YYYY-MM-DD :mm:ss"
+        messages.append(message)
 //        tableView.beginUpdates()
 //        let indexPath = IndexPath(row: messages.count-1, section: 0)
 //        tableView.insertRows(at: [indexPath], with: .automatic)
