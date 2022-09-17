@@ -16,14 +16,11 @@ final class ChatsTableController: UITableViewController, ChatsModule {
     var itemTitle: String { return "Chats" }
     var navigationTitle: String { return "Chats" }
     var chatsUpdate: [Chat] {
-        get {
-            return []
-        }
-        set {
-            chats += newValue
-        }
+        get { return [] }
+        set { chats += newValue }
     }
 
+    // TODO: - CHANGE THIS VAR 
     // MARK: - Data
     
     var chats = [Chat]() {

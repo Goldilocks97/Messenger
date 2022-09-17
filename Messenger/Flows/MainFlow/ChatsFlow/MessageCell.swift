@@ -11,9 +11,9 @@ final class MessageCell: UITableViewCell {
     
     // MARK: - Public Properties
     
-    var message = Message(text: "", sender: 0, time: Date()) {
+    var message = Message(chatID: 0, text: "", senderID: 0, senderUsername: "", date: "", time: "") {
         didSet {
-            let isIncoming = message.sender % 2 == 0
+            let isIncoming = message.senderID != 4
             bubleView.backgroundColor =  isIncoming ? .red : .systemGray
             messageLabel.text = message.text
             

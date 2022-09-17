@@ -69,10 +69,19 @@ struct Login: ServerData {
     }
 }
 
+struct Messages: ServerData {
+    
+    let value: [Message]
+    
+}
+
 struct Message {
     
+    let chatID: Int
     let text: String
-    let sender: Int
-    let time: Date
+    let senderID: Int
+    let senderUsername: String
+    let date: String
+    let time: String
     
 }

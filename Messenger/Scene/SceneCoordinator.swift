@@ -15,7 +15,7 @@ final class SceneCoordinator: BaseCoordinator {
     private let coordinatorFactory: CoordinatorFactoriable
     private let model: Model
     private lazy var scenario: Scenario = .none {
-        didSet { print("called"); start() }
+        didSet { start() }
     }
     
     // MARK: - Public properties
@@ -36,6 +36,7 @@ final class SceneCoordinator: BaseCoordinator {
     // MARK: - Coordinatorable implementation
     
     override func start() {
+        //scenario = .authorization
         switch(scenario) {
         case .main:
             runMainFlow()

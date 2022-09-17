@@ -9,17 +9,19 @@ import UIKit
 
 final class ChatController: UIViewController, ChatModule {
     
-    var messages = [
-        "My first message",
-        "Second message is longer than the first one",
-        "Third one is the longest one. Just a peace of useless information. Third one is the longest one. Just a peace of useless information. Third one is the longest one. Just a peace of useless information. Third one is the longest one. Just a peace of useless information. Third one is the longest one. Just a peace of useless information. Third one is the longest one. Just a peace of useless information. Third one is the longest one. Just a peace of useless information. Third one is the longest one. Just a peace of useless information. Third one is the longest one. Just a peace of useless information. Third one is the longest one. Just a peace of useless information. "]
-    
     // MARK: - ChatModule Implementation
     
+    var messagesUpdate: [Message] {
+        get { return [] }
+        set { messages += newValue }
+    }
     var onSendMessage: ((String) -> Void)?
     
     // MARK: - Private properties
     
+    private var messages = [Message]() {
+        didSet { tableView.reloadData() }
+    }
     let cellID = "cellID"
     let chatName: String
     
@@ -121,15 +123,16 @@ final class ChatController: UIViewController, ChatModule {
     // MARK: - Buttons actions
 
     @objc private func doSendMessage() {
-        guard let message = messageField.text else { return }
-        messageField.text = nil
-        onSendMessage?(message)
-        messages.append(message)
-        tableView.beginUpdates()
-        let indexPath = IndexPath(row: messages.count-1, section: 0)
-        tableView.insertRows(at: [indexPath], with: .automatic)
-        tableView.endUpdates()
-        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
+//        guard let message = messageField.text else { return }
+//        messageField.text = nil
+//        onSendMessage?(message)
+//        let dateFormate = "YYYY-MM-DD :mm:ss"
+//        messages.append(Message(text: message, sender: 5, time: dateFormate))
+//        tableView.beginUpdates()
+//        let indexPath = IndexPath(row: messages.count-1, section: 0)
+//        tableView.insertRows(at: [indexPath], with: .automatic)
+//        tableView.endUpdates()
+//        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
     
 }
@@ -139,8 +142,9 @@ extension ChatController: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
         if let messageCell = cell as? MessageCell {
-            let message = Message(text: messages[indexPath.row % 3], sender: indexPath.row, time: Date())
+            let message = messages[indexPath.row]
             messageCell.message = message
+            //print(message, indexPath.row)
         }
         return cell
     }

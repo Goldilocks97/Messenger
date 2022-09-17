@@ -25,7 +25,7 @@ struct Parser {
 
     mutating func parse(data: Data) {
         guard let str = String(data: data, encoding: .ascii) else { return }
-        print(str, terminator: "")
+        //print(str, terminator: "")
         for char in str {
             automate(char: char)
             if state == .finished {
@@ -52,9 +52,17 @@ struct Parser {
             }
             commandBuffer.append(char)
         case .data:
+            if char == "{" {
+                state = .openedBracket
+            }
             if char == "\n" {
                 state = .finished
                 return
+            }
+            dataBuffer.append(char)
+        case .openedBracket:
+            if char == "}" {
+                state = .data
             }
             dataBuffer.append(char)
         default:
@@ -76,6 +84,7 @@ struct Parser {
         case finished
         case command
         case data
+        case openedBracket
         case none
     }
     

@@ -32,13 +32,16 @@ final class ChatsCoordinator: BaseCoordinator, Chatsable {
         self.coordinatorFactory = coordinatorFactory
         self.rootModule = rootModule
     }
-    
+
     // MARK: - Coordinatorable Implementation
-    
+
     override func start() {
         rootModule.onDidSelectChat = { [weak self] (chat) in
             if let chatModule = self?.moduleFactory.makeChatModule(chatName: chat.name) {
                 self?.setupChatModule(chatModule)
+                self?.model.messages(for: chat.id) { (messages) in
+                    chatModule.messagesUpdate = messages.value
+                }
                 self?.router.push(chatModule, animated: true)
             }
         }

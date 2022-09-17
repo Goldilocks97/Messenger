@@ -8,5 +8,6 @@
 protocol ChatModule: BaseModule {
     
     var onSendMessage: ((String) -> Void)? { get set }
+    var messagesUpdate: [Message] { get set }
     
 }

@@ -9,6 +9,7 @@ enum Command {
     case login
     case chats
     case register
+    case history
     case unknown
 }
 
