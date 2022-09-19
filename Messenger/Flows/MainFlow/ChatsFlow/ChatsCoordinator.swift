@@ -48,6 +48,9 @@ final class ChatsCoordinator: BaseCoordinator, Chatsable {
             }
         }
         rootModule.onDidSelectChat = { [weak self] (chat) in
+            
+            // TODO: - Memory leak, I create a new pointer every time user selects a chat
+
             if let chatModule = self?.moduleFactory.makeChatModule(chatName: chat.name, chatID: chat.id) {
                 self?.setupChatModule(chatModule)
                 self?.model.messages(for: chat.id) { (messages) in

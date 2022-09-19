@@ -34,20 +34,22 @@ final class Model {
     // MARK: - Initialization
     
     init(handlerQueue: DispatchQueue) {
-        self.parser = Parser()
         self.dataBase = DataBase(
             readingQueue: DispatchQueue.global(qos: .userInitiated),
             writingQueue: DispatchQueue.global(qos: .background))
+        
         self.handlerQueue = handlerQueue
+        
         self.communicator = ServerCommunicator(host: "185.204.0.32", port: (50000 as UInt16))
         
+        self.parser = Parser()
+        self.parser.onCookedData = { [weak self] (command, data) in
+            self?.dataDidCooked(command: command, data: data)
+        }
+
         self.communicator.onDidReceiveData = { [weak self] (data) in
             self?.didReceiveData(data: data)
         }
-        self.parser.onCookedData = { [weak self] (commandString, dataString) in
-            self?.dataDidCooked(command: commandString, data: dataString)
-        }
-
         self.communicator.start()
     }
 
@@ -168,133 +170,26 @@ final class Model {
     
     private func didReceiveData(data: Data) {
         parser.parse(data: data)
-        //print(String(data: data, encoding: .ascii))
     }
     
-    private func dataDidCooked(command: String, data: String) {
-        print("did cooked: ", data)
-        let command = defineCommand(command)
-        let data = retrieveData(from: data, for: command)
+    private func dataDidCooked(command: Command, data: ServerData) {
         saveAndSend(data: data, for: command)
     }
 
-    private func defineCommand(_ command: String) -> Command {
-        switch(command) {
-        case "auth":
-            return .login
-        case "register":
-            return .register
-        case "chats":
-            return .chats
-        case "history":
-            return .history
-        case "incomingMessage":
-            return .incomingMessage
-        default:
-            print("unkown command: ", command)
-            return .unknown
-        }
-    }
+}
 
-    private func retrieveData(from data: String, for command: Command) -> ServerData {
-        switch(command) {
-        case .register:
-            guard let response = Int(data) else { return Registration(response: -1) }
-            return Registration(response: response)
-        case .chats:
-            let separated = data.components(separatedBy: " ")
-            var chats = [Chat]()
-            for i in stride(from: 0, to: separated.count, by: 3) {
-                let idString = separated[i]
-                let name = separated[i+1]
-                let hostIdString = separated[i+2]
-                if let id = Int(idString),
-                   let hostID = Int(hostIdString)
-                {
-                    chats.append(Chat(id: id, name: name, hostId: hostID))
-                }
-            }
-            return Chats(value: chats)
-        case .login:
-            guard let response = Int(data) else { return Login(response: -1)}
-            return Login(response: response)
-        case .history, .incomingMessage:
-            //print(data)
-            let separated = mySepar(data)
-            //print(separated)
-            var messages = [Message]()
-            for i in stride(from: 0, to: separated.count, by: 6) {
-                let chatIDString = separated[i]
-                let senderName = separated[i+1]
-                let senderIDString = separated[i+2]
-                let text = separated[i+3]
-                let date = separated[i+4]
-                let time = separated[i+5]
-                if let chatID = Int(chatIDString),
-                   let senderID = Int(senderIDString)
-                {
-                    messages.append(Message(
-                        chatID: chatID,
-                        text: text,
-                        senderID: senderID,
-                        senderUsername: senderName,
-                        date: date,
-                        time: time))
-                }
-            }
-            return Messages(value: messages)
-        default:
-            
-            // TODO: - Use all cases
-            
-            return Registration(response: -1)
-        }
-    }
+// MARK: - Handlers Storage
+
+typealias RegistrationHandler = (Registration) -> Void
+typealias MessagesHandler = (Messages) -> Void
+typealias LoginHandler = (Login) -> Void
+typealias ChatsHandler = (Chats) -> Void
+
+private struct HandlersStorage {
     
-    // MARK: - Handlers Storage
-    
-    typealias RegistrationHandler = (Registration) -> Void
-    typealias MessagesHandler = (Messages) -> Void
-    typealias LoginHandler = (Login) -> Void
-    typealias ChatsHandler = (Chats) -> Void
-    
-    private struct HandlersStorage {
-        
-        var regHandler: RegistrationHandler?
-        var loginHandler: LoginHandler?
-        var chatsHandler: ChatsHandler?
-        var messagesHandler: MessagesHandler?
-    
-    }
-    
-    func mySepar(_ data: String) -> [String] {
-        //print("data datishe: \(data)")
-        var separeted = [String]()
-        var flag = false
-        var current = [Character]()
-        for s in data {
-            //print("on line: s: \(s) and flag: \(flag)")
-            //if s == "{" {
-             //   print("ITS INSIDE")
-           // }
-            //print("current lexeme: \(s)")
-            if s == " " && !flag {
-                separeted.append(String(current))
-                current = []
-                continue
-            }
-            if s == "{" {
-                flag = true
-                continue
-            }
-            if s == "}" {
-                flag = false
-                continue
-            }
-            current.append(s)
-        }
-        separeted.append(String(current))
-        return separeted
-    }
+    var regHandler: RegistrationHandler?
+    var loginHandler: LoginHandler?
+    var chatsHandler: ChatsHandler?
+    var messagesHandler: MessagesHandler?
 
 }

@@ -17,30 +17,31 @@ struct User: ServerData {
 
 }
 
+
+struct Chat: ServerData {
+    var id: Int
+    var name: String
+    var hostId: Int
+}
+
 struct Chats: ServerData {
     
     let value: [Chat]
 
 }
 
-struct Chat {
-    var id: Int
-    var name: String
-    var hostId: Int
-}
-
 struct Registration: ServerData {
     
     let response: RegistrationResponse
     
-    init(response: Int) {
+    init(response: Int?) {
         if response == 0 {
             self.response = .success
         } else {
             self.response = .usedLogin
         }
     }
-    
+
     enum RegistrationResponse {
         case success
         case usedLogin
@@ -50,8 +51,8 @@ struct Registration: ServerData {
 struct Login: ServerData {
     
     let response: LoginResponse
-    
-    init(response: Int) {
+
+    init(response: Int?) {
         switch(response) {
         case -1:
             self.response = .wrongLogin
@@ -84,4 +85,10 @@ struct Message {
     let date: String
     let time: String
     
+}
+
+struct UnknownData: ServerData {
+    
+    let value: [String]
+
 }
