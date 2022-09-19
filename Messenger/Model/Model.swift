@@ -53,7 +53,7 @@ final class Model {
         self.communicator.start()
     }
 
-    // MARK: - Authorization on server
+    // MARK: - Server API
 
     func login(
         username: String,
@@ -79,8 +79,6 @@ final class Model {
             communicator.send(message: message)
         }
     }
-    
-    // MARK: - Getting Chats List
 
     func chats(completionHandler: @escaping ChatsHandler) {
         if dataBase.hasTable(with: "Chats") {
@@ -94,13 +92,8 @@ final class Model {
         }
     }
     
-    // MARK: - Get Messages for a Chat
-    
     func messages(for chatID: Int, completionHandler: @escaping MessagesHandler) {
-        let condition = dataBase.hasTable(with: "Messages\(chatID)")
-        print("COOOOONDITION: \(condition) for chatid: \(chatID)")
-        if condition {
-            print("CHECKING BIIIIIG")
+        if dataBase.hasTable(with: "Messages\(chatID)") {
             dataBase.readMessages(for: chatID) { [weak self] (data) in
                 self?.handlerQueue.async { completionHandler(data) }
             }
@@ -111,16 +104,20 @@ final class Model {
         }
     }
     
-    // MARK: - Send Message
-    
     func sendMessage(_ message: Message) {
         if let messageServer = ("#message \(message.chatID) {\(message.text)}\n").data(using: .ascii) {
-            communicator.send(message: messageServer)
             dataBase.writeMessages(data: Messages(value: [message]), to: message.chatID)
+            communicator.send(message: messageServer)
         }
     }
 
-    private func saveAndSend(data: ServerData, for command: Command) {
+    // MARK: - Processing Data
+    
+    private func didReceiveData(data: Data) {
+        parser.parse(data: data)
+    }
+
+    private func dataDidCooked(command: Command, data: ServerData) {
         switch(command) {
         case .login:
             if let handler = handlerStorage.loginHandler,
@@ -140,56 +137,43 @@ final class Model {
             if let handler = handlerStorage.chatsHandler,
                let data = data as? Chats
             {
-                
-                handlerQueue.async { handler(data) }
                 dataBase.writeChats(data: data)
+                handlerQueue.async { handler(data) }
             }
         case .history:
             if let handler = handlerStorage.messagesHandler,
                let data = data as? Messages,
                let chatID = data.value.first?.chatID
             {
-                
-                print("here?")
-                handlerQueue.async { handler(data) }
                 dataBase.writeMessages(data: data, to: chatID)
+                handlerQueue.async { handler(data) }
             }
         case .incomingMessage:
             if let data = data as? Messages,
                let message = data.value.first
             {
-                handlerQueue.async { self.onDidReceiveMessage?(message) }
                 dataBase.writeMessages(data: data, to: message.chatID)
+                handlerQueue.async { self.onDidReceiveMessage?(message) }
             }
         default:
             return
         }
     }
 
-    // MARK: - Processing Data
+    // MARK: - Handlers Storage
     
-    private func didReceiveData(data: Data) {
-        parser.parse(data: data)
+    typealias RegistrationHandler = (Registration) -> Void
+    typealias MessagesHandler = (Messages) -> Void
+    typealias LoginHandler = (Login) -> Void
+    typealias ChatsHandler = (Chats) -> Void
+
+    private struct HandlersStorage {
+        
+        var regHandler: RegistrationHandler?
+        var loginHandler: LoginHandler?
+        var chatsHandler: ChatsHandler?
+        var messagesHandler: MessagesHandler?
+
     }
-    
-    private func dataDidCooked(command: Command, data: ServerData) {
-        saveAndSend(data: data, for: command)
-    }
-
-}
-
-// MARK: - Handlers Storage
-
-typealias RegistrationHandler = (Registration) -> Void
-typealias MessagesHandler = (Messages) -> Void
-typealias LoginHandler = (Login) -> Void
-typealias ChatsHandler = (Chats) -> Void
-
-private struct HandlersStorage {
-    
-    var regHandler: RegistrationHandler?
-    var loginHandler: LoginHandler?
-    var chatsHandler: ChatsHandler?
-    var messagesHandler: MessagesHandler?
 
 }
