@@ -17,7 +17,6 @@ struct User: ServerData {
 
 }
 
-
 struct Chat: ServerData {
     var id: Int
     var name: String

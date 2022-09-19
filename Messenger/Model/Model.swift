@@ -150,10 +150,11 @@ final class Model {
             }
         case .incomingMessage:
             if let data = data as? Messages,
-               let message = data.value.first
+               let message = data.value.first,
+               let handler = onDidReceiveMessage
             {
                 dataBase.writeMessages(data: data, to: message.chatID)
-                handlerQueue.async { self.onDidReceiveMessage?(message) }
+                handlerQueue.async { handler(message) }
             }
         default:
             return

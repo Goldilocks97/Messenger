@@ -25,8 +25,8 @@ struct DataBase: DataBasable {
         self.readingQueue = readingQueue
         self.writingQueue = writingQueue
     }
-    
-    // MARK: - API
+
+    // MARK: - Operations
     
     mutating func openDataBase(for username: String) {
         if createDataBase(for: username) != SQLITE_OK {
@@ -47,7 +47,7 @@ struct DataBase: DataBasable {
         // if something went wrong.
         return false
     }
-    
+
     // MARK: Writing Operations
     
     func writeChats(data: Chats) {
@@ -56,42 +56,36 @@ struct DataBase: DataBasable {
         }
         writingQueue.async {
             for chat in data.value {
-                var binaryStatement: OpaquePointer? = nil
-                let insertStatement = """
+                let statement = """
                 INSERT INTO 'Chats' (id, name, host) \
                 VALUES(\(chat.id), '\(chat.name)', \(chat.hostId));
                 """
-                sqlite3_prepare_v2(dataBase, insertStatement, -1, &binaryStatement, nil)
-                if sqlite3_step(binaryStatement) == SQLITE_DONE {
-                    print("data inserted for chat \(chat.name)")
-                } else {
-                    print("error on inserting data for chat \(chat.name)")
-                }
-                sqlite3_finalize(binaryStatement)
+                write(statement: statement)
+            }
+        }
+    }
+
+    func writeMessages(data: Messages, to chatID: Int) {
+        writingQueue.async {
+            for message in data.value {
+                let statement = """
+                INSERT INTO 'Messages\(chatID)' VALUES(\(chatID), '\(message.senderUsername)', \
+                \(message.senderID), '\(message.text)', '\(message.date)', '\(message.time)');
+                """
+                write(statement: statement)
             }
         }
     }
     
-    func writeMessages(data: Messages, to chatID: Int) {
-        if !hasTable(with: "Messages\(chatID)") {
-            createMessagesTable(for: chatID)
+    private func write(statement: String) {
+        var binaryStatement: OpaquePointer? = nil
+        sqlite3_prepare_v2(dataBase, statement, -1, &binaryStatement, nil)
+        if sqlite3_step(binaryStatement) == SQLITE_DONE {
+            print("data inserted")
+        } else {
+            print("error on inserting data")
         }
-        writingQueue.async {
-            for message in data.value {
-                var binaryStatement: OpaquePointer? = nil
-                let insertStatement = """
-                INSERT INTO 'Messages\(chatID)' \
-                VALUES(\(chatID), '\(message.senderUsername)', \(message.senderID), '\(message.text)', '\(message.date)', '\(message.time)');
-                """
-                sqlite3_prepare_v2(dataBase, insertStatement, -1, &binaryStatement, nil)
-                if sqlite3_step(binaryStatement) == SQLITE_DONE {
-                    print("data inserted for messages\(chatID)")
-                } else {
-                    print("error on inserting data for messages\(chatID)")
-                }
-                sqlite3_finalize(binaryStatement)
-            }
-        }
+        sqlite3_finalize(binaryStatement)
     }
     
     // MARK: Reading Operations
@@ -103,15 +97,14 @@ struct DataBase: DataBasable {
             var chats = [Chat]()
             if sqlite3_prepare_v2(dataBase, statement, -1, &binaryStatement, nil) == SQLITE_OK {
                 while sqlite3_step(binaryStatement) == SQLITE_ROW {
-                    let chatID = sqlite3_column_int(binaryStatement, 0)
-                    let nameUnsafe = sqlite3_column_text(binaryStatement, 1)
-                    let host = sqlite3_column_int(binaryStatement, 2)
-                    let lastMsg = sqlite3_column_int(binaryStatement, 3)
-                    
-                    if let name = nameUnsafe {
-                        let chat = Chat(id: Int(chatID), name: String(cString: name), hostId: Int(host))
-                        chats.append(chat)
+                    guard let name = sqlite3_column_text(binaryStatement, 1) else {
+                        continue
                     }
+                    let chatID = sqlite3_column_int(binaryStatement, 0)
+                    let host = sqlite3_column_int(binaryStatement, 2)
+//                    let lastMsg = sqlite3_column_int(binaryStatement, 3)
+                    let chat = Chat(id: Int(chatID), name: String(cString: name), hostId: Int(host))
+                    chats.append(chat)
                 }
             }
             completionHandler(Chats(value: chats))
@@ -125,34 +118,29 @@ struct DataBase: DataBasable {
             var messages = [Message]()
             if sqlite3_prepare_v2(dataBase, statement, -1, &binaryStatement, nil) == SQLITE_OK {
                 while sqlite3_step(binaryStatement) == SQLITE_ROW {
+                    guard
+                        let senderName = sqlite3_column_text(binaryStatement, 1),
+                        let text = sqlite3_column_text(binaryStatement, 3),
+                        let date = sqlite3_column_text(binaryStatement, 4),
+                        let time = sqlite3_column_text(binaryStatement, 5)
+                    else { continue }
                     let chatID = sqlite3_column_int(binaryStatement, 0)
-                    let senderNameUnsafe = sqlite3_column_text(binaryStatement, 1)
                     let senderID = sqlite3_column_int(binaryStatement, 2)
-                    let textUnsafe = sqlite3_column_text(binaryStatement, 3)
-                    let dateUnsafe = sqlite3_column_text(binaryStatement, 4)
-                    let timeUnsafe = sqlite3_column_text(binaryStatement, 5)
-                    
-                    if let time = timeUnsafe,
-                       let senderName = senderNameUnsafe,
-                       let text = textUnsafe,
-                       let date = dateUnsafe
-                    {
-                        let message = Message(
+                    let message = Message(
                             chatID: Int(chatID),
                             text: String(cString: text),
                             senderID: Int(senderID),
                             senderUsername: String(cString: senderName),
                             date: String(cString: date),
                             time: String(cString: time))
-                        messages.append(message)
-                    }
+                    messages.append(message)
                 }
             }
             completionHandler(Messages(value: messages))
         }
     }
-    
-    // MARK: Tables Creation
+
+    // MARK: - Tables Creation
     
     func createChatsTable() {
         let fields = [
