@@ -64,9 +64,9 @@ final class NewChatController: UIViewController, NewChatModule {
         return button
     }()
     
-    private lazy var constraits: [Constraits: NSLayoutConstraint] = [
-        .forPrivate: findStack.topAnchor.constraint(equalTo: typeOfChatControl.bottomAnchor),
-        .forPublic: findStack.topAnchor.constraint(equalTo: publicChatName.bottomAnchor)]
+    private lazy var constraits: [ChatType: NSLayoutConstraint] = [
+        .privateChat: findStack.topAnchor.constraint(equalTo: typeOfChatControl.bottomAnchor),
+        .publicChat: findStack.topAnchor.constraint(equalTo: publicChatName.bottomAnchor)]
     
     private let cellID = "cellID"
     
@@ -136,13 +136,13 @@ final class NewChatController: UIViewController, NewChatModule {
     }
 
     private func layoutForPublic() {
-        constraits[.forPrivate]?.isActive = false
-        constraits[.forPublic]?.isActive = true
+        constraits[.privateChat]?.isActive = false
+        constraits[.publicChat]?.isActive = true
     }
 
     private func layoutForPrivate() {
-        constraits[.forPublic]?.isActive = false
-        constraits[.forPrivate]?.isActive = true
+        constraits[.publicChat]?.isActive = false
+        constraits[.privateChat]?.isActive = true
     }
 
     // MARK: - Actions
@@ -179,12 +179,7 @@ final class NewChatController: UIViewController, NewChatModule {
 //        case publicType = 1
 //
 //    }
-    
-    private enum Constraits: Int {
-        case forPublic = 0
-        case forPrivate = 1
-    }
-    
+
 }
 
 extension NewChatController: UITableViewDataSource, UITableViewDelegate {
@@ -203,4 +198,11 @@ extension NewChatController: UITableViewDataSource, UITableViewDelegate {
         return cell
     }
 
+}
+
+enum ChatType: Int {
+    
+    case publicChat = 0
+    case privateChat = 1
+    
 }

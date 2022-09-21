@@ -55,7 +55,11 @@ final class ChatsCoordinator: BaseCoordinator, Chatsable {
             
             // TODO: - Memory leak, I create a new pointer every time user selects a chat
 
-            if let chatModule = self?.moduleFactory.makeChatModule(chatName: chat.name, chatID: chat.id) {
+            if let chatModule = self?.moduleFactory.makeChatModule(
+                chatName: chat.name,
+                chatID: chat.id,
+                type: (chat.hostId != -1 ? .publicChat : .privateChat ))
+            {
                 self?.setupChatModule(chatModule)
                 self?.model.messages(for: chat.id) { (messages) in
                     chatModule.receiveNewMessages(messages.value)
@@ -95,6 +99,26 @@ final class ChatsCoordinator: BaseCoordinator, Chatsable {
         module.onBackPressed = { [weak self] in
             self?.router.pop(animated: true)
         }
+        module.onChatInformationPressed = { [weak self] (chatID, type) in
+            if type == .privateChat {
+                if let privateInformationModule =
+                    self?.moduleFactory.makePrivateChatInformationModule()
+                {
+                    privateInformationModule.onBackButton = { [weak self] in
+                        self?.router.pop(animated: true)
+                    }
+                    self?.router.push(privateInformationModule, animated: true)
+                }
+            } else if let publicInformationModule = self?.moduleFactory.makePublicChatInformationModule() {
+                publicInformationModule.onBackButton = { [weak self] in
+                    self?.router.pop(animated: true)
+                }
+                self?.router.push(publicInformationModule, animated: true)
+            }
+        }
     }
     
 }
+
+
+

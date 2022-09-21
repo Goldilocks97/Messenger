@@ -8,7 +8,7 @@
 import UIKit
 
 final class ChatController: UIViewController, ChatModule {
-    
+        
     var onBackPressed: (() -> Void)?
     
     // MARK: - ChatModule Implementation
@@ -28,7 +28,10 @@ final class ChatController: UIViewController, ChatModule {
         }
         //self.messages += messages
     }
+
     var onSendMessage: ((Message) -> Void)?
+    var onChatInformationPressed: ((Int, ChatType) -> Void)?
+
     var chatID: Int {
         get { return prchatID }
         set { }
@@ -41,6 +44,7 @@ final class ChatController: UIViewController, ChatModule {
     }
     let cellID = "cellID"
     let headerID = "headerID"
+    let type: ChatType
     let chatName: String
     let prchatID: Int
     
@@ -51,7 +55,7 @@ final class ChatController: UIViewController, ChatModule {
         button.tintColor = .red
         return button
     }()
-    
+
     private lazy var bottomContentView: UIView = {
         let view = UIView()
         view.backgroundColor = .systemGray6
@@ -83,9 +87,19 @@ final class ChatController: UIViewController, ChatModule {
         return button
     }()
     
+    private lazy var informationNavigationBarItem: UIBarButtonItem = {
+        let item = UIBarButtonItem(
+            barButtonSystemItem: .edit,
+            target: self,
+            action: #selector(doInformationButton))
+        item.tintColor = .red
+        return item
+    }()
+    
     // MARK: - Initialization
     
-    init(chatName: String, chatID: Int) {
+    init(chatName: String, chatID: Int, type: ChatType) {
+        self.type = type
         self.chatName = chatName
         self.prchatID = chatID
         super.init(nibName: nil, bundle: nil)
@@ -114,6 +128,7 @@ final class ChatController: UIViewController, ChatModule {
     private func addSubviews() {
         navigationItem.hidesBackButton = true
         navigationItem.leftBarButtonItem = backBarButton
+        navigationItem.rightBarButtonItem = informationNavigationBarItem
         view.addSubview(bottomContentView)
         bottomContentView.addSubview(messageField)
         bottomContentView.addSubview(sendMessageButton)
@@ -150,8 +165,14 @@ final class ChatController: UIViewController, ChatModule {
     }
 
     // MARK: - Buttons actions
+    
+    @objc
+    private func doInformationButton() {
+        onChatInformationPressed?(chatID, type)
+    }
 
-    @objc private func doSendMessage() {
+    @objc
+    private func doSendMessage() {
         guard let text = messageField.text else {
             return
         }

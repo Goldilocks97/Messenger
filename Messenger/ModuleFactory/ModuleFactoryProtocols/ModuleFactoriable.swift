@@ -12,5 +12,7 @@ protocol ModuleFactoriable:
     ChatsModuleFactoriable,
     ProfileModuleFactoriable,
     ChatModuleFactoriable,
-    NewChatFactoriable
+    NewChatFactoriable,
+    PublicChatInformationFactoriable,
+    PrivateChatInformationFactoriable
 {}

@@ -8,7 +8,7 @@
 import UIKit
 
 final class ModuleFactory: ModuleFactoriable {
-
+    
     // MARK: - Authorization Module
     
     func makeAuthorizationModule() -> LoginModule {
@@ -41,8 +41,8 @@ final class ModuleFactory: ModuleFactoriable {
 
     // MARK: - Chat Module
     
-    func makeChatModule(chatName: String, chatID: Int) -> ChatModule {
-        return ChatController(chatName: chatName, chatID: chatID)
+    func makeChatModule(chatName: String, chatID: Int, type: ChatType) -> ChatModule {
+        return ChatController(chatName: chatName, chatID: chatID, type: type)
     }
     
     // MARK: - NewChat Module
@@ -51,4 +51,16 @@ final class ModuleFactory: ModuleFactoriable {
         return NewChatController()
     }
     
+    // MARK: - PublicChatInformation Module
+    
+    func makePublicChatInformationModule() -> PublicChatInformationModule {
+        return PublicChatInformationController()
+    }
+    
+    // MARK: - PrivateChatInformation Module
+    
+    func makePrivateChatInformationModule() -> PrivateChatInformationModule {
+        return PrivateChatInformationController()
+    }
+
 }
