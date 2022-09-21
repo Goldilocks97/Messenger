@@ -11,9 +11,11 @@ protocol DataBasable {
         
     func writeChats(data: Chats)
     func writeMessages(data: Messages, to chatID: Int)
+    func writeLastMessage(_ message: LastMessage)
     
     func readChats(completionHandler: @escaping ((Chats) -> Void))
     func readMessages(for chatID: Int, completionHandler: @escaping ((Messages) -> Void))
+    //func readLastMessage(for chatID: Int, completionHandler: @escaping ((Message) -> Void))
     
     func hasTable(with name: String) -> Bool
     func createMessagesTable(for chatID: Int)

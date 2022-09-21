@@ -51,15 +51,14 @@ struct DataBase: DataBasable {
     // MARK: Writing Operations
     
     func writeChats(data: Chats) {
-        if !hasTable(with: "Chats") {
-            createChatsTable()
-        }
         writingQueue.async {
             for chat in data.value {
-                let statement = """
+                var statement = """
                 INSERT INTO 'Chats' (id, name, host) \
                 VALUES(\(chat.id), '\(chat.name)', \(chat.hostId));
                 """
+                write(statement: statement)
+                statement = "INSERT INTO 'LastMessage' (chat_id) VALUES (\(chat.id));"
                 write(statement: statement)
             }
         }
@@ -74,14 +73,31 @@ struct DataBase: DataBasable {
                 """
                 write(statement: statement)
             }
+            if let last = data.value.last {
+                let lastMessage = LastMessage(
+                    chatID: last.chatID,
+                    text: last.text,
+                    date: last.date,
+                    time: last.time)
+                writeLastMessage(lastMessage)
+            }
         }
+    }
+    
+    func writeLastMessage(_ message: LastMessage) {
+        let statement = """
+            UPDATE LastMessage\
+            SET text = '\(message.text)', date = '\(message.date)', time = '\(message.time)' \
+            WHERE chat_id = \(message.chatID);
+        """
+        writingQueue.async { write(statement: statement) }
     }
     
     private func write(statement: String) {
         var binaryStatement: OpaquePointer? = nil
         sqlite3_prepare_v2(dataBase, statement, -1, &binaryStatement, nil)
         if sqlite3_step(binaryStatement) == SQLITE_DONE {
-            print("data inserted")
+            //print("data inserted")
         } else {
             print("error on inserting data")
         }
@@ -92,18 +108,30 @@ struct DataBase: DataBasable {
 
     func readChats(completionHandler: @escaping ((Chats) -> Void)) {
         readingQueue.async {
-            let statement = "SELECT * FROM 'Chats'"
+            let statement = """
+                SELECT Chats.id, Chats.name, Chats.host, \
+                LastMessage.text, LastMessage.date, LastMessage.time \
+                FROM 'Chats' JOIN 'LastMessage' on Chats.id = LastMessage.chat_id;
+            """
             var binaryStatement: OpaquePointer? = nil
             var chats = [Chat]()
             if sqlite3_prepare_v2(dataBase, statement, -1, &binaryStatement, nil) == SQLITE_OK {
                 while sqlite3_step(binaryStatement) == SQLITE_ROW {
-                    guard let name = sqlite3_column_text(binaryStatement, 1) else {
-                        continue
-                    }
+                    guard
+                        let name = sqlite3_column_text(binaryStatement, 1),
+                        let text = sqlite3_column_text(binaryStatement, 3),
+                        let date = sqlite3_column_text(binaryStatement, 4),
+                        let time = sqlite3_column_text(binaryStatement, 5)
+                    else { continue }
                     let chatID = sqlite3_column_int(binaryStatement, 0)
                     let host = sqlite3_column_int(binaryStatement, 2)
-//                    let lastMsg = sqlite3_column_int(binaryStatement, 3)
-                    let chat = Chat(id: Int(chatID), name: String(cString: name), hostId: Int(host))
+                    
+                    var message = String(cString: date) != "-1" ? LastMessage(chatID: Int(chatID), text: String(cString: text), date: String(cString: date), time: String(cString: time)) : nil
+                    let chat = Chat(
+                        id: Int(chatID),
+                        name: String(cString: name),
+                        hostId: Int(host),
+                        lastMessage: message)
                     chats.append(chat)
                 }
             }
@@ -139,6 +167,30 @@ struct DataBase: DataBasable {
             completionHandler(Messages(value: messages))
         }
     }
+    
+//    func readLastMessage(for chatID: Int, completionHandler: @escaping ((Message) -> Void)) {
+//        let statement = "SELECT * FROM Messages\(chatID) ORDER BY message_id DESC LIMIT 1"
+//        var binaryStatement: OpaquePointer? = nil
+//        if sqlite3_prepare_v2(dataBase, statement, -1, &binaryStatement, nil) == SQLITE_OK {
+//            sqlite3_step(binaryStatement)
+//            guard
+//                let senderName = sqlite3_column_text(binaryStatement, 1),
+//                let text = sqlite3_column_text(binaryStatement, 3),
+//                let date = sqlite3_column_text(binaryStatement, 4),
+//                let time = sqlite3_column_text(binaryStatement, 5)
+//            else { return }
+//            let chatID = sqlite3_column_int(binaryStatement, 0)
+//            let senderID = sqlite3_column_int(binaryStatement, 2)
+//            let message = Message(
+//                    chatID: Int(chatID),
+//                    text: String(cString: text),
+//                    senderID: Int(senderID),
+//                    senderUsername: String(cString: senderName),
+//                    date: String(cString: date),
+//                    time: String(cString: time))
+//            completionHandler(message)
+//        }
+//    }
 
     // MARK: - Tables Creation
     
@@ -146,10 +198,10 @@ struct DataBase: DataBasable {
         let fields = [
             "id INTEGER",
             "name TEXT",
-            "host INTEGER",
-            "last_msg INTEGER DEFAULT NULL"]
+            "host INTEGER"]
         let name = "Chats"
         createTable(name, with: fields)
+        createLastMessageTable()
     }
     
     func createMessagesTable(for chatID: Int) {
@@ -180,6 +232,17 @@ struct DataBase: DataBasable {
         createTable(name, with: fields)
     }
     
+    private func createLastMessageTable() {
+        let fields = [
+            "chat_id INTEGER",
+            "text TEXT DEFAULT '-1'",
+            "date TEXT DEFAULT '-1'",
+            "time TEXT DEFAULT '-1'"
+        ]
+        let name = "LastMessage"
+        createTable(name, with:fields)
+    }
+    
     private func createTable(_ name: String, with fields: [String]) {
         var parameters = "("
         if fields.count != 1 {
@@ -193,7 +256,7 @@ struct DataBase: DataBasable {
         parameters += ")"
         let statement = "CREATE TABLE IF NOT EXISTS \(name) \(parameters);"
         if sqlite3_exec(dataBase, statement, nil, nil, nil) == SQLITE_OK {
-            print("table \(name) created")
+            //print("table \(name) created")
         } else {
             print("error on creating table \(name)")
         }

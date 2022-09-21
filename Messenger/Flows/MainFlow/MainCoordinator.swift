@@ -41,7 +41,7 @@ final class MainCoordinator: BaseCoordinator, Mainable {
         runChatsFlow(rootModule: chatsModule)
         runProfileFlow(rootModule: profileModule)
     }
-    
+
     // MARK: - Run Flows methods
 
     private func runProfileFlow(rootModule: ProfileModule) {

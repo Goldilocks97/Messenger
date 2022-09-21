@@ -15,6 +15,7 @@ final class ProfileTableController: UITableViewController, ProfileModule {
     var systemImageColor: UIColor { return .red }
     var itemTitle: String { return "Profile" }
     var navigationTitle: String { return "Profile" }
+    var navigationBarRightItem: UIBarButtonItem? { return nil }
     
     
     // MARK: Initialization

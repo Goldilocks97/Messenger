@@ -8,6 +8,9 @@
 protocol ChatsModule: TabBarableBaseModule {
     
     var onDidSelectChat: ((Chat) -> Void)? { get set}
+    var onNewChat: (() -> Void)? { get set }
     var chatsUpdate: [Chat] { get set }
+    
+    func receiveLastMessage(_ message: LastMessage)
     
 }

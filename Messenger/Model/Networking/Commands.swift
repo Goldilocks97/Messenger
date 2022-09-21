@@ -11,6 +11,7 @@ enum Command {
     case register
     case history
     case incomingMessage
+    case lastMessage
     case unknown
 }
 

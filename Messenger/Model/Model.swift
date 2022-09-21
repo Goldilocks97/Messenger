@@ -103,11 +103,18 @@ final class Model {
             communicator.send(message: message)
         }
     }
-    
+
     func sendMessage(_ message: Message) {
         if let messageServer = ("#message \(message.chatID) {\(message.text)}\n").data(using: .ascii) {
             dataBase.writeMessages(data: Messages(value: [message]), to: message.chatID)
             communicator.send(message: messageServer)
+        }
+    }
+    
+    func lastMessage(for chatID: Int, completionHandler: @escaping LastMessageHandler) {
+        if let message = ("#lastmessage \(chatID)\n").data(using: .ascii) {
+            handlerStorage.lastMessageHandler = completionHandler
+            communicator.send(message: message)
         }
     }
 
@@ -156,6 +163,13 @@ final class Model {
                 dataBase.writeMessages(data: data, to: message.chatID)
                 handlerQueue.async { handler(message) }
             }
+        case .lastMessage:
+            if let data = data as? LastMessage,
+               let handler = handlerStorage.lastMessageHandler
+            {
+                dataBase.writeLastMessage(data)
+                handlerQueue.async { handler(data) }
+            }
         default:
             return
         }
@@ -167,6 +181,7 @@ final class Model {
     typealias MessagesHandler = (Messages) -> Void
     typealias LoginHandler = (Login) -> Void
     typealias ChatsHandler = (Chats) -> Void
+    typealias LastMessageHandler = (LastMessage) -> Void
 
     private struct HandlersStorage {
         
@@ -174,7 +189,8 @@ final class Model {
         var loginHandler: LoginHandler?
         var chatsHandler: ChatsHandler?
         var messagesHandler: MessagesHandler?
-
+        var lastMessageHandler: LastMessageHandler?
+        
     }
 
 }

@@ -14,5 +14,6 @@ protocol TabBarableBaseModule: BaseModule {
     var itemTitle: String { get }
     
     var navigationTitle: String { get }
+    var navigationBarRightItem: UIBarButtonItem? { get }
     
 }

@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2C1B2D4428D92BB700BA858A /* DateHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B2D4328D92BB700BA858A /* DateHeader.swift */; };
+		2C1B2D4628DA453C00BA858A /* NewChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B2D4528DA453C00BA858A /* NewChatController.swift */; };
+		2C1B2D4828DA46AC00BA858A /* NewChatModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B2D4728DA46AC00BA858A /* NewChatModule.swift */; };
+		2C1B2D4A28DA46FF00BA858A /* NewChatFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B2D4928DA46FF00BA858A /* NewChatFactoriable.swift */; };
 		2C2487EC28C38F4800D2EB2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2487EB28C38F4800D2EB2B /* AppDelegate.swift */; };
 		2C2487EE28C38F4800D2EB2B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2487ED28C38F4800D2EB2B /* SceneDelegate.swift */; };
 		2C2487F628C38F4900D2EB2B /* Messenger.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2C2487F428C38F4900D2EB2B /* Messenger.xcdatamodeld */; };
@@ -68,6 +72,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2C1B2D4328D92BB700BA858A /* DateHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateHeader.swift; sourceTree = "<group>"; };
+		2C1B2D4528DA453C00BA858A /* NewChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChatController.swift; sourceTree = "<group>"; };
+		2C1B2D4728DA46AC00BA858A /* NewChatModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChatModule.swift; sourceTree = "<group>"; };
+		2C1B2D4928DA46FF00BA858A /* NewChatFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewChatFactoriable.swift; sourceTree = "<group>"; };
 		2C2487E828C38F4800D2EB2B /* Messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C2487EB28C38F4800D2EB2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C2487ED28C38F4800D2EB2B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -141,6 +149,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2C1B2D4228D92B8900BA858A /* ChatController */ = {
+			isa = PBXGroup;
+			children = (
+				2C585FD528CCE2F30042167D /* ChatController.swift */,
+				2C33051228CE1EB4000A2239 /* MessageCell.swift */,
+				2C1B2D4328D92BB700BA858A /* DateHeader.swift */,
+			);
+			path = ChatController;
+			sourceTree = "<group>";
+		};
 		2C2487DF28C38F4800D2EB2B = {
 			isa = PBXGroup;
 			children = (
@@ -245,6 +263,7 @@
 				2C585FD728CCF8470042167D /* ChatsModule.swift */,
 				2C585FE628CD22F90042167D /* ProfileModule.swift */,
 				2C585FDB28CCFA710042167D /* ChatModule.swift */,
+				2C1B2D4728DA46AC00BA858A /* NewChatModule.swift */,
 			);
 			path = Module;
 			sourceTree = "<group>";
@@ -254,8 +273,8 @@
 			children = (
 				2C24881E28C3A40100D2EB2B /* MainCoordinator.swift */,
 				2C585FB628CA85FE0042167D /* TabBarController.swift */,
-				2C585FAC28CA397B0042167D /* ChatsFlow */,
 				2C585FAD28CA39840042167D /* ProfileFlow */,
+				2C585FAC28CA397B0042167D /* ChatsFlow */,
 			);
 			path = MainFlow;
 			sourceTree = "<group>";
@@ -292,6 +311,7 @@
 				2C585FD928CCF85D0042167D /* ChatsModuleFactoriable.swift */,
 				2C585FEA28CD24D60042167D /* ProfileModuleFactoriable.swift */,
 				2C585FDD28CCFA830042167D /* ChatModuleFactoriable.swift */,
+				2C1B2D4928DA46FF00BA858A /* NewChatFactoriable.swift */,
 			);
 			path = ModuleFactoryProtocols;
 			sourceTree = "<group>";
@@ -323,8 +343,8 @@
 			children = (
 				2C585FC028CAA1F80042167D /* ChatsCoordinator.swift */,
 				2C585FD328CCBF030042167D /* ChatsTableController.swift */,
-				2C585FD528CCE2F30042167D /* ChatController.swift */,
-				2C33051228CE1EB4000A2239 /* MessageCell.swift */,
+				2C1B2D4228D92B8900BA858A /* ChatController */,
+				2C1B2D4528DA453C00BA858A /* NewChatController.swift */,
 			);
 			path = ChatsFlow;
 			sourceTree = "<group>";
@@ -445,6 +465,7 @@
 				2C585FE728CD22F90042167D /* ProfileModule.swift in Sources */,
 				2C585FB928CAA10E0042167D /* Profiliable.swift in Sources */,
 				2C585FC928CAA4730042167D /* ProfileCoordinatorFactoriable.swift in Sources */,
+				2C1B2D4828DA46AC00BA858A /* NewChatModule.swift in Sources */,
 				2C585FBB28CAA1620042167D /* Chatsable.swift in Sources */,
 				2C24882E28C3B12F00D2EB2B /* Navigationable.swift in Sources */,
 				2C24882328C3A93600D2EB2B /* BaseModule.swift in Sources */,
@@ -453,6 +474,7 @@
 				2C585FC528CAA4000042167D /* ChatsCoordinatorFactoriable.swift in Sources */,
 				2C24883928C3C46B00D2EB2B /* AuthorizationModuleFactoriable.swift in Sources */,
 				2C585FC328CAA2100042167D /* ProfileCoordinator.swift in Sources */,
+				2C1B2D4A28DA46FF00BA858A /* NewChatFactoriable.swift in Sources */,
 				2C24880C28C3950900D2EB2B /* PresentableObject.swift in Sources */,
 				2C585FB528CA84FD0042167D /* TabBarModuleFactoriable.swift in Sources */,
 				2C24883228C3B20600D2EB2B /* Presentable.swift in Sources */,
@@ -467,9 +489,11 @@
 				2C24883B28C3C4CE00D2EB2B /* LoginController.swift in Sources */,
 				2C24881028C3966D00D2EB2B /* Routerable.swift in Sources */,
 				2C585F9E28CA1B040042167D /* Mainable.swift in Sources */,
+				2C1B2D4428D92BB700BA858A /* DateHeader.swift in Sources */,
 				2C585FEB28CD24D60042167D /* ProfileModuleFactoriable.swift in Sources */,
 				2C24881428C39F7B00D2EB2B /* CoordinatorFactory.swift in Sources */,
 				2C24884F28C65DC600D2EB2B /* RegistrationModule.swift in Sources */,
+				2C1B2D4628DA453C00BA858A /* NewChatController.swift in Sources */,
 				2C24880428C38F9F00D2EB2B /* Coordinatorable.swift in Sources */,
 				2C24883F28C4FA2D00D2EB2B /* ServerData.swift in Sources */,
 				2C585FE228CD21780042167D /* ProfileTableController.swift in Sources */,

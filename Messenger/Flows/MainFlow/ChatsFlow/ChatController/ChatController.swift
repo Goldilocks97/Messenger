@@ -9,11 +9,24 @@ import UIKit
 
 final class ChatController: UIViewController, ChatModule {
     
+    var onBackPressed: (() -> Void)?
+    
     // MARK: - ChatModule Implementation
     
-    var messagesUpdate: [Message] {
-        get { return [] }
-        set { messages += newValue }
+    func receiveNewMessages(_ messages: [Message]) {
+        if self.messages.isEmpty {
+            let groupedMessage = Dictionary(grouping: messages) { (element) -> Date in
+                let dateFormat = DateFormatter()
+                dateFormat.dateFormat = "yyyy-MM-dd"
+                return dateFormat.date(from: element.date) ?? Date()
+            }
+            let sortedKeys = groupedMessage.keys.sorted()
+            for key in sortedKeys {
+                //print(groupedMessage[key] ?? [])
+                self.messages.append(groupedMessage[key] ?? [])
+            }
+        }
+        //self.messages += messages
     }
     var onSendMessage: ((Message) -> Void)?
     var chatID: Int {
@@ -23,14 +36,21 @@ final class ChatController: UIViewController, ChatModule {
     
     // MARK: - Private properties
     
-    private var messages = [Message]() {
+    private var messages = [[Message]]() {
         didSet { tableView.reloadData() }
     }
     let cellID = "cellID"
+    let headerID = "headerID"
     let chatName: String
     let prchatID: Int
     
     // MARK: - View Subviews
+    
+    private lazy var backBarButton: UIBarButtonItem = {
+        let button = UIBarButtonItem(title: "Back", style: .plain, target: self, action: #selector(doBackButton))
+        button.tintColor = .red
+        return button
+    }()
     
     private lazy var bottomContentView: UIView = {
         let view = UIView()
@@ -39,16 +59,17 @@ final class ChatController: UIViewController, ChatModule {
 //        view.layer.backgroundColor = UIColor.systemGray5.cgColor
         return view
     }()
-    
+
     private lazy var tableView: UITableView = {
         let tableView = UITableView(frame: .zero, style: .plain)
         tableView.dataSource = self
-        //tableView.delegate = self
+        tableView.delegate = self
         tableView.register(MessageCell.self, forCellReuseIdentifier: cellID)
+        tableView.register(DateHeader.self, forHeaderFooterViewReuseIdentifier: self.headerID)
         tableView.backgroundColor = .white
         return tableView
     }()
-    
+
     private lazy var messageField: UITextField = {
         let field = UITextField()
         field.placeholder = "Message"
@@ -91,6 +112,8 @@ final class ChatController: UIViewController, ChatModule {
     // MARK: - Configurate View
     
     private func addSubviews() {
+        navigationItem.hidesBackButton = true
+        navigationItem.leftBarButtonItem = backBarButton
         view.addSubview(bottomContentView)
         bottomContentView.addSubview(messageField)
         bottomContentView.addSubview(sendMessageButton)
@@ -129,27 +152,48 @@ final class ChatController: UIViewController, ChatModule {
     // MARK: - Buttons actions
 
     @objc private func doSendMessage() {
-        guard let text = messageField.text else { return }
+        guard let text = messageField.text else {
+            return
+        }
         messageField.text = nil
-        let message = Message(chatID: chatID, text: text, senderID: 4, senderUsername: "pinya", date: "", time: "")
+        let date = Date().currentDate(in: "YYYY-MM-dd")
+        let time = Date().currentDate(in: "HH:mm:ss")
+        let message = Message(chatID: chatID, text: text, senderID: 4, senderUsername: "pinya", date: date, time: time)
         onSendMessage?(message)
-        //let dateFormate = "YYYY-MM-DD :mm:ss"
-        messages.append(message)
+//        var indexPath = IndexPath()
+        if messages.isEmpty {
+            messages = [[message]]
+//            indexPath = IndexPath(row: 0, section: 0)
+        } else if messages[messages.count - 1].first?.date == date {
+            messages[messages.count - 1].append(message)
+//            indexPath = IndexPath(row: messages[messages.count - 1].count - 1, section: messages.count - 1)
+        } else {
+            messages.append([message])
+//            print(messages.count - 1)
+//            indexPath = IndexPath(row: 0, section: messages.count - 1)
+        }
 //        tableView.beginUpdates()
-//        let indexPath = IndexPath(row: messages.count-1, section: 0)
 //        tableView.insertRows(at: [indexPath], with: .automatic)
 //        tableView.endUpdates()
 //        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
-    
+
 }
 
 extension ChatController: UITableViewDataSource, UITableViewDelegate {
+
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        if let header = tableView.dequeueReusableHeaderFooterView(withIdentifier: headerID) as? DateHeader {
+            header.date = messages[section].first?.date
+            return header
+        }
+        return nil
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
         if let messageCell = cell as? MessageCell {
-            let message = messages[indexPath.row]
+            let message = messages[indexPath.section][indexPath.row]
             messageCell.message = message
             //print(message, indexPath.row)
         }
@@ -157,11 +201,15 @@ extension ChatController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages.count
+        return messages[section].count
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return messages.count
+    }
+    
+    @objc private func doBackButton() {
+        onBackPressed?()
     }
     
     
@@ -185,17 +233,23 @@ extension ChatController {
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            if self.view.frame.origin.y == 0 {
-                self.view.frame.origin.y -= keyboardSize.height
-            }
-        }
+//        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+//            view.contentOffset = CGPoint(x: 0, y: keyboardSize.height)
+//        }
     }
 
     @objc func keyboardWillHide(notification: NSNotification) {
-        if self.view.frame.origin.y != 0 {
-            self.view.frame.origin.y = 0
-        }
+        //view.contentOffset = CGPoint.zero
+    }
+    
+}
+
+extension Date {
+    
+    func currentDate(in formate: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = formate
+        return dateFormatter.string(from: Date())
     }
     
 }

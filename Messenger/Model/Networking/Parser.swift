@@ -38,6 +38,9 @@ struct Parser {
             }
             if state == .finished {
                 state = .none
+                if !dataBuffer.isEmpty {
+                    lexemesBuffer.append(String(dataBuffer))
+                }
                 let (command, data) = retrieveServerData(from: lexemesBuffer, for: commandBuffer)
                 onCookedData?(command, data)
                 commandBuffer = []
@@ -46,7 +49,7 @@ struct Parser {
             }
         }
     }
-    
+
     // MARK: - LexicalAutomate
     
     mutating private func automate(char: Character) {
@@ -58,6 +61,10 @@ struct Parser {
         case .command:
             if char == " " {
                 state = .data
+                return
+            }
+            if char == "\n" {
+                state = .finished
                 return
             }
             commandBuffer.append(char)
@@ -99,6 +106,9 @@ struct Parser {
             return (command, Chats(value: retrieveChats(from: lexemes)))
         case .history, .incomingMessage:
             return (command, Messages(value: retrieveMessages(from: lexemes)))
+        case .lastMessage:
+            let lastMessage = retrieveLastMessage(from: lexemes)
+            return (command, lastMessage)
         case .unknown:
             return (command, UnknownData(value: lexemes))
         }
@@ -116,8 +126,10 @@ struct Parser {
             return .history
         case "incomingMessage":
             return .incomingMessage
+        case "lastmessage":
+            return .lastMessage
         default:
-            print("unkown command: ", command)
+            print("unkown command:", command)
             return .unknown
         }
     }
@@ -155,6 +167,15 @@ struct Parser {
                 time: time))
         }
         return messages
+    }
+    
+    private func retrieveLastMessage(from lexemes: [String]) -> LastMessage {
+        if lexemes.isEmpty { return LastMessage(chatID: -1, text: "", date: "", time: "") }
+        let chatID = Int(lexemes[0]) ?? -1
+        let text = lexemes[3]
+        let date = lexemes[4]
+        let time = lexemes[5]
+        return LastMessage(chatID: chatID, text: text, date: date, time: time)
     }
 
     // TODO: - Restrict length of buffers

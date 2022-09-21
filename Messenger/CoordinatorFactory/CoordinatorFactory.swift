@@ -30,7 +30,7 @@ final class CoordinatorFactory: CoordinatorFactoriable {
     
     func makeChatsCoordinator(
         model: Model,
-        router: Navigationable,
+        router: Routerable,
         moduleFactory: ModuleFactoriable,
         coordinatorFactory: CoordinatorFactoriable,
         rootModule: ChatsModule

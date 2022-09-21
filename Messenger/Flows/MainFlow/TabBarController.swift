@@ -15,6 +15,11 @@ final class TabBarController: UITabBarController, TabBarModule, UITabBarControll
         let module = viewControllers?[self.selectedIndex] as? TabBarableBaseModule
         return module?.navigationTitle ?? ""
     }
+    
+    private var navigationBarRightItem: UIBarButtonItem? {
+        let module = viewControllers?[self.selectedIndex] as? TabBarableBaseModule
+        return (module?.navigationBarRightItem ?? nil)
+    }
 
     // MARK: - Initialization
 
@@ -28,13 +33,13 @@ final class TabBarController: UITabBarController, TabBarModule, UITabBarControll
             
             controller.tabBarItem.image = image
             controller.tabBarItem.title = tab.itemTitle
-            //controller.tabBarItem.scrollEdgeAppearance = controller.tabBarItem.standardAppearance
             forTabBar.append(controller)
         }
         viewControllers = forTabBar
-        selectedIndex = 1
+        selectedIndex = 0
         tabBar.scrollEdgeAppearance = tabBar.standardAppearance
         navigationItem.title = navigationTitle
+        navigationItem.rightBarButtonItem = navigationBarRightItem
         delegate = self
     }
 
@@ -46,6 +51,7 @@ final class TabBarController: UITabBarController, TabBarModule, UITabBarControll
 
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         navigationItem.title = navigationTitle
+        navigationItem.rightBarButtonItem = navigationBarRightItem
     }
 
 }

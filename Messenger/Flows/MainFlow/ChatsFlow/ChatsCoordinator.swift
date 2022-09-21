@@ -12,7 +12,7 @@ final class ChatsCoordinator: BaseCoordinator, Chatsable {
     // MARK: - Private properties
     
     let model: Model
-    let router: Navigationable
+    let router: Routerable
     let moduleFactory: ModuleFactoriable
     let coordinatorFactory: CoordinatorFactoriable
     let rootModule: ChatsModule
@@ -22,7 +22,7 @@ final class ChatsCoordinator: BaseCoordinator, Chatsable {
     // MARK: - Initialization
     
     init(
-        router: Navigationable,
+        router: Routerable,
         model: Model,
         moduleFactory: ModuleFactoriable,
         coordinatorFactory: CoordinatorFactoriable,
@@ -39,10 +39,14 @@ final class ChatsCoordinator: BaseCoordinator, Chatsable {
 
     override func start() {
         model.onDidReceiveMessage = { [weak self] (message) in
+            self?.rootModule.receiveLastMessage(LastMessage(
+                chatID: message.chatID,
+                text: message.text,
+                date: message.date, time: message.time))
             if self == nil { return }
             for module in self!.chatModules {
                 if module.chatID == message.chatID {
-                    module.messagesUpdate = [message]
+                    module.receiveNewMessages([message])
                     return
                 }
             }
@@ -54,14 +58,26 @@ final class ChatsCoordinator: BaseCoordinator, Chatsable {
             if let chatModule = self?.moduleFactory.makeChatModule(chatName: chat.name, chatID: chat.id) {
                 self?.setupChatModule(chatModule)
                 self?.model.messages(for: chat.id) { (messages) in
-                    chatModule.messagesUpdate = messages.value
+                    chatModule.receiveNewMessages(messages.value)
                 }
                 self?.chatModules.append(chatModule)
                 self?.router.push(chatModule, animated: true)
             }
         }
+        rootModule.onNewChat = { [weak self] in
+            if let newChatModule = self?.moduleFactory.makeNewChatModule() {
+                self?.router.present(newChatModule, animated: true)
+            }
+        }
         model.chats() { [weak self] (chats) in
             self?.rootModule.chatsUpdate = chats.value
+            for chat in chats.value {
+                if chat.lastMessage == nil {
+                    self?.model.lastMessage(for: chat.id) { [weak self] (message) in
+                        self?.rootModule.receiveLastMessage(message)
+                    }
+                }
+            }
         }
     }
     
@@ -69,7 +85,15 @@ final class ChatsCoordinator: BaseCoordinator, Chatsable {
     
     private func setupChatModule(_ module: ChatModule) {
         module.onSendMessage = { [weak self] (message) in
+            self?.rootModule.receiveLastMessage(LastMessage(
+                chatID: message.chatID,
+                text: message.text,
+                date: message.date,
+                time: message.time))
             self?.model.sendMessage(message)
+        }
+        module.onBackPressed = { [weak self] in
+            self?.router.pop(animated: true)
         }
     }
     

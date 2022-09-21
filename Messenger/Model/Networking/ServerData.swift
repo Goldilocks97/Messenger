@@ -21,6 +21,14 @@ struct Chat: ServerData {
     var id: Int
     var name: String
     var hostId: Int
+    var lastMessage: LastMessage?
+}
+
+struct LastMessage: ServerData {
+    var chatID: Int
+    var text: String
+    var date: String
+    var time: String
 }
 
 struct Chats: ServerData {
