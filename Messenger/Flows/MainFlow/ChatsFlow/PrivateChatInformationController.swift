@@ -60,7 +60,7 @@ final class PrivateChatInformationController: UIViewController, PrivateChatInfor
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+//        view.backgroundColor = .white
         addSubviews()
         layoutSubviews()
     }

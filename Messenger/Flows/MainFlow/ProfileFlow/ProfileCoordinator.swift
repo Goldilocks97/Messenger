@@ -40,10 +40,33 @@ final class ProfileCoordinator: BaseCoordinator, Profiliable {
             switch(section) {
             case .security:
                 if let securityModule = self?.moduleFactory.makePrivacyAndSecurityModule() {
+                    securityModule.onBackButton = { [weak self] in
+                        self?.router.pop(animated: true)
+                    }
+                    securityModule.onSelectedSection = { [weak self] (section) in
+                        switch(section) {
+                        case .blockedUsers:
+                            if let blockedUsersModule = self?.moduleFactory.makeBlockedUsersModule() {
+                                self?.router.present(blockedUsersModule, animated: true)
+                            }
+                        case .changePassword:
+                            if let changePasswordModule = self?.moduleFactory.makeChangePasswordModule() {
+                                self?.router.present(changePasswordModule, animated: true)
+                            }
+                            
+                        case .passwordOnLogin:
+                            if let passwordOnLogin = self?.moduleFactory.makePasswordOnLoginModule() {
+                                self?.router.present(passwordOnLogin, animated: true)
+                            }
+                        }
+                    }
                     self?.router.push(securityModule, animated: true)
                 }
             case .storage:
                 if let storageModule = self?.moduleFactory.makeStorageModule() {
+                    storageModule.onBackButton = { [weak self] in
+                        self?.router.pop(animated: true)
+                    }
                     self?.router.push(storageModule, animated: true)
                 }
             case .appearance:
@@ -55,7 +78,22 @@ final class ProfileCoordinator: BaseCoordinator, Profiliable {
                     self?.router.present(askQuestionModule, animated: true)
                 }
             case .logout:
-                print(section.rawValue)
+                let actions = [
+                    UIAlertAction(title: "Cancel", style: .cancel) { [weak self] _ in
+                        self?.router.dismiss(animated: true)
+                    },
+                    UIAlertAction(title: "Logout", style: .default) { [weak self] _ in
+                        print("logout")
+                    }
+                ]
+                if let logoutModule = self?.moduleFactory.makeLogoutModule(
+                    title: "Are You Sure?",
+                    message: nil,
+                    preferredStyle: .alert,
+                    actions: actions)
+                {
+                    self?.router.present(logoutModule, animated: true)
+                }
             }
         }
         //router.setRootModule(, animated: true)

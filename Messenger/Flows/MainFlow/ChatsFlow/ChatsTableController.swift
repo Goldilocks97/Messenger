@@ -18,7 +18,10 @@ final class ChatsTableController: UITableViewController, ChatsModule {
     var onNewChat: (() -> Void)?
     var chatsUpdate: [Chat] {
         get { return [] }
-        set { chats += newValue }
+        set {
+            chats += newValue
+            
+        }
     }
 
     // TODO: - CHANGE THIS VAR 
@@ -58,7 +61,7 @@ final class ChatsTableController: UITableViewController, ChatsModule {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        //view.backgroundColor = .white
     }
 
     func receiveLastMessage(_ message: LastMessage) {

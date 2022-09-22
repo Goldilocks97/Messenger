@@ -18,5 +18,9 @@ protocol ModuleFactoriable:
     PrivacyAndSecurityModuleFactoriable,
     StorageModuleFactoriable,
     AppearanceModuleFactoriable,
-    AskQuestionModuleFactoriabel
+    AskQuestionModuleFactoriable,
+    BlockedUsersModuleFactoriable,
+    ChangePasswordModuleFactoriable,
+    PasswordOnLoginModuleFactoriable,
+    LogoutModuleFactoriable
 {}

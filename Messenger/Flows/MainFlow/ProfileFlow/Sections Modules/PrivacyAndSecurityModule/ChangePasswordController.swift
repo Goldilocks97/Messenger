@@ -1,5 +1,5 @@
 //
-//  AskQuestionController.swift
+//  ChangePasswordController.swift
 //  Messenger
 //
 //  Created by Ivan Pavlov on 22.09.2022.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-final class AskQuestionController: UIViewController, AskQuestionModule {
+final class ChangePasswordController: UIViewController, ChangePasswordModule {
     
     // MARK: - Initialization
     

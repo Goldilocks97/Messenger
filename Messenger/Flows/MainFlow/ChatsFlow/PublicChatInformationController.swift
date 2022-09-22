@@ -86,7 +86,7 @@ final class PublicChatInformationController: UIViewController, PublicChatInforma
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         addSubviews()
         layoutSubviews()
     }

@@ -71,7 +71,7 @@ final class ProfileTableController: UITableViewController, ProfileModule {
 
 enum Section: String {
 
-    case security = "Security"
+    case security = "Privacy and Security"
     case storage = "Storage"
     case appearance = "Appearance"
     case askQuestion = "Ask a question"

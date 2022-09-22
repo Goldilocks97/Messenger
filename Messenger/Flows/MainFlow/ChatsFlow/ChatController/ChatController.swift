@@ -40,7 +40,13 @@ final class ChatController: UIViewController, ChatModule {
     // MARK: - Private properties
     
     private var messages = [[Message]]() {
-        didSet { tableView.reloadData() }
+        didSet {
+            tableView.reloadData()
+//            let indexPath = IndexPath(
+//                row: messages[messages.count-1].count-1,
+//                section: messages.count-1)
+//            tableView.scrollToRow(at: indexPath, at: .bottom, animated: false)
+        }
     }
     let cellID = "cellID"
     let headerID = "headerID"
@@ -70,7 +76,7 @@ final class ChatController: UIViewController, ChatModule {
         tableView.delegate = self
         tableView.register(MessageCell.self, forCellReuseIdentifier: cellID)
         tableView.register(DateHeader.self, forHeaderFooterViewReuseIdentifier: self.headerID)
-        tableView.backgroundColor = .white
+        //tableView.backgroundColor = .white
         return tableView
     }()
 

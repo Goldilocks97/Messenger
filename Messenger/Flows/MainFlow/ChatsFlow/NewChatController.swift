@@ -22,7 +22,7 @@ final class NewChatController: UIViewController, NewChatModule {
     private lazy var nicknameField: UITextField = {
         let field = UITextField()
         field.placeholder = "Nickname to add"
-        field.backgroundColor = .white
+        field.backgroundColor = .systemBackground
         field.autocorrectionType = .no
         return field
     }()
@@ -30,7 +30,7 @@ final class NewChatController: UIViewController, NewChatModule {
     private lazy var publicChatName: UITextField = {
         let field = UITextField()
         field.placeholder = "Chat name"
-        field.backgroundColor = .white
+        field.backgroundColor = .systemBackground
         field.autocorrectionType = .no
         return field
     }()
@@ -86,7 +86,7 @@ final class NewChatController: UIViewController, NewChatModule {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = .white
+        view.backgroundColor = .systemBackground
         addSubviews()
         layoutSubviews()
     }
