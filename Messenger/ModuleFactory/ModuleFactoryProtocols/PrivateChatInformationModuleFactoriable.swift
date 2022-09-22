@@ -5,7 +5,7 @@
 //  Created by Ivan Pavlov on 21.09.2022.
 //
 
-protocol PrivateChatInformationFactoriable {
+protocol PrivateChatInformationModuleFactoriable {
     
     func makePrivateChatInformationModule() -> PrivateChatInformationModule
     

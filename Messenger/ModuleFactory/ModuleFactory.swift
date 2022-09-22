@@ -62,5 +62,29 @@ final class ModuleFactory: ModuleFactoriable {
     func makePrivateChatInformationModule() -> PrivateChatInformationModule {
         return PrivateChatInformationController()
     }
+    
+    // MARK: - PrivacyAndSecurity Module
+    
+    func makePrivacyAndSecurityModule() -> PrivacyAndSecurityModule {
+        return PrivacyAndSecurityController()
+    }
+
+    // MARK: - Storage Module
+    
+    func makeStorageModule() -> StorageModule {
+        return StorageController()
+    }
+
+    // MARK: - Appearance Module
+
+    func makeAppearanceModule() -> AppearanceModule {
+        return AppearanceController()
+    }
+
+    // MARK: - AskQuestion Module
+
+    func makeAskQuestionModule() -> AskQuestionModule {
+        return AskQuestionController()
+    }
 
 }

@@ -12,7 +12,11 @@ protocol ModuleFactoriable:
     ChatsModuleFactoriable,
     ProfileModuleFactoriable,
     ChatModuleFactoriable,
-    NewChatFactoriable,
-    PublicChatInformationFactoriable,
-    PrivateChatInformationFactoriable
+    NewChatModuleFactoriable,
+    PublicChatInformationModuleFactoriable,
+    PrivateChatInformationModuleFactoriable,
+    PrivacyAndSecurityModuleFactoriable,
+    StorageModuleFactoriable,
+    AppearanceModuleFactoriable,
+    AskQuestionModuleFactoriabel
 {}

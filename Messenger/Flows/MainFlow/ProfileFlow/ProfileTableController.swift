@@ -11,15 +11,15 @@ final class ProfileTableController: UITableViewController, ProfileModule {
     
     // MARK: - Private Properties
     
-    private let sectionsNames = [
-        "Security",
-        "Storage",
-        "Appearance",
-        "Ask a question",
-        "Logout"]
+    private let sections: [Section] = [
+        .security,
+        .storage,
+        .appearance,
+        .askQuestion,
+        .logout]
     
     private let cellID = "cellID"
-    
+
     // MARK: - ProfileModule Implementation
     
     var systemImage: String { return "brain.head.profile" }
@@ -27,6 +27,7 @@ final class ProfileTableController: UITableViewController, ProfileModule {
     var itemTitle: String { return "Profile" }
     var navigationTitle: String { return "Nickname" }
     var navigationBarRightItem: UIBarButtonItem? { return nil }
+    var onSectionSelected: ((Section) -> Void)?
     
     
     // MARK: - Initialization
@@ -49,17 +50,31 @@ final class ProfileTableController: UITableViewController, ProfileModule {
     ) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
         var config = cell.defaultContentConfiguration()
-        config.text = sectionsNames[indexPath.section]
+        config.text = sections[indexPath.section].rawValue
         cell.contentConfiguration = config
         return cell
     }
-    
+
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 1
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return sectionsNames.count
+        return sections.count
     }
     
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        onSectionSelected?(sections[indexPath.section])
+    }
+    
+}
+
+enum Section: String {
+
+    case security = "Security"
+    case storage = "Storage"
+    case appearance = "Appearance"
+    case askQuestion = "Ask a question"
+    case logout = "Logout"
+
 }
