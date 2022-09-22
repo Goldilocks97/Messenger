@@ -17,6 +17,7 @@
 		2C1B2D7228DB5EC000BA858A /* PrivateChatInformationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B2D7128DB5EC000BA858A /* PrivateChatInformationController.swift */; };
 		2C1B2D7428DB5F0C00BA858A /* PrivateChatInformationModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B2D7328DB5F0C00BA858A /* PrivateChatInformationModule.swift */; };
 		2C1B2D7628DB5F1D00BA858A /* PrivateChatInformationFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B2D7528DB5F1D00BA858A /* PrivateChatInformationFactoriable.swift */; };
+		2C1B2D7828DBE4F300BA858A /* ProfileSectionBaseController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C1B2D7728DBE4F300BA858A /* ProfileSectionBaseController.swift */; };
 		2C2487EC28C38F4800D2EB2B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2487EB28C38F4800D2EB2B /* AppDelegate.swift */; };
 		2C2487EE28C38F4800D2EB2B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2487ED28C38F4800D2EB2B /* SceneDelegate.swift */; };
 		2C2487F628C38F4900D2EB2B /* Messenger.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 2C2487F428C38F4900D2EB2B /* Messenger.xcdatamodeld */; };
@@ -88,6 +89,7 @@
 		2C1B2D7128DB5EC000BA858A /* PrivateChatInformationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateChatInformationController.swift; sourceTree = "<group>"; };
 		2C1B2D7328DB5F0C00BA858A /* PrivateChatInformationModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateChatInformationModule.swift; sourceTree = "<group>"; };
 		2C1B2D7528DB5F1D00BA858A /* PrivateChatInformationFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivateChatInformationFactoriable.swift; sourceTree = "<group>"; };
+		2C1B2D7728DBE4F300BA858A /* ProfileSectionBaseController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileSectionBaseController.swift; sourceTree = "<group>"; };
 		2C2487E828C38F4800D2EB2B /* Messenger.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Messenger.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2C2487EB28C38F4800D2EB2B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2C2487ED28C38F4800D2EB2B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -372,6 +374,7 @@
 			children = (
 				2C585FC228CAA2100042167D /* ProfileCoordinator.swift */,
 				2C585FE128CD21780042167D /* ProfileTableController.swift */,
+				2C1B2D7728DBE4F300BA858A /* ProfileSectionBaseController.swift */,
 			);
 			path = ProfileFlow;
 			sourceTree = "<group>";
@@ -524,6 +527,7 @@
 				2C33051328CE1EB4000A2239 /* MessageCell.swift in Sources */,
 				2C24884128C4FAF500D2EB2B /* Authorizationable.swift in Sources */,
 				2C24885528C6727B00D2EB2B /* Parser.swift in Sources */,
+				2C1B2D7828DBE4F300BA858A /* ProfileSectionBaseController.swift in Sources */,
 				2C2487EE28C38F4800D2EB2B /* SceneDelegate.swift in Sources */,
 				2C1B2D7028DB55DA00BA858A /* PublicChatInformationFactoriable.swift in Sources */,
 				2C24883728C3C42D00D2EB2B /* LoginModule.swift in Sources */,

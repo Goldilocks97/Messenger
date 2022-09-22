@@ -100,7 +100,7 @@ final class ChatsCoordinator: BaseCoordinator, Chatsable {
             self?.router.pop(animated: true)
         }
         module.onChatInformationPressed = { [weak self] (chatID, type) in
-            if type == .privateChat {
+            if type == .publicChat {
                 if let privateInformationModule =
                     self?.moduleFactory.makePrivateChatInformationModule()
                 {

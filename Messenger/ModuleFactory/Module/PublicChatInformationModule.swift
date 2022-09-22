@@ -8,5 +8,7 @@
 protocol PublicChatInformationModule: BaseModule {
     
     var onBackButton: (() -> Void)? { get set }
+    var onLeaveDeleteButton: (() -> Void)? { get set }
+    var onDeleteMessagesFromDevice: (() -> Void)? { get set }
     
 }
