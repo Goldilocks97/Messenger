@@ -9,7 +9,7 @@ import Foundation
 
 protocol ServerData {}
 
-struct User: ServerData {
+struct Client: ServerData {
     
     var name: String
     var tag: String
@@ -21,6 +21,8 @@ struct Chat: ServerData {
     var id: Int
     var name: String
     var hostId: Int
+    var date: String
+    var time: String
     var lastMessage: LastMessage?
 }
 
@@ -83,7 +85,7 @@ struct Messages: ServerData {
     
 }
 
-struct Message {
+struct Message: ServerData {
     
     let chatID: Int
     let text: String
@@ -94,8 +96,34 @@ struct Message {
     
 }
 
+struct FindUserID: ServerData {
+    
+    let response: FindUserIDResponse
+    
+    enum FindUserIDResponse {
+        
+        case notFound
+        case found(Int)
+        
+    }
+    
+}
+
 struct UnknownData: ServerData {
     
     let value: [String]
 
+}
+
+struct User: ServerData {
+    
+    let nickname: String
+    let userID: Int
+    
+}
+
+struct Users: ServerData {
+    
+    let value: [User]
+    
 }

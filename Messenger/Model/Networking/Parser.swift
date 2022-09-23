@@ -109,6 +109,9 @@ struct Parser {
         case .lastMessage:
             let lastMessage = retrieveLastMessage(from: lexemes)
             return (command, lastMessage)
+        case .incomingChat:
+            let chat = retrieveChats(from: lexemes)[0]
+            return (command, chat)
         case .unknown:
             return (command, UnknownData(value: lexemes))
         }
@@ -128,6 +131,8 @@ struct Parser {
             return .incomingMessage
         case "lastmessage":
             return .lastMessage
+        case "incomingChat":
+            return .incomingChat
         default:
             print("unkown command:", command)
             return .unknown
@@ -136,13 +141,20 @@ struct Parser {
     
     private func retrieveChats(from lexemes: [String]) -> [Chat] {
         var chats = [Chat]()
-        for i in stride(from: 0, to: lexemes.count, by: 3) {
+        for i in stride(from: 0, to: lexemes.count, by: 5) {
             guard
                 let id = Int(lexemes[i]),
                 let hostID = Int(lexemes[i+2])
             else { continue }
             let name = lexemes[i+1]
-            chats.append(Chat(id: id, name: name, hostId: hostID))
+            let date = lexemes[i+3]
+            let time = lexemes[i+4]
+            chats.append(Chat(
+                id: id,
+                name: name,
+                hostId: hostID,
+                date: date,
+                time: time))
         }
         return chats
     }
@@ -170,8 +182,12 @@ struct Parser {
     }
     
     private func retrieveLastMessage(from lexemes: [String]) -> LastMessage {
-        if lexemes.isEmpty { return LastMessage(chatID: -1, text: "", date: "", time: "") }
-        let chatID = Int(lexemes[0]) ?? -1
+        guard
+            !lexemes.isEmpty,
+            let chatID = Int(lexemes[0])
+        else {
+            return LastMessage(chatID: -1, text: "", date: "", time: "")
+        }
         let text = lexemes[3]
         let date = lexemes[4]
         let time = lexemes[5]

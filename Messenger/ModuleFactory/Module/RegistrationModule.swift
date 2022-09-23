@@ -7,7 +7,7 @@
 
 protocol RegistrationModule: BaseModule {
     
-    var onFinishing: ((User) -> Void)? { get set }
+    var onFinishing: ((Client) -> Void)? { get set }
     var onRegistration: ((String, String, String) -> Void)? { get set }
     var onBackPressed: (() -> Void)? { get set }
     

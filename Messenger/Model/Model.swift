@@ -8,12 +8,10 @@
 import Foundation
 
 final class Model {
-    
-    var onDidReceiveMessage: ((Message) -> Void)?
 
     // MARK: - User
 
-    var user = User(name: "", tag: "", password: "") {
+    var user = Client(name: "", tag: "", password: "") {
         didSet {
             dataBase.openDataBase(for: user.name)
         }
@@ -31,6 +29,12 @@ final class Model {
     private let handlerQueue: DispatchQueue
     private var handlerStorage = HandlersStorage()
     
+    // These ones usually don't depend on user's actions.
+    // So they can come at any time thus we need to have them
+    // Within the model.
+    var onReceivedMessages: (([Message]) -> Void)?//IncomingMessageHandler?
+    var onReceivedChats: (([Chat]) -> Void)?//IncomingChatHandler?
+    
     // MARK: - Initialization
     
     init(handlerQueue: DispatchQueue) {
@@ -41,7 +45,7 @@ final class Model {
         self.handlerQueue = handlerQueue
         
         self.communicator = ServerCommunicator(host: "185.204.0.32", port: (50000 as UInt16))
-        
+
         self.parser = Parser()
         self.parser.onCookedData = { [weak self] (command, data) in
             self?.dataDidCooked(command: command, data: data)
@@ -65,7 +69,7 @@ final class Model {
             communicator.send(message: message)
         }
     }
-    
+
     func registration(
         name: String,
         username: String,
@@ -73,41 +77,38 @@ final class Model {
         completionHandler: @escaping RegistrationHandler)
     {
         handlerStorage.regHandler = completionHandler
-        if let message =
-            ("#register \(name) \(username) \(password)\n").data(using: .ascii)
-        {
+        if let message = ("#register \(name) \(username) \(password)\n").data(using: .ascii) {
             communicator.send(message: message)
         }
     }
 
-    func chats(completionHandler: @escaping ChatsHandler) {
+    func chats() {
         if dataBase.hasTable(with: "Chats") {
             dataBase.readChats() { [weak self] (data) in
-                self?.handlerQueue.async { completionHandler(data) }
+                self?.handlerQueue.async {
+                    self?.onReceivedChats?(data.value)
+                }
             }
         } else if let message = ("#chats\n").data(using: .ascii) {
             dataBase.createChatsTable()
-            handlerStorage.chatsHandler = completionHandler
-            communicator.send(message: message)
-        }
-    }
-    
-    func messages(for chatID: Int, completionHandler: @escaping MessagesHandler) {
-        if dataBase.hasTable(with: "Messages\(chatID)") {
-            dataBase.readMessages(for: chatID) { [weak self] (data) in
-                self?.handlerQueue.async { completionHandler(data) }
-            }
-        } else if let message = ("#history \(chatID)\n").data(using: .ascii) {
-            dataBase.createMessagesTable(for: chatID)
-            handlerStorage.messagesHandler = completionHandler
             communicator.send(message: message)
         }
     }
 
-    func sendMessage(_ message: Message) {
-        if let messageServer = ("#message \(message.chatID) {\(message.text)}\n").data(using: .ascii) {
-            dataBase.writeMessages(data: Messages(value: [message]), to: message.chatID)
-            communicator.send(message: messageServer)
+    func messages(for chatID: Int) {//, completionHandler: @escaping MessagesHandler) {
+        if dataBase.hasTable(with: "Messages\(chatID)") {
+            dataBase.readMessages(for: chatID) { [weak self] (data) in
+                self?.handlerQueue.async { self?.onReceivedMessages?(data.value) }//completionHandler(data) }
+            }
+        } else if let message = ("#history \(chatID)\n").data(using: .ascii) {
+            dataBase.createMessagesTable(for: chatID)
+            communicator.send(message: message)
+        }
+    }
+
+    func sendMessage(text: String, chatID: Int) {
+        if let message = ("#message \(chatID) {\(text)}\n").data(using: .ascii) {
+            communicator.send(message: message)
         }
     }
     
@@ -116,6 +117,48 @@ final class Model {
             handlerStorage.lastMessageHandler = completionHandler
             communicator.send(message: message)
         }
+
+    }
+    
+    func findUserID(with nickname: String, completionHandler: @escaping FindUserIDHandler) {
+        if let message  = ("#findUser \(nickname)\n").data(using: .ascii) {
+            handlerStorage.findUserIDHandler = completionHandler
+            communicator.send(message: message)
+        }
+    }
+    
+    func createPrivateChat(with userID: Int) {
+        if let message = ("#createchat name \(userID)\n").data(using: .ascii) {
+            communicator.send(message: message)
+        }
+    }
+    
+    func createPublicChat(with usersID: [Int], name: String) {
+        var usersIDString = String()
+        usersID.forEach { usersIDString += String($0) + " " }
+        if let message = ("#createchat \(name) \(usersIDString)\n").data(using: .ascii) {
+            communicator.send(message: message)
+        }
+    }
+    
+    func chatMembers(of chatID: Int, completionHandler: @escaping ChatMembersHandler)  {
+        if dataBase.hasTable(with: "Chatmembers\(chatID)") {
+            dataBase.readChatMembers(of: chatID) { [weak self] (data) in
+                self?.handlerQueue.async { completionHandler(data) }
+            }
+        } else if let message = ("#chatmembers \(chatID)\n").data(using: .ascii) {
+            dataBase.createChatMembers(of: chatID)
+            handlerStorage.chatMembersHandler[chatID] = completionHandler
+            communicator.send(message: message)
+        }
+    }
+    
+    func deleteCache(of chatID: Int) {
+        
+    }
+
+    func deleteAllCache() {
+        
     }
 
     // MARK: - Processing Data
@@ -140,28 +183,37 @@ final class Model {
                 handlerQueue.async { handler(data) }
                 user.name = "pinya2012"
             }
-        case .chats:
-            if let handler = handlerStorage.chatsHandler,
-               let data = data as? Chats
+        case .chats, .incomingChat:
+            if let data = data as? Chats
             {
                 dataBase.writeChats(data: data)
-                handlerQueue.async { handler(data) }
+                handlerQueue.async { [weak self] in
+                    self?.onReceivedChats?(data.value)
+                }
             }
         case .history:
-            if let handler = handlerStorage.messagesHandler,
-               let data = data as? Messages,
+            if let data = data as? Messages,
                let chatID = data.value.first?.chatID
             {
                 dataBase.writeMessages(data: data, to: chatID)
-                handlerQueue.async { handler(data) }
+                handlerQueue.async { [weak self] in
+                    self?.onReceivedMessages?(data.value)
+                    print(data.value)
+                }
             }
         case .incomingMessage:
             if let data = data as? Messages,
-               let message = data.value.first,
-               let handler = onDidReceiveMessage
+               let id = data.value.first?.chatID
             {
-                dataBase.writeMessages(data: data, to: message.chatID)
-                handlerQueue.async { handler(message) }
+                guard dataBase.hasTable(with: "Messages\(id)") else {
+                    dataBase.createMessagesTable(for: id)
+                    communicator.send(message: ("#history \(id)\n").data(using: .ascii)!)
+                    return
+                }
+                dataBase.writeMessages(data: data, to: id)
+                handlerQueue.async { [weak self] in
+                    self?.onReceivedMessages?(data.value)
+                }
             }
         case .lastMessage:
             if let data = data as? LastMessage,
@@ -182,14 +234,20 @@ final class Model {
     typealias LoginHandler = (Login) -> Void
     typealias ChatsHandler = (Chats) -> Void
     typealias LastMessageHandler = (LastMessage) -> Void
+    typealias FindUserIDHandler = (FindUserID) -> Void
+    typealias ChatMembersHandler = (Users) -> Void
+    typealias IncomingChatHandler = (Chat) -> Void
+    typealias IncomingMessageHandler  = (Message) -> Void
 
     private struct HandlersStorage {
         
         var regHandler: RegistrationHandler?
         var loginHandler: LoginHandler?
         var chatsHandler: ChatsHandler?
-        var messagesHandler: MessagesHandler?
+        var messagesHandler = [Int: MessagesHandler]()
         var lastMessageHandler: LastMessageHandler?
+        var findUserIDHandler: FindUserIDHandler?
+        var chatMembersHandler = [Int: ChatMembersHandler]()
         
     }
 

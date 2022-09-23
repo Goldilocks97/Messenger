@@ -11,7 +11,7 @@ final class RegistrationController: UIViewController, RegistrationModule {
     
     // MARK: - RegistrationModule Implementation
     
-    var onFinishing: ((User) -> Void)? // we don't need to return user cause we have it in coordinator
+    var onFinishing: ((Client) -> Void)? // we don't need to return user cause we have it in coordinator
     var onRegistration: ((String, String, String) -> Void)?
     var onBackPressed: (() -> Void)?
     

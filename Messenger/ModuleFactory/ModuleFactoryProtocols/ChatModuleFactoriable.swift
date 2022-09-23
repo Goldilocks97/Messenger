@@ -7,6 +7,6 @@
 
 protocol ChatModuleFactoriable {
     
-    func makeChatModule(chatName: String, chatID: Int, type: ChatType) -> ChatModule
+    func makeChatModule(name: String, ID: Int, type: ChatType) -> ChatModule
     
 }

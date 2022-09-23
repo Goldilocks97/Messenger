@@ -7,7 +7,7 @@
 
 protocol ChatModule: BaseModule {
     
-    var onSendMessage: ((Message) -> Void)? { get set }
+    var onSendMessage: ((String, Int) -> Void)? { get set }
     var onBackPressed: (() -> Void)? { get set }
     var onChatInformationPressed: ((Int, ChatType) -> Void)? { get set }
     var chatID: Int { get set }

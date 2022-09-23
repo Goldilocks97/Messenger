@@ -29,7 +29,7 @@ final class ChatController: UIViewController, ChatModule {
         //self.messages += messages
     }
 
-    var onSendMessage: ((Message) -> Void)?
+    var onSendMessage: ((String, Int) -> Void)?
     var onChatInformationPressed: ((Int, ChatType) -> Void)?
 
     var chatID: Int {
@@ -104,10 +104,10 @@ final class ChatController: UIViewController, ChatModule {
     
     // MARK: - Initialization
     
-    init(chatName: String, chatID: Int, type: ChatType) {
+    init(name: String, ID: Int, type: ChatType) {
         self.type = type
-        self.chatName = chatName
-        self.prchatID = chatID
+        self.chatName = name
+        self.prchatID = ID
         super.init(nibName: nil, bundle: nil)
         tableView.allowsSelection = false
         subscribeToKeyboardNotifications()
@@ -183,22 +183,23 @@ final class ChatController: UIViewController, ChatModule {
             return
         }
         messageField.text = nil
-        let date = Date().currentDate(in: "YYYY-MM-dd")
-        let time = Date().currentDate(in: "HH:mm:ss")
-        let message = Message(chatID: chatID, text: text, senderID: 4, senderUsername: "pinya", date: date, time: time)
-        onSendMessage?(message)
+        onSendMessage?(text, chatID)
+//        let date = Date().currentDate(in: "YYYY-MM-dd")
+//        let time = Date().currentDate(in: "HH:mm:ss")
+//        let message = Message(chatID: chatID, text: text, senderID: 4, senderUsername: "pinya", date: date, time: time)
+//        onSendMessage?(message)
 //        var indexPath = IndexPath()
-        if messages.isEmpty {
-            messages = [[message]]
-//            indexPath = IndexPath(row: 0, section: 0)
-        } else if messages[messages.count - 1].first?.date == date {
-            messages[messages.count - 1].append(message)
-//            indexPath = IndexPath(row: messages[messages.count - 1].count - 1, section: messages.count - 1)
-        } else {
-            messages.append([message])
-//            print(messages.count - 1)
-//            indexPath = IndexPath(row: 0, section: messages.count - 1)
-        }
+//        if messages.isEmpty {
+//            messages = [[message]]
+////            indexPath = IndexPath(row: 0, section: 0)
+//        } else if messages[messages.count - 1].first?.date == date {
+//            messages[messages.count - 1].append(message)
+////            indexPath = IndexPath(row: messages[messages.count - 1].count - 1, section: messages.count - 1)
+//        } else {
+//            messages.append([message])
+////            print(messages.count - 1)
+////            indexPath = IndexPath(row: 0, section: messages.count - 1)
+//        }
 //        tableView.beginUpdates()
 //        tableView.insertRows(at: [indexPath], with: .automatic)
 //        tableView.endUpdates()
@@ -222,7 +223,6 @@ extension ChatController: UITableViewDataSource, UITableViewDelegate {
         if let messageCell = cell as? MessageCell {
             let message = messages[indexPath.section][indexPath.row]
             messageCell.message = message
-            //print(message, indexPath.row)
         }
         return cell
     }

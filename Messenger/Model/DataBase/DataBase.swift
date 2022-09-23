@@ -54,8 +54,8 @@ struct DataBase: DataBasable {
         writingQueue.async {
             for chat in data.value {
                 var statement = """
-                INSERT INTO 'Chats' (id, name, host) \
-                VALUES(\(chat.id), '\(chat.name)', \(chat.hostId));
+                INSERT INTO 'Chats' \
+                VALUES(\(chat.id), '\(chat.name)', \(chat.hostId), '\(chat.date)', '\(chat.time)');
                 """
                 write(statement: statement)
                 statement = "INSERT INTO 'LastMessage' (chat_id) VALUES (\(chat.id));"
@@ -109,9 +109,9 @@ struct DataBase: DataBasable {
     func readChats(completionHandler: @escaping ((Chats) -> Void)) {
         readingQueue.async {
             let statement = """
-                SELECT Chats.id, Chats.name, Chats.host, \
-                LastMessage.text, LastMessage.date, LastMessage.time \
-                FROM 'Chats' JOIN 'LastMessage' on Chats.id = LastMessage.chat_id;
+                SELECT Chats.id, Chats.name, Chats.host, Chats.date, Chats.time, \
+                       LastMessage.text, LastMessage.date, LastMessage.time \
+                 FROM 'Chats'  Join 'LastMessage' on LastMessage.chat_id = Chats.id
             """
             var binaryStatement: OpaquePointer? = nil
             var chats = [Chat]()
@@ -119,18 +119,27 @@ struct DataBase: DataBasable {
                 while sqlite3_step(binaryStatement) == SQLITE_ROW {
                     guard
                         let name = sqlite3_column_text(binaryStatement, 1),
-                        let text = sqlite3_column_text(binaryStatement, 3),
-                        let date = sqlite3_column_text(binaryStatement, 4),
-                        let time = sqlite3_column_text(binaryStatement, 5)
+                        let text = sqlite3_column_text(binaryStatement, 5),
+                        let msgDate = sqlite3_column_text(binaryStatement, 6),
+                        let msgTime = sqlite3_column_text(binaryStatement, 7),
+                        let chatDate = sqlite3_column_text(binaryStatement, 3),
+                        let chatTime = sqlite3_column_text(binaryStatement, 4)
                     else { continue }
                     let chatID = sqlite3_column_int(binaryStatement, 0)
                     let host = sqlite3_column_int(binaryStatement, 2)
                     
-                    var message = String(cString: date) != "-1" ? LastMessage(chatID: Int(chatID), text: String(cString: text), date: String(cString: date), time: String(cString: time)) : nil
+                    let lastMsg = LastMessage(
+                        chatID: Int(chatID),
+                        text: String(cString: text),
+                        date: String(cString: msgDate),
+                        time: String(cString: msgTime))
+                    let message = String(cString: msgDate) != "-1" ? lastMsg : nil
                     let chat = Chat(
                         id: Int(chatID),
                         name: String(cString: name),
                         hostId: Int(host),
+                        date: String(cString: chatDate),
+                        time: String(cString: chatTime),
                         lastMessage: message)
                     chats.append(chat)
                 }
@@ -139,7 +148,7 @@ struct DataBase: DataBasable {
         }
     }
     
-    func readMessages(for chatID: Int, completionHandler: @escaping ((Messages) -> Void)) {
+    func readMessages(for chatID: Int, completionHandler: @escaping (Messages) -> Void) {
         readingQueue.async {
             let statement = "SELECT * FROM 'Messages\(chatID)'"
             var binaryStatement: OpaquePointer? = nil
@@ -168,37 +177,23 @@ struct DataBase: DataBasable {
         }
     }
     
-//    func readLastMessage(for chatID: Int, completionHandler: @escaping ((Message) -> Void)) {
-//        let statement = "SELECT * FROM Messages\(chatID) ORDER BY message_id DESC LIMIT 1"
-//        var binaryStatement: OpaquePointer? = nil
-//        if sqlite3_prepare_v2(dataBase, statement, -1, &binaryStatement, nil) == SQLITE_OK {
-//            sqlite3_step(binaryStatement)
-//            guard
-//                let senderName = sqlite3_column_text(binaryStatement, 1),
-//                let text = sqlite3_column_text(binaryStatement, 3),
-//                let date = sqlite3_column_text(binaryStatement, 4),
-//                let time = sqlite3_column_text(binaryStatement, 5)
-//            else { return }
-//            let chatID = sqlite3_column_int(binaryStatement, 0)
-//            let senderID = sqlite3_column_int(binaryStatement, 2)
-//            let message = Message(
-//                    chatID: Int(chatID),
-//                    text: String(cString: text),
-//                    senderID: Int(senderID),
-//                    senderUsername: String(cString: senderName),
-//                    date: String(cString: date),
-//                    time: String(cString: time))
-//            completionHandler(message)
-//        }
-//    }
+    func readChatMembers(of chatID: Int, completionHandler: @escaping (Users) -> Void) {
+        
+    }
 
     // MARK: - Tables Creation
+    
+    func createChatMembers(of chatID: Int) {
+        
+    }
     
     func createChatsTable() {
         let fields = [
             "id INTEGER",
             "name TEXT",
-            "host INTEGER"]
+            "host INTEGER",
+            "date TEXT",
+            "time TEXT"]
         let name = "Chats"
         createTable(name, with: fields)
         createLastMessageTable()
@@ -263,7 +258,7 @@ struct DataBase: DataBasable {
     }
     
     // MARK: - DataBase Creation
-    
+
     private mutating func createDataBase(for username: String) -> Int32 {
         var documentURL: URL
         do {

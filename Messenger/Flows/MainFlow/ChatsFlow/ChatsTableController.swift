@@ -44,7 +44,7 @@ final class ChatsTableController: UITableViewController, ChatsModule {
     
     // MARK: - ChatsTable Module Implementation
     
-    var onDidSelectChat: ((Chat) -> Void)?
+    var onDidSelectedChat: ((Chat) -> Void)?
     
     // MARK: - Initialization
     
@@ -66,6 +66,12 @@ final class ChatsTableController: UITableViewController, ChatsModule {
 
     func receiveLastMessage(_ message: LastMessage) {
         print(message)
+        for i in chats.indices {
+            if chats[i].id == message.chatID {
+                chats[i].lastMessage = message
+                return
+            }
+        }
     }
 
     // MARK: - Table View Supply
@@ -87,7 +93,7 @@ final class ChatsTableController: UITableViewController, ChatsModule {
     }
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        onDidSelectChat?(chats[indexPath.row])
+        onDidSelectedChat?(chats[indexPath.row])
     }
 
     @objc

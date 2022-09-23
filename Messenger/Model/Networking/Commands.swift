@@ -12,6 +12,7 @@ enum Command {
     case history
     case incomingMessage
     case lastMessage
+    case incomingChat
     case unknown
 }
 

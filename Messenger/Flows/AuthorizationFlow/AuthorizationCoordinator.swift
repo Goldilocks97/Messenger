@@ -52,7 +52,7 @@ final class AuthorizationCoordinator: BaseCoordinator, Authorizationable {
                 if result.response == .success {
                     // TODO: implement it in model???
                     
-                    self?.model.user = User(name: name, tag: username, password: password)
+                    self?.model.user = Client(name: name, tag: username, password: password)
                     self?.onFinishing?()
                 }
             }
