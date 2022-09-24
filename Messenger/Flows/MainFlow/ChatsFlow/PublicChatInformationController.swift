@@ -11,7 +11,7 @@ final class PublicChatInformationController: UIViewController, PublicChatInforma
 
     // MARK: - Private Properties
 
-    private var addedUsers = [String]()
+    private var chatMembers = [User]()
     private let cellID = "CellID"
 
     // MARK: - Subviews
@@ -26,7 +26,7 @@ final class PublicChatInformationController: UIViewController, PublicChatInforma
         return button
     }()
 
-    private lazy var addedUsersTable: UITableView = {
+    private lazy var chatMembersTable: UITableView = {
         let table = UITableView(frame: .zero, style: .plain)
         table.dataSource = self
         table.delegate = self
@@ -35,7 +35,7 @@ final class PublicChatInformationController: UIViewController, PublicChatInforma
         return table
     }()
     
-    private lazy var addedUsersLabel: UILabel = {
+    private lazy var chatMembersLabel: UILabel = {
         let label = UILabel()
         label.text = "Chat members"
         label.backgroundColor = .red
@@ -44,8 +44,8 @@ final class PublicChatInformationController: UIViewController, PublicChatInforma
         return label
     }()
     
-    private lazy var addedUsersStack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [addedUsersLabel, addedUsersTable])
+    private lazy var chatMembersStack: UIStackView = {
+        let stack = UIStackView(arrangedSubviews: [chatMembersLabel, chatMembersTable])
         stack.axis = .vertical
         stack.distribution = .fill
         return stack
@@ -65,7 +65,7 @@ final class PublicChatInformationController: UIViewController, PublicChatInforma
         return button
     }()
 
-    // MARK: - ChatInformationModule Implementation
+    // MARK: - ChatInformationModule Callbacks Implementation
     
     var onBackButton: (() -> Void)?
     var onLeaveDeleteButton: (() -> Void)?
@@ -79,6 +79,13 @@ final class PublicChatInformationController: UIViewController, PublicChatInforma
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    // MARK: - ChatInformationModule Methods Implementation
+    
+    func receiveChatMembers(_ chatMembers: [User]) {
+        self.chatMembers = chatMembers
+        chatMembersTable.reloadData()
     }
     
     // MARK: - View Life Cycle
@@ -97,7 +104,7 @@ final class PublicChatInformationController: UIViewController, PublicChatInforma
         navigationItem.hidesBackButton = true
         navigationItem.leftBarButtonItem = backBarButton
         navigationItem.title = "Public"
-        view.addSubview(addedUsersStack)
+        view.addSubview(chatMembersStack)
         view.addSubview(leaveDeleteChatButton)
         view.addSubview(deleteMessagesFromDeviceButton)
 //        view.addSubview(addedUsersTableLabel)
@@ -105,18 +112,18 @@ final class PublicChatInformationController: UIViewController, PublicChatInforma
     }
     
     private func layoutSubviews() {
-        addedUsersStack.translatesAutoresizingMaskIntoConstraints = false
+        chatMembersStack.translatesAutoresizingMaskIntoConstraints = false
         leaveDeleteChatButton.translatesAutoresizingMaskIntoConstraints = false
         deleteMessagesFromDeviceButton.translatesAutoresizingMaskIntoConstraints = false
 
         NSLayoutConstraint.activate([
-            addedUsersStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
-            addedUsersStack.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            addedUsersStack.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            addedUsersStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/2),
+            chatMembersStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            chatMembersStack.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            chatMembersStack.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            chatMembersStack.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/2),
         
             deleteMessagesFromDeviceButton.topAnchor.constraint(
-                equalTo: addedUsersStack.bottomAnchor),
+                equalTo: chatMembersStack.bottomAnchor),
             deleteMessagesFromDeviceButton.leadingAnchor.constraint(
                 equalTo: view.leadingAnchor),
             deleteMessagesFromDeviceButton.trailingAnchor.constraint(
@@ -160,13 +167,13 @@ extension PublicChatInformationController: UITableViewDataSource, UITableViewDel
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
         var config = cell.defaultContentConfiguration()
-        config.text = "USER"
+        config.text = chatMembers[indexPath.row].nickname
         cell.contentConfiguration = config
         return cell
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 25
+        return chatMembers.isEmpty ? 0 : chatMembers.count
     }
     
 }

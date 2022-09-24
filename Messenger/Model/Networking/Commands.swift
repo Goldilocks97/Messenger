@@ -13,6 +13,8 @@ enum Command {
     case incomingMessage
     case lastMessage
     case incomingChat
+    case findUser
+    case chatMembers
     case unknown
 }
 

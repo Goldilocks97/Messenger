@@ -211,14 +211,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		2C1B2D4228D92B8900BA858A /* ChatController */ = {
+		2C1B2D4228D92B8900BA858A /* ChatModules */ = {
 			isa = PBXGroup;
 			children = (
 				2C585FD528CCE2F30042167D /* ChatController.swift */,
 				2C33051228CE1EB4000A2239 /* MessageCell.swift */,
 				2C1B2D4328D92BB700BA858A /* DateHeader.swift */,
 			);
-			path = ChatController;
+			path = ChatModules;
 			sourceTree = "<group>";
 		};
 		2C1B2D9328DC853200BA858A /* Sections Modules */ = {
@@ -436,8 +436,8 @@
 			isa = PBXGroup;
 			children = (
 				2C585FC028CAA1F80042167D /* ChatsCoordinator.swift */,
-				2C585FD328CCBF030042167D /* ChatsTableController.swift */,
-				2C1B2D4228D92B8900BA858A /* ChatController */,
+				2C58E43B28DF201A00D6B682 /* ChatsTableModules */,
+				2C1B2D4228D92B8900BA858A /* ChatModules */,
 				2C1B2D6B28DB54E300BA858A /* PublicChatInformationController.swift */,
 				2C1B2D7128DB5EC000BA858A /* PrivateChatInformationController.swift */,
 				2C1B2D4528DA453C00BA858A /* NewChatController.swift */,
@@ -463,6 +463,14 @@
 				2C585FDF28CD1DC70042167D /* TabBarableBaseModule.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		2C58E43B28DF201A00D6B682 /* ChatsTableModules */ = {
+			isa = PBXGroup;
+			children = (
+				2C585FD328CCBF030042167D /* ChatsTableController.swift */,
+			);
+			path = ChatsTableModules;
 			sourceTree = "<group>";
 		};
 		2C81649A28DC8D71002857B2 /* PrivacyAndSecurityModule */ = {

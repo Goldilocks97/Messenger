@@ -127,32 +127,27 @@ final class Model {
         }
     }
     
-    func createPrivateChat(with userID: Int) {
-        if let message = ("#createchat name \(userID)\n").data(using: .ascii) {
+    func createPrivateChat(with user_id: Int) {
+        if let message = ("#createchat name \(user_id)\n").data(using: .ascii) {
             communicator.send(message: message)
         }
     }
     
-    func createPublicChat(with usersID: [Int], name: String) {
+    func createPublicChat(with users_id: [Int], name: String) {
         var usersIDString = String()
-        usersID.forEach { usersIDString += String($0) + " " }
+        users_id.forEach { usersIDString += String($0) + " " }
         if let message = ("#createchat \(name) \(usersIDString)\n").data(using: .ascii) {
             communicator.send(message: message)
         }
     }
     
     func chatMembers(of chatID: Int, completionHandler: @escaping ChatMembersHandler)  {
-        if dataBase.hasTable(with: "Chatmembers\(chatID)") {
-            dataBase.readChatMembers(of: chatID) { [weak self] (data) in
-                self?.handlerQueue.async { completionHandler(data) }
-            }
-        } else if let message = ("#chatmembers \(chatID)\n").data(using: .ascii) {
-            dataBase.createChatMembers(of: chatID)
-            handlerStorage.chatMembersHandler[chatID] = completionHandler
+        if let message = ("#chatMembers \(chatID)\n").data(using: .ascii) {
+            handlerStorage.chatMembersHandler = completionHandler
             communicator.send(message: message)
         }
     }
-    
+
     func deleteCache(of chatID: Int) {
         
     }
@@ -222,6 +217,18 @@ final class Model {
                 dataBase.writeLastMessage(data)
                 handlerQueue.async { handler(data) }
             }
+        case .findUser:
+            if let data = data as? FindUserID,
+               let handler = handlerStorage.findUserIDHandler
+            {
+                handlerQueue.async { handler(data.response) }
+            }
+        case .chatMembers:
+            if let data = data as? Users,
+               let handler = handlerStorage.chatMembersHandler
+            {
+                handlerQueue.async { handler(data) }
+            }
         default:
             return
         }
@@ -234,7 +241,7 @@ final class Model {
     typealias LoginHandler = (Login) -> Void
     typealias ChatsHandler = (Chats) -> Void
     typealias LastMessageHandler = (LastMessage) -> Void
-    typealias FindUserIDHandler = (FindUserID) -> Void
+    typealias FindUserIDHandler = (FindUserID.Response) -> Void
     typealias ChatMembersHandler = (Users) -> Void
     typealias IncomingChatHandler = (Chat) -> Void
     typealias IncomingMessageHandler  = (Message) -> Void
@@ -247,7 +254,7 @@ final class Model {
         var messagesHandler = [Int: MessagesHandler]()
         var lastMessageHandler: LastMessageHandler?
         var findUserIDHandler: FindUserIDHandler?
-        var chatMembersHandler = [Int: ChatMembersHandler]()
+        var chatMembersHandler: ChatMembersHandler?
         
     }
 

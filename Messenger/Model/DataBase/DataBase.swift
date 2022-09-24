@@ -177,15 +177,11 @@ struct DataBase: DataBasable {
         }
     }
     
-    func readChatMembers(of chatID: Int, completionHandler: @escaping (Users) -> Void) {
-        
-    }
+//    func readChatMembers(of chatID: Int, completionHandler: @escaping (Users) -> Void) {
+//
+//    }
 
     // MARK: - Tables Creation
-    
-    func createChatMembers(of chatID: Int) {
-        
-    }
     
     func createChatsTable() {
         let fields = [
@@ -211,13 +207,14 @@ struct DataBase: DataBasable {
         createTable(name, with: fields)
     }
     
-    private func createChatsMembersTable() {
-        let fields = [
-            "chat_id INTEGER",
-            "user_id INTEGER"]
-        let name = "ChatsMembers"
-        createTable(name, with: fields)
-    }
+//    func createChatsMembersTable() {
+//        let fields = [
+//            "chat_id INTEGER",
+//            "user_id INTEGER",
+//            "nickname TEXT"]
+//        let name = "ChatsMembers"
+//        createTable(name, with: fields)
+//    }
     
     private func createUsersTable() {
         let fields = [

@@ -9,6 +9,12 @@ import UIKit
 
 final class NewChatController: UIViewController, NewChatModule {
     
+    // MARK: - NewChatModule Callbacks Implementation
+    
+    var onCreatePublicChat: ((String, [Int]) -> Void)?
+    var onCreatePrivateChat: ((Int) -> Void)?
+    var onFindUser: ((String) -> Void)?
+    
     // MARK: - Subviews
     
     private lazy var typeOfChatControl: UISegmentedControl = {
@@ -49,7 +55,7 @@ final class NewChatController: UIViewController, NewChatModule {
         return stack
     }()
     
-    private lazy var addedUsers: UITableView = {
+    private lazy var addedUsersTable: UITableView = {
         let table = UITableView(frame: CGRect.zero, style: .insetGrouped)
         table.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
         table.dataSource = self
@@ -64,11 +70,16 @@ final class NewChatController: UIViewController, NewChatModule {
         return button
     }()
     
+    // MARK: - Private Properties
+    
     private lazy var constraits: [ChatType: NSLayoutConstraint] = [
         .privateChat: findStack.topAnchor.constraint(equalTo: typeOfChatControl.bottomAnchor),
         .publicChat: findStack.topAnchor.constraint(equalTo: publicChatName.bottomAnchor)]
-    
     private let cellID = "cellID"
+    private var lastSearchNickname = String()
+    private var addedUsers = [(String, Int)]() {
+        didSet { addedUsersTable.reloadData() }
+    }
     
     // MARK: - Initialization
     
@@ -90,6 +101,18 @@ final class NewChatController: UIViewController, NewChatModule {
         addSubviews()
         layoutSubviews()
     }
+    
+    // MARK: - NewChatModule Methods Implementation
+    
+    func userSearchResponse(response: FindUserID.Response) {
+        switch(response) {
+        case .found(let id):
+            addedUsers.append((lastSearchNickname, id))
+        case .notFound:
+            print("not found")
+        }
+        nicknameField.text = nil
+    }
 
     // MARK: - Configurate View
     
@@ -97,7 +120,7 @@ final class NewChatController: UIViewController, NewChatModule {
         view.addSubview(typeOfChatControl)
         view.addSubview(publicChatName)
         view.addSubview(findStack)
-        view.addSubview(addedUsers)
+        view.addSubview(addedUsersTable)
         view.addSubview(createChatButton)
     }
 
@@ -105,7 +128,7 @@ final class NewChatController: UIViewController, NewChatModule {
         typeOfChatControl.translatesAutoresizingMaskIntoConstraints = false
         publicChatName.translatesAutoresizingMaskIntoConstraints = false
         findStack.translatesAutoresizingMaskIntoConstraints = false
-        addedUsers.translatesAutoresizingMaskIntoConstraints = false
+        addedUsersTable.translatesAutoresizingMaskIntoConstraints = false
         createChatButton.translatesAutoresizingMaskIntoConstraints = false
 
         
@@ -122,11 +145,11 @@ final class NewChatController: UIViewController, NewChatModule {
             findStack.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             findStack.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
-            addedUsers.topAnchor.constraint(equalTo: findStack.bottomAnchor),
-            addedUsers.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            addedUsers.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            addedUsersTable.topAnchor.constraint(equalTo: findStack.bottomAnchor),
+            addedUsersTable.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            addedUsersTable.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             
-            createChatButton.topAnchor.constraint(equalTo: addedUsers.bottomAnchor),
+            createChatButton.topAnchor.constraint(equalTo: addedUsersTable.bottomAnchor),
             createChatButton.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             createChatButton.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             createChatButton.bottomAnchor.constraint(equalTo: view.bottomAnchor)
@@ -159,27 +182,36 @@ final class NewChatController: UIViewController, NewChatModule {
         default:
             break
         }
+        addedUsersTable.reloadData()
     }
     
     @objc
     private func doFindUser() {
-        
+        guard let nick = nicknameField.text else {
+            return
+        }
+        lastSearchNickname = nick
+        onFindUser?(nick)
     }
     
     @objc
     private func doCreateChat() {
-    
+        if addedUsers.isEmpty {
+            return
+        }
+        switch(typeOfChatControl.selectedSegmentIndex) {
+        case 0:
+            onCreatePrivateChat?(addedUsers[0].1)
+        case 1:
+            guard
+                let chatName = publicChatName.text,
+                addedUsers.count >= 2 // TODO: Check it in coordinator
+            else { return }
+            onCreatePublicChat?(chatName, addedUsers.map { $0.1 })
+        default:
+            break
+        }
     }
-    
-//    // MARK: - Types of Chat
-//
-//    private enum ChatType {
-//
-//        case privateType = 0
-//        case publicType = 1
-//
-//    }
-
 }
 
 extension NewChatController: UITableViewDataSource, UITableViewDelegate {
@@ -187,13 +219,16 @@ extension NewChatController: UITableViewDataSource, UITableViewDelegate {
     // MARK: - TableView DataSource
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 15
+        if addedUsers.isEmpty {
+            return 0
+        }
+        return typeOfChatControl.selectedSegmentIndex == 0 ? 1 : addedUsers.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
         var config = cell.defaultContentConfiguration()
-        config.text = "USER"
+        config.text = addedUsers[indexPath.row].0
         cell.contentConfiguration = config
         return cell
     }

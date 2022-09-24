@@ -15,10 +15,10 @@ protocol DataBasable {
     
     func readChats(completionHandler: @escaping ((Chats) -> Void))
     func readMessages(for chatID: Int, completionHandler: @escaping ((Messages) -> Void))
-    func readChatMembers(of chatID: Int, completionHandler: @escaping (Users) -> Void)
+//    func readChatMembers(of chatID: Int, completionHandler: @escaping (Users) -> Void)
     
     func hasTable(with name: String) -> Bool
     func createMessagesTable(for chatID: Int)
-    func createChatMembers(of chatID: Int)
+//    func createChatMembers(of chatID: Int)
     func createChatsTable()
 }

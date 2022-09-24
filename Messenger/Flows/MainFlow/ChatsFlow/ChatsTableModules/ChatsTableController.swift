@@ -9,42 +9,55 @@ import UIKit
 
 final class ChatsTableController: UITableViewController, ChatsModule {
     
-    // MARK: - ChatsModule Implementation
+    // MARK: - TabBarableModule Implementation
     
     var systemImage: String { return "envelope.fill" } 
     var systemImageColor: UIColor { return .red }
     var itemTitle: String { return "Chats" }
     var navigationTitle: String { return "Chats" }
-    var onNewChat: (() -> Void)?
-    var chatsUpdate: [Chat] {
-        get { return [] }
-        set {
-            chats += newValue
-            
+    
+    func receiveNewChats(_ chats: [Chat]) {
+        if !self.chats.isEmpty {
+            self.chats.insert(chats[0], at: 0)
+        } else {
+            self.chats = chats.sorted(by: >)
+        }
+    }
+    
+    func receiveLastMessage(_ message: LastMessage) {
+        if let index = chats.firstIndex(where: { $0.id == message.chatID }) {
+            if (chats[index].lastMessage?.date != message.date || chats[index].lastMessage?.time != message.time) ||
+                chats[index].lastMessage == nil
+            {
+                chats[index].lastMessage = message
+                
+                // TODO: - Implement personal sort (via binary search??)
+                
+                self.chats = chats.sorted(by: >)
+            }
         }
     }
 
-    // TODO: - CHANGE THIS VAR 
-    // MARK: - Data
-    
-    var chats = [Chat]() {
-        didSet {
-            tableView.reloadData()
-        }
-    }
-    
     // MARK: - Private properties
     
     private let cellID = "cellID"
+    
     var navigationBarRightItem: UIBarButtonItem? {
         let item = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(doNewChat))
         item.tintColor = .red
         return item
     }
     
+    private var chats = [Chat]() {
+        didSet {
+            tableView.reloadData()
+        }
+    }
+    
     // MARK: - ChatsTable Module Implementation
     
     var onDidSelectedChat: ((Chat) -> Void)?
+    var onNewChatPressed: (() -> Void)?
     
     // MARK: - Initialization
     
@@ -64,15 +77,6 @@ final class ChatsTableController: UITableViewController, ChatsModule {
         //view.backgroundColor = .white
     }
 
-    func receiveLastMessage(_ message: LastMessage) {
-        print(message)
-        for i in chats.indices {
-            if chats[i].id == message.chatID {
-                chats[i].lastMessage = message
-                return
-            }
-        }
-    }
 
     // MARK: - Table View Supply
 
@@ -98,7 +102,7 @@ final class ChatsTableController: UITableViewController, ChatsModule {
 
     @objc
     private func doNewChat() {
-        onNewChat?()
+        onNewChatPressed?()
     }
 
 }

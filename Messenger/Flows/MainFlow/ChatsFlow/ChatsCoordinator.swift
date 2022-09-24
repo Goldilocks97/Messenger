@@ -17,6 +17,9 @@ final class ChatsCoordinator: BaseCoordinator, Chatsable {
     let coordinatorFactory: CoordinatorFactoriable
     let rootModule: ChatsModule
     
+    
+    // TODO: - Cache is better.
+
     private var chatModules = [Int: ChatModule]()
     
     // MARK: - Initialization
@@ -49,7 +52,7 @@ final class ChatsCoordinator: BaseCoordinator, Chatsable {
         rootModule.onDidSelectedChat = { [weak self] (chat) in
             self?.userDidSelectedChat(chat)
         }
-        rootModule.onNewChat = { [weak self] in
+        rootModule.onNewChatPressed = { [weak self] in
             self?.userDidPressedNewChatButton()
         }
         model.chats()
@@ -58,7 +61,7 @@ final class ChatsCoordinator: BaseCoordinator, Chatsable {
     // MARK: - Callbacks for Modules
     
     private func modelDidReceivedChats(_ chats: [Chat]) {
-        rootModule.chatsUpdate = chats
+        rootModule.receiveNewChats(chats)
         chats.forEach(where: { $0.lastMessage == nil }) {
             model.lastMessage(for: $0.id) { [weak self] (message) in
                 self?.rootModule.receiveLastMessage(message)
@@ -67,14 +70,17 @@ final class ChatsCoordinator: BaseCoordinator, Chatsable {
     }
 
     private func modelDidReceivedMessages(_ messages: [Message]) {
-        // TODO: Implement
         if let chatID = messages.first?.chatID {
             chatModules[chatID]?.receiveNewMessages(messages)
+            if let last = messages.last {
+                rootModule.receiveLastMessage(last.transformIntoLastMessage())
+            }
         }
     }
-    
+
     private func userDidPressedNewChatButton() {
         let newChatModule = moduleFactory.makeNewChatModule()
+        setupNewChatModule(newChatModule)
         router.present(newChatModule, animated: true)
     }
     
@@ -82,15 +88,14 @@ final class ChatsCoordinator: BaseCoordinator, Chatsable {
         var chatModule: ChatModule
         if let module = chatModules[chat.id] {
             chatModule = module
+
         } else {
             let type: ChatType = chat.hostId != -1 ? .publicChat : .privateChat
             chatModule = moduleFactory.makeChatModule(name: chat.name, ID: chat.id, type: type)
             chatModules[chat.id] = chatModule
+            setupChatModule(chatModule)
+            model.messages(for: chat.id)
         }
-        setupChatModule(chatModule)
-        model.messages(for: chat.id) //{ (messages) in
-//            chatModule.receiveNewMessages(messages.value)
-//        }
         router.push(chatModule, animated: true)
     }
     
@@ -103,11 +108,28 @@ final class ChatsCoordinator: BaseCoordinator, Chatsable {
         case .publicChat:
             let publicInformationModule = moduleFactory.makePublicChatInformationModule()
             setupPublicChatInformationModule(publicInformationModule)
+            model.chatMembers(of: chatID) { (users) in
+                publicInformationModule.receiveChatMembers(users.value)
+            }
             router.push(publicInformationModule, animated: true)
         }
     }
     
     // MARK: - Setup Modules
+    
+    private func setupNewChatModule(_ module: NewChatModule) {
+        module.onCreatePrivateChat = { [weak self] (user) in
+            self?.model.createPrivateChat(with: user)
+        }
+        module.onCreatePublicChat = { [weak self] (name, users) in
+            self?.model.createPublicChat(with: users, name: name)
+        }
+        module.onFindUser = { [weak self] (nickname) in
+            self?.model.findUserID(with: nickname) { (response) in
+                module.userSearchResponse(response: response)
+            }
+        }
+    }
     
     private func setupChatModule(_ module: ChatModule) {
         module.onSendMessage = { [weak self] (text, chatID) in
@@ -132,17 +154,6 @@ final class ChatsCoordinator: BaseCoordinator, Chatsable {
             self?.router.pop(animated: true)
         }
     }
-    
-    // MARK: - Helping Methods
-    
-    private func transformIntoLastMessage(_ message: Message) -> LastMessage {
-        let chatID = message.chatID
-        let text = message.text
-        let date = message.date
-        let time = message.time
-        return LastMessage(chatID: chatID, text: text, date: date, time: time)
-    }
-
 }
 
 // MARK: - Extensions

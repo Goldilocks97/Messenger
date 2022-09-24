@@ -22,11 +22,16 @@ final class ChatController: UIViewController, ChatModule {
             }
             let sortedKeys = groupedMessage.keys.sorted()
             for key in sortedKeys {
-                //print(groupedMessage[key] ?? [])
                 self.messages.append(groupedMessage[key] ?? [])
             }
+        } else {
+            let message = messages[0]
+            if self.messages.last?.first?.date == message.date {
+                self.messages[self.messages.count - 1].append(message)
+            } else {
+                self.messages.append([message])
+            }
         }
-        //self.messages += messages
     }
 
     var onSendMessage: ((String, Int) -> Void)?
@@ -179,31 +184,10 @@ final class ChatController: UIViewController, ChatModule {
 
     @objc
     private func doSendMessage() {
-        guard let text = messageField.text else {
-            return
+        if let text = messageField.text {
+            messageField.text = nil
+            onSendMessage?(text, chatID)
         }
-        messageField.text = nil
-        onSendMessage?(text, chatID)
-//        let date = Date().currentDate(in: "YYYY-MM-dd")
-//        let time = Date().currentDate(in: "HH:mm:ss")
-//        let message = Message(chatID: chatID, text: text, senderID: 4, senderUsername: "pinya", date: date, time: time)
-//        onSendMessage?(message)
-//        var indexPath = IndexPath()
-//        if messages.isEmpty {
-//            messages = [[message]]
-////            indexPath = IndexPath(row: 0, section: 0)
-//        } else if messages[messages.count - 1].first?.date == date {
-//            messages[messages.count - 1].append(message)
-////            indexPath = IndexPath(row: messages[messages.count - 1].count - 1, section: messages.count - 1)
-//        } else {
-//            messages.append([message])
-////            print(messages.count - 1)
-////            indexPath = IndexPath(row: 0, section: messages.count - 1)
-//        }
-//        tableView.beginUpdates()
-//        tableView.insertRows(at: [indexPath], with: .automatic)
-//        tableView.endUpdates()
-//        tableView.scrollToRow(at: indexPath, at: .bottom, animated: true)
     }
 
 }

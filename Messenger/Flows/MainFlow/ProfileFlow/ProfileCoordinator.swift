@@ -16,9 +16,9 @@ final class ProfileCoordinator: BaseCoordinator, Profiliable {
     let moduleFactory: ModuleFactoriable
     let coordinatorFactory: CoordinatorFactoriable
     let rootModule: ProfileModule
-    
+
     // MARK: - Initialization
-    
+
     init(
         router: Routerable,
         model: Model,
@@ -37,66 +37,65 @@ final class ProfileCoordinator: BaseCoordinator, Profiliable {
     
     override func start() {
         rootModule.onSectionSelected = { [weak self] (section) in
-            switch(section) {
-            case .security:
-                if let securityModule = self?.moduleFactory.makePrivacyAndSecurityModule() {
-                    securityModule.onBackButton = { [weak self] in
-                        self?.router.pop(animated: true)
-                    }
-                    securityModule.onSelectedSection = { [weak self] (section) in
-                        switch(section) {
-                        case .blockedUsers:
-                            if let blockedUsersModule = self?.moduleFactory.makeBlockedUsersModule() {
-                                self?.router.present(blockedUsersModule, animated: true)
-                            }
-                        case .changePassword:
-                            if let changePasswordModule = self?.moduleFactory.makeChangePasswordModule() {
-                                self?.router.present(changePasswordModule, animated: true)
-                            }
-                            
-                        case .passwordOnLogin:
-                            if let passwordOnLogin = self?.moduleFactory.makePasswordOnLoginModule() {
-                                self?.router.present(passwordOnLogin, animated: true)
-                            }
-                        }
-                    }
-                    self?.router.push(securityModule, animated: true)
-                }
-            case .storage:
-                if let storageModule = self?.moduleFactory.makeStorageModule() {
-                    storageModule.onBackButton = { [weak self] in
-                        self?.router.pop(animated: true)
-                    }
-                    self?.router.push(storageModule, animated: true)
-                }
-            case .appearance:
-                if let appearanceModule = self?.moduleFactory.makeAppearanceModule() {
-                    self?.router.present(appearanceModule, animated: true)
-                }
-            case .askQuestion:
-                if let askQuestionModule = self?.moduleFactory.makeAskQuestionModule() {
-                    self?.router.present(askQuestionModule, animated: true)
-                }
-            case .logout:
-                let actions = [
-                    UIAlertAction(title: "Cancel", style: .cancel) { [weak self] _ in
-                        self?.router.dismiss(animated: true)
-                    },
-                    UIAlertAction(title: "Logout", style: .default) { [weak self] _ in
-                        print("logout")
-                    }
-                ]
-                if let logoutModule = self?.moduleFactory.makeLogoutModule(
-                    title: "Are You Sure?",
-                    message: nil,
-                    preferredStyle: .alert,
-                    actions: actions)
-                {
-                    self?.router.present(logoutModule, animated: true)
-                }
-            }
+            self?.userDidSelectedSection(section)
         }
-        //router.setRootModule(, animated: true)
+    }
+    
+    // MARK: - Callbacks for Modules
+    
+    private func userDidSelectedSectionInSecurityModule(_ section: PrivacyAndSecuritySection) {
+        switch(section) {
+        case .blockedUsers:
+            let blockedUsersModule = moduleFactory.makeBlockedUsersModule()
+            router.present(blockedUsersModule, animated: true)
+        case .changePassword:
+            let changePasswordModule = moduleFactory.makeChangePasswordModule()
+            router.present(changePasswordModule, animated: true)
+        case .passwordOnLogin:
+            let passwordOnLogin = moduleFactory.makePasswordOnLoginModule()
+            router.present(passwordOnLogin, animated: true)
+        }
+    }
+    
+    private func userDidSelectedSection(_ section: Section) {
+        switch(section) {
+        case .security:
+            let securityModule = moduleFactory.makePrivacyAndSecurityModule()
+            securityModule.onBackButton = { [weak self] in
+                self?.router.pop(animated: true)
+            }
+            securityModule.onSelectedSection = { [weak self] (section) in
+                self?.userDidSelectedSectionInSecurityModule(section)
+            }
+            router.push(securityModule, animated: true)
+        case .storage:
+            let storageModule = moduleFactory.makeStorageModule()
+            storageModule.onBackButton = { [weak self] in
+                self?.router.pop(animated: true)
+            }
+            router.push(storageModule, animated: true)
+        case .appearance:
+            let appearanceModule = moduleFactory.makeAppearanceModule()
+            router.present(appearanceModule, animated: true)
+        case .askQuestion:
+            let askQuestionModule = moduleFactory.makeAskQuestionModule()
+            router.present(askQuestionModule, animated: true)
+        case .logout:
+            let actions = [
+                UIAlertAction(title: "Cancel", style: .cancel) { [weak self] _ in
+                    self?.router.dismiss(animated: true)
+                },
+                UIAlertAction(title: "Logout", style: .default) { [weak self] _ in
+                    print("logout")
+                }
+            ]
+            let logoutModule = moduleFactory.makeLogoutModule(
+                title: "Are You Sure?",
+                message: nil,
+                preferredStyle: .alert,
+                actions: actions)
+            router.present(logoutModule, animated: true)
+        }
     }
     
 }

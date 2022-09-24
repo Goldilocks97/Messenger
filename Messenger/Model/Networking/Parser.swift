@@ -29,6 +29,7 @@ struct Parser {
             return
         }
         for char in str {
+//            print("my char: \(char)")
             automate(char: char)
             if state == .space {
                 state = .data
@@ -102,16 +103,17 @@ struct Parser {
             return (command, Registration(response: Int(lexemes[0])))
         case .login:
             return (command, Login(response: Int(lexemes[0])))
-        case .chats:
+        case .chats, .incomingChat:
             return (command, Chats(value: retrieveChats(from: lexemes)))
         case .history, .incomingMessage:
             return (command, Messages(value: retrieveMessages(from: lexemes)))
         case .lastMessage:
             let lastMessage = retrieveLastMessage(from: lexemes)
             return (command, lastMessage)
-        case .incomingChat:
-            let chat = retrieveChats(from: lexemes)[0]
-            return (command, chat)
+        case .findUser:
+            return (command, FindUserID(response: Int(lexemes[0])))
+        case .chatMembers:
+            return (command, Users(value: retrieveUsers(from: lexemes)))
         case .unknown:
             return (command, UnknownData(value: lexemes))
         }
@@ -133,6 +135,10 @@ struct Parser {
             return .lastMessage
         case "incomingChat":
             return .incomingChat
+        case "findUser":
+            return .findUser
+        case "chatMembers":
+            return .chatMembers
         default:
             print("unkown command:", command)
             return .unknown
@@ -157,6 +163,18 @@ struct Parser {
                 time: time))
         }
         return chats
+    }
+    
+    private func retrieveUsers(from lexemes: [String]) -> [User] {
+        var users = [User]()
+        for i in stride(from: 0, to: lexemes.count, by: 2) {
+            guard let id = Int(lexemes[i+1]) else {
+                continue
+            }
+            let nickname = lexemes[i]
+            users.append(User(nickname: nickname, userID: id))
+        }
+        return users
     }
 
     private func retrieveMessages(from lexemes: [String]) -> [Message] {

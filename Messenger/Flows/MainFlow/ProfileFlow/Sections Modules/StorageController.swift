@@ -100,7 +100,7 @@ final class StorageController: ProfileSectionBaseController, StorageModule {
             chatsTableLabel.trailingAnchor.constraint(equalTo: storageChatsTable.trailingAnchor),
             chatsTableLabel.heightAnchor.constraint(equalTo: view.heightAnchor, multiplier: 1/20),
             
-            storageUsedStack.topAnchor.constraint(equalTo: view.topAnchor),
+            storageUsedStack.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
             storageUsedStack.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             storageUsedStack.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             storageUsedStack.bottomAnchor.constraint(equalTo: chatsTableLabel.topAnchor)])

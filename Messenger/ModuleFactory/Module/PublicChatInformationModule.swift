@@ -11,4 +11,6 @@ protocol PublicChatInformationModule: BaseModule {
     var onLeaveDeleteButton: (() -> Void)? { get set }
     var onDeleteMessagesFromDevice: (() -> Void)? { get set }
     
+    func receiveChatMembers(_ chatmembers: [User])
+    
 }
