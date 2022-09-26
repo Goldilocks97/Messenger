@@ -86,6 +86,7 @@
 		2C585FE228CD21780042167D /* ProfileTableController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FE128CD21780042167D /* ProfileTableController.swift */; };
 		2C585FE728CD22F90042167D /* ProfileModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FE628CD22F90042167D /* ProfileModule.swift */; };
 		2C585FEB28CD24D60042167D /* ProfileModuleFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C585FEA28CD24D60042167D /* ProfileModuleFactoriable.swift */; };
+		2C58E43D28DF20FF00D6B682 /* ChatCell + ChatCellData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C58E43C28DF20FF00D6B682 /* ChatCell + ChatCellData.swift */; };
 		2C81649C28DC8D9B002857B2 /* BlockedUsersController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C81649B28DC8D9B002857B2 /* BlockedUsersController.swift */; };
 		2C81649E28DC8DDE002857B2 /* BlockedUsersModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C81649D28DC8DDE002857B2 /* BlockedUsersModule.swift */; };
 		2C8164A028DC8E0D002857B2 /* ChangePasswordController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C81649F28DC8E0D002857B2 /* ChangePasswordController.swift */; };
@@ -95,6 +96,8 @@
 		2C8164A828DC8F2B002857B2 /* BlockedUsersModuleFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8164A728DC8F2B002857B2 /* BlockedUsersModuleFactoriable.swift */; };
 		2C8164AA28DC8FEA002857B2 /* ChangePasswordModuleFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8164A928DC8FEA002857B2 /* ChangePasswordModuleFactoriable.swift */; };
 		2C8164AC28DC9010002857B2 /* PasswordOnLoginModuleFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8164AB28DC9010002857B2 /* PasswordOnLoginModuleFactoriable.swift */; };
+		2C850E7D28DF68A9008435B3 /* NotificationKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C850E7C28DF68A9008435B3 /* NotificationKeys.swift */; };
+		2C87101928DFD2FB003B9B42 /* KeyChain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C87101828DFD2FB003B9B42 /* KeyChain.swift */; };
 		2C8C127528C6868E00F3A650 /* Commands.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8C127428C6868E00F3A650 /* Commands.swift */; };
 		2C8DDF1B28DCD5E5002B4DA5 /* LogoutModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8DDF1A28DCD5E5002B4DA5 /* LogoutModule.swift */; };
 		2C8DDF1D28DCD628002B4DA5 /* LogoutModuleFactoriable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C8DDF1C28DCD628002B4DA5 /* LogoutModuleFactoriable.swift */; };
@@ -184,6 +187,7 @@
 		2C585FE128CD21780042167D /* ProfileTableController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileTableController.swift; sourceTree = "<group>"; };
 		2C585FE628CD22F90042167D /* ProfileModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModule.swift; sourceTree = "<group>"; };
 		2C585FEA28CD24D60042167D /* ProfileModuleFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileModuleFactoriable.swift; sourceTree = "<group>"; };
+		2C58E43C28DF20FF00D6B682 /* ChatCell + ChatCellData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ChatCell + ChatCellData.swift"; sourceTree = "<group>"; };
 		2C81649B28DC8D9B002857B2 /* BlockedUsersController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUsersController.swift; sourceTree = "<group>"; };
 		2C81649D28DC8DDE002857B2 /* BlockedUsersModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUsersModule.swift; sourceTree = "<group>"; };
 		2C81649F28DC8E0D002857B2 /* ChangePasswordController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordController.swift; sourceTree = "<group>"; };
@@ -193,6 +197,8 @@
 		2C8164A728DC8F2B002857B2 /* BlockedUsersModuleFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockedUsersModuleFactoriable.swift; sourceTree = "<group>"; };
 		2C8164A928DC8FEA002857B2 /* ChangePasswordModuleFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangePasswordModuleFactoriable.swift; sourceTree = "<group>"; };
 		2C8164AB28DC9010002857B2 /* PasswordOnLoginModuleFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordOnLoginModuleFactoriable.swift; sourceTree = "<group>"; };
+		2C850E7C28DF68A9008435B3 /* NotificationKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationKeys.swift; sourceTree = "<group>"; };
+		2C87101828DFD2FB003B9B42 /* KeyChain.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyChain.swift; sourceTree = "<group>"; };
 		2C8C127428C6868E00F3A650 /* Commands.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Commands.swift; sourceTree = "<group>"; };
 		2C8DDF1A28DCD5E5002B4DA5 /* LogoutModule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutModule.swift; sourceTree = "<group>"; };
 		2C8DDF1C28DCD628002B4DA5 /* LogoutModuleFactoriable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogoutModuleFactoriable.swift; sourceTree = "<group>"; };
@@ -259,6 +265,7 @@
 				2C24881D28C3A3F000D2EB2B /* Flows */,
 				2C24884728C4FD0E00D2EB2B /* Model */,
 				2C2487EB28C38F4800D2EB2B /* AppDelegate.swift */,
+				2C850E7C28DF68A9008435B3 /* NotificationKeys.swift */,
 				2C2487F728C38F4A00D2EB2B /* Assets.xcassets */,
 				2C2487F928C38F4A00D2EB2B /* LaunchScreen.storyboard */,
 				2C2487FC28C38F4A00D2EB2B /* Info.plist */,
@@ -428,6 +435,7 @@
 				2C24884A28C5090800D2EB2B /* Model.swift */,
 				2CA76F3B28CF4411002212D5 /* Networking */,
 				2CA76F3628CF4392002212D5 /* DataBase */,
+				2C87101828DFD2FB003B9B42 /* KeyChain.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -469,6 +477,7 @@
 			isa = PBXGroup;
 			children = (
 				2C585FD328CCBF030042167D /* ChatsTableController.swift */,
+				2C58E43C28DF20FF00D6B682 /* ChatCell + ChatCellData.swift */,
 			);
 			path = ChatsTableModules;
 			sourceTree = "<group>";
@@ -583,6 +592,7 @@
 				2C24885328C65F2700D2EB2B /* RegistrationController.swift in Sources */,
 				2C585FE728CD22F90042167D /* ProfileModule.swift in Sources */,
 				2C1B2D7228DB5EC000BA858A /* PrivateChatInformationController.swift in Sources */,
+				2C58E43D28DF20FF00D6B682 /* ChatCell + ChatCellData.swift in Sources */,
 				2C585FB928CAA10E0042167D /* Profiliable.swift in Sources */,
 				2C585FC928CAA4730042167D /* ProfileCoordinatorFactoriable.swift in Sources */,
 				2C1B2D4828DA46AC00BA858A /* NewChatModule.swift in Sources */,
@@ -626,6 +636,7 @@
 				2C1B2D4628DA453C00BA858A /* NewChatController.swift in Sources */,
 				2C1B2D9028DC6AF600BA858A /* AskQuestionModuleFactoriable.swift in Sources */,
 				2C81649C28DC8D9B002857B2 /* BlockedUsersController.swift in Sources */,
+				2C87101928DFD2FB003B9B42 /* KeyChain.swift in Sources */,
 				2C1B2D8C28DC6A6000BA858A /* StorageModuleFactoriable.swift in Sources */,
 				2C24880428C38F9F00D2EB2B /* Coordinatorable.swift in Sources */,
 				2C24883F28C4FA2D00D2EB2B /* ServerData.swift in Sources */,
@@ -639,6 +650,7 @@
 				2C33051328CE1EB4000A2239 /* MessageCell.swift in Sources */,
 				2C24884128C4FAF500D2EB2B /* Authorizationable.swift in Sources */,
 				2C24885528C6727B00D2EB2B /* Parser.swift in Sources */,
+				2C850E7D28DF68A9008435B3 /* NotificationKeys.swift in Sources */,
 				2C1B2D7828DBE4F300BA858A /* ProfileSectionBaseController.swift in Sources */,
 				2C81649E28DC8DDE002857B2 /* BlockedUsersModule.swift in Sources */,
 				2C2487EE28C38F4800D2EB2B /* SceneDelegate.swift in Sources */,

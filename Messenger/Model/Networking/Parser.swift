@@ -100,9 +100,10 @@ struct Parser {
         let command = defineCommand(String(command))
         switch(command) {
         case .register:
-            return (command, Registration(response: Int(lexemes[0])))
+
+            return (command, retrieveRegistr(from: lexemes))
         case .login:
-            return (command, Login(response: Int(lexemes[0])))
+            return (command, retrieveLogin(from: lexemes))
         case .chats, .incomingChat:
             return (command, Chats(value: retrieveChats(from: lexemes)))
         case .history, .incomingMessage:
@@ -140,9 +141,23 @@ struct Parser {
         case "chatMembers":
             return .chatMembers
         default:
-            print("unkown command:", command)
+            //print("unkown command:", command)
             return .unknown
         }
+    }
+    
+    private func retrieveRegistr(from lexemes: [String]) -> Registration {
+        guard let res = Int(lexemes[0]) else {
+            return Registration(response: -1)
+        }
+        return Registration(response: res)
+    }
+    
+    private func retrieveLogin(from lexemes: [String]) -> Login {
+        guard let id = Int(lexemes[0]) else {
+            return Login(response: -1, nickname: "")
+        }
+        return Login(response: id, nickname: lexemes[1])
     }
     
     private func retrieveChats(from lexemes: [String]) -> [Chat] {

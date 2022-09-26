@@ -36,7 +36,21 @@ final class ProfileTableController: UITableViewController, ProfileModule {
         super.init(style: .insetGrouped)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
         tableView.alwaysBounceVertical = false
+//        
+//        NotificationCenter.default.addObserver(
+//            self,
+//            selector: #selector(changeMainColor(_:)),
+//            name: NSNotification.Name (NotificationKeys.mainColorChangedEvent),
+//            object: nil)
     }
+
+//    @objc
+//    private func changeMainColor(_ notification: Notification) {
+//        guard let color = notification.userInfo?[NotificationKeys.mainColorKey] as? UIColor else {
+//            return
+//        }
+//        bubleView.backgroundColor = color
+//    }
 
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

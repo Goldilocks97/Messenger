@@ -12,7 +12,8 @@ protocol ServerData {}
 struct Client: ServerData {
     
     var name: String
-    var tag: String
+    var id: Int
+    var login: String
     var password: String
 
 }
@@ -72,16 +73,16 @@ struct Registration: ServerData {
     
     let response: RegistrationResponse
     
-    init(response: Int?) {
+    init(response: Int) {
         if response == 0 {
-            self.response = .success
+            self.response = .success(response)
         } else {
             self.response = .usedLogin
         }
     }
 
     enum RegistrationResponse {
-        case success
+        case success(Int)
         case usedLogin
     }
 }
@@ -90,19 +91,19 @@ struct Login: ServerData {
     
     let response: LoginResponse
 
-    init(response: Int?) {
+    init(response: Int, nickname: String) {
         switch(response) {
         case -1:
             self.response = .wrongLogin
         case -2:
             self.response = .wrongPassword
         default:
-            self.response = .success
+            self.response = .success(response, nickname)
         }
     }
     
     enum LoginResponse {
-        case success
+        case success(Int, String)
         case wrongLogin
         case wrongPassword
     }

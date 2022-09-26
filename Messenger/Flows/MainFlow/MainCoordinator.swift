@@ -45,9 +45,9 @@ final class MainCoordinator: BaseCoordinator, Mainable {
     // MARK: - Run Flows methods
 
     private func runProfileFlow(rootModule: ProfileModule) {
-        let coordinator = ProfileCoordinator(
-            router: router,
+        let coordinator = coordinatorFactory.makeProfileCoordinator(
             model: model,
+            router: router,
             moduleFactory: moduleFactory,
             coordinatorFactory: coordinatorFactory,
             rootModule: rootModule)
@@ -56,14 +56,22 @@ final class MainCoordinator: BaseCoordinator, Mainable {
     }
 
     private func runChatsFlow(rootModule: ChatsModule) {
-        let coordinator = ChatsCoordinator(
-            router: router,
+        let coordinator =  coordinatorFactory.makeChatsCoordinator(
             model: model,
+            router: router,
             moduleFactory: moduleFactory,
             coordinatorFactory: coordinatorFactory,
             rootModule: rootModule)
         addDependency(coordinator)
         coordinator.start()
+    }
+    
+    private func sendNotification(about color: UIColor) {
+        let notification = Notification(
+            name: NSNotification.Name("mainColorChanged"),
+            object: nil,
+            userInfo: ["color": color])
+        NotificationCenter.default.post(notification)
     }
 
 }

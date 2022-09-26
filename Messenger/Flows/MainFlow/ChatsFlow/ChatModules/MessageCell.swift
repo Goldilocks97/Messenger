@@ -19,7 +19,7 @@ final class MessageCell: UITableViewCell {
     var message = Message(chatID: 0, text: "", senderID: 0, senderUsername: "", date: "", time: "") {
         didSet {
             let isIncoming = message.senderID != 4
-            bubleView.backgroundColor =  isIncoming ? .red : .systemGray
+            bubleView.backgroundColor =  isIncoming ? .red: .systemGray
             messageLabel.text = message.text
             
             // layout accordint to whether the message is incoming or not
@@ -53,7 +53,21 @@ final class MessageCell: UITableViewCell {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         addSubviews()
         layout()
+        
+//        NotificationCenter.default.addObserver(
+//            self,
+//            selector: #selector(changeMainColor(_:)),
+//            name: NSNotification.Name (NotificationKeys.mainColorChangedEvent),
+//            object: nil)
     }
+//
+//    @objc
+//    private func changeMainColor(_ notification: Notification) {
+//        guard let color = notification.userInfo?[NotificationKeys.mainColorKey] as? UIColor else {
+//            return
+//        }
+//        bubleView.backgroundColor = color
+//    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

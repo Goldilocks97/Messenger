@@ -10,13 +10,15 @@ import UIKit
 final class DateHeader: UITableViewHeaderFooterView {
     
     var date: String? = "" {
-        didSet { dateLabel.text = date }
+        didSet {
+            dateLabel.text = date
+        }
     }
 
     private lazy var dateBubbleView: UIView = {
         let view = UIView()
         view.backgroundColor = .red
-//        view.layer.cornerRadius = 35
+        view.layer.cornerRadius = 10
         return view
     }()
     
@@ -28,6 +30,7 @@ final class DateHeader: UITableViewHeaderFooterView {
     
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
+        backgroundView = UIView()
         addSubviews()
         layout()
     }
@@ -49,10 +52,10 @@ final class DateHeader: UITableViewHeaderFooterView {
             dateLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             dateLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             
-            dateBubbleView.leadingAnchor.constraint(equalTo: dateLabel.leadingAnchor),
-            dateBubbleView.trailingAnchor.constraint(equalTo: dateLabel.trailingAnchor),
-            dateBubbleView.bottomAnchor.constraint(equalTo: dateLabel.bottomAnchor),
-            dateBubbleView.topAnchor.constraint(equalTo: dateLabel.topAnchor)])
+            dateBubbleView.leadingAnchor.constraint(equalTo: dateLabel.leadingAnchor, constant: -10),
+            dateBubbleView.trailingAnchor.constraint(equalTo: dateLabel.trailingAnchor, constant: 10),
+            dateBubbleView.bottomAnchor.constraint(equalTo: dateLabel.bottomAnchor, constant: 10),
+            dateBubbleView.topAnchor.constraint(equalTo: dateLabel.topAnchor, constant: -10)])
     }
     
 }

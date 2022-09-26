@@ -73,6 +73,8 @@ final class ProfileCoordinator: BaseCoordinator, Profiliable {
             storageModule.onBackButton = { [weak self] in
                 self?.router.pop(animated: true)
             }
+            let (app, total) = model.getMemoryUsedAndDeviceTotalInMegabytes()
+            storageModule.receiveMemoryUsage(by: app, total: total)
             router.push(storageModule, animated: true)
         case .appearance:
             let appearanceModule = moduleFactory.makeAppearanceModule()

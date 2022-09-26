@@ -5,4 +5,10 @@
 //  Created by Ivan Pavlov on 09.09.2022.
 //
 
-protocol Profiliable: Coordinatorable {}
+import UIKit
+
+protocol Profiliable: Coordinatorable {
+    
+//    var onMainColorChanges: ((UIColor) -> Void)? { get set }
+    
+}

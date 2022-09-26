@@ -8,21 +8,19 @@
 import Foundation
 
 final class Model {
-
-    // MARK: - User
-
-    var user = Client(name: "", tag: "", password: "") {
-        didSet {
-            dataBase.openDataBase(for: user.name)
-        }
-    }
-    let selfID = 4
     
+    var currentClient: (String, String)? {
+        return client != nil ? (client!.login, client!.password) : nil
+    }
+
     // MARK: - Main Properties
     
     private let communicator: ServerCommunicator
     private var parser: Parser
     private var dataBase: DataBasable
+    //private var keyChain: KeyChain
+    private var client: Client?
+    
 
     //MARK: - Handlers
     
@@ -38,13 +36,30 @@ final class Model {
     // MARK: - Initialization
     
     init(handlerQueue: DispatchQueue) {
+        
+        //self.keyChain = KeyChain()
+        let username = UserDefaults.standard.string(forKey: UserDefaultsKeys.username)
+        let id = UserDefaults.standard.integer(forKey: UserDefaultsKeys.id)
+        let login = UserDefaults.standard.string(forKey: "login")
+        let password = UserDefaults.standard.string(forKey: "password")
+        if let username = username,
+           let login = login,
+           let password = password,
+           id != 0
+        {
+//            self.client = keyChain.getClient(with: String(id), nickname: username)
+            self.client = Client(name: username, id: id, login: login, password: password)
+        }
+
         self.dataBase = DataBase(
             readingQueue: DispatchQueue.global(qos: .userInitiated),
             writingQueue: DispatchQueue.global(qos: .background))
         
         self.handlerQueue = handlerQueue
         
-        self.communicator = ServerCommunicator(host: "185.204.0.32", port: (50000 as UInt16))
+        self.communicator = ServerCommunicator(
+            host: ServerAdress.host,
+            port: ServerAdress.port)
 
         self.parser = Parser()
         self.parser.onCookedData = { [weak self] (command, data) in
@@ -54,6 +69,7 @@ final class Model {
         self.communicator.onDidReceiveData = { [weak self] (data) in
             self?.didReceiveData(data: data)
         }
+
         self.communicator.start()
     }
 
@@ -64,7 +80,23 @@ final class Model {
         password: String,
         completionHandler: @escaping LoginHandler)
     {
-        handlerStorage.loginHandler = completionHandler
+        handlerStorage.loginHandler = { [weak self] (response) in
+            switch(response.response) {
+            case let .success(id, nickname):
+                let client = Client(name: nickname, id: id, login: username, password: password)
+                self?.client = client
+                //self?.keyChain.saveClient(client)
+                
+                self?.dataBase.openDataBase(for: username)
+                UserDefaults.standard.set(id, forKey: UserDefaultsKeys.id)
+                UserDefaults.standard.set(nickname, forKey: UserDefaultsKeys.username)
+                UserDefaults.standard.set(password, forKey: "password")
+                UserDefaults.standard.set(username, forKey: "login")
+            default:
+                break
+            }
+            completionHandler(response)
+        }
         if let message = ("#auth \(username) \(password)\n").data(using: .ascii) {
             communicator.send(message: message)
         }
@@ -76,7 +108,22 @@ final class Model {
         password: String,
         completionHandler: @escaping RegistrationHandler)
     {
-        handlerStorage.regHandler = completionHandler
+        handlerStorage.regHandler = { [weak self] (response) in
+            switch(response.response) {
+            case let .success(id):
+                let client = Client(name: name, id: id, login: username, password: password)
+                self?.client = client
+                self?.dataBase.openDataBase(for: username)
+                //self?.keyChain.saveClient(client)
+                UserDefaults.standard.set(password, forKey: "password")
+                UserDefaults.standard.set(username, forKey: "login")
+                UserDefaults.standard.set(id, forKey: UserDefaultsKeys.id)
+                UserDefaults.standard.set(name, forKey: UserDefaultsKeys.username)
+            default:
+                break
+            }
+            completionHandler(response)
+        }
         if let message = ("#register \(name) \(username) \(password)\n").data(using: .ascii) {
             communicator.send(message: message)
         }
@@ -155,6 +202,37 @@ final class Model {
     func deleteAllCache() {
         
     }
+    
+    func getMemoryUsedAndDeviceTotalInMegabytes() -> (Float, Float) {
+        
+        // c-style coding
+        
+        var used_megabytes: Float = 0
+        
+        let total_bytes = Float(ProcessInfo.processInfo.physicalMemory)
+        let total_megabytes = total_bytes / 1024.0 / 1024.0
+        
+        var info = mach_task_basic_info()
+        var count = mach_msg_type_number_t(MemoryLayout<mach_task_basic_info>.size)/4
+        
+        let kerr: kern_return_t = withUnsafeMutablePointer(to: &info) {
+            $0.withMemoryRebound(to: integer_t.self, capacity: 1) {
+                task_info(
+                    mach_task_self_,
+                    task_flavor_t(MACH_TASK_BASIC_INFO),
+                    $0,
+                    &count
+                )
+            }
+        }
+        
+        if kerr == KERN_SUCCESS {
+            let used_bytes: Float = Float(info.resident_size)
+            used_megabytes = used_bytes / 1024.0 / 1024.0
+        }
+        
+        return (used_megabytes, total_megabytes)
+    }
 
     // MARK: - Processing Data
     
@@ -169,14 +247,12 @@ final class Model {
                let data = data as? Login
             {
                 handlerQueue.async { handler(data) }
-                user.name = "pinya2012"
             }
         case .register:
             if let handler = handlerStorage.regHandler,
                let data = data as? Registration
             {
                 handlerQueue.async { handler(data) }
-                user.name = "pinya2012"
             }
         case .chats, .incomingChat:
             if let data = data as? Chats
@@ -255,6 +331,24 @@ final class Model {
         var lastMessageHandler: LastMessageHandler?
         var findUserIDHandler: FindUserIDHandler?
         var chatMembersHandler: ChatMembersHandler?
+        
+    }
+    
+    // MARK: - Server Address
+    
+    private enum ServerAdress {
+        
+        static let host = "185.204.0.32"
+        static let port: UInt16 = 50000
+        
+    }
+    
+    // MARK: - User Defaults
+    
+    private enum UserDefaultsKeys {
+        
+        static let username = "username"
+        static let id = "id"
         
     }
 

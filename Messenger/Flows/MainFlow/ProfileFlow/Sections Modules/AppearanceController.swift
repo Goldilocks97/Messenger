@@ -35,7 +35,8 @@ final class AppearanceController:
     // MARK: - ColorPicker Delegate
     
     func colorPickerViewControllerDidFinish(_ viewController: UIColorPickerViewController) {
-        print(selectedColor)
+        //sendNotification()
+//        Test.shared.color = selectedColor
     }
     
     func colorPickerViewController(
@@ -44,8 +45,22 @@ final class AppearanceController:
         continuously: Bool)
     {
         if !continuously {
-            print(color)
+//            Test.shared.color = color
+            //sendNotification()
         }
     }
     
+
+    
 }
+//
+//
+//class Test {
+//
+//    static let shared = Test()
+//
+//    var color: UIColor = .red
+//
+//    private init() {}
+//}
+

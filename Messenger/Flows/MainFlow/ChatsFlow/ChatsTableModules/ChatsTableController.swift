@@ -62,8 +62,8 @@ final class ChatsTableController: UITableViewController, ChatsModule {
     // MARK: - Initialization
     
     init() {
-        super.init(style: .plain)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: cellID)
+        super.init(style: .grouped)
+        tableView.register(ChatCell.self, forCellReuseIdentifier: cellID)
     }
     
     required init?(coder: NSCoder) {
@@ -86,9 +86,23 @@ final class ChatsTableController: UITableViewController, ChatsModule {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
-        var config = cell.defaultContentConfiguration()
-        config.text = chats[indexPath.row].name + (chats[indexPath.row].lastMessage?.text ?? "")
-        cell.contentConfiguration = config
+        if let cell = cell as? ChatCell {
+            let chat = chats[indexPath.row]
+            let date = chat.lastMessage != nil ? chat.lastMessage!.date : chat.date
+            let time = chat.lastMessage != nil ? chat.lastMessage!.time : chat.time
+            let message = "Message"//chat.lastMessage?.text
+            let sender = "Sender"
+            let type: ChatType = chat.hostId != -1 ? .publicChat : .privateChat
+            cell.data = ChatCellData(
+                name: chat.name,
+                type: type,
+                date: date,
+                message:message,
+                sender: sender)
+        }
+//        var config = cell.defaultContentConfiguration()
+//        config.text = chats[indexPath.row].name + (chats[indexPath.row].lastMessage?.text ?? "")
+//        cell.contentConfiguration = config
         return cell
     }
 

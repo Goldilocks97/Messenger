@@ -9,7 +9,7 @@ import UIKit
 
 final class StorageController: ProfileSectionBaseController, StorageModule {
     
-    // MARK: - Storage Module Implementation
+    // MARK: - Storage Module Callbacks Implementation
     
     var usedMemory: (Float, Float)? = nil {
         didSet {
@@ -39,9 +39,9 @@ final class StorageController: ProfileSectionBaseController, StorageModule {
     }()
     
     private lazy var usedMemoryView: UIView = {
-        let view = UIView()
-        view.backgroundColor = .blue
-        return view
+        let contentView = UIView()
+        contentView.backgroundColor = .blue
+        return contentView
     }()
     
     private lazy var whileLoadingUserMemoryView: UIView = {
@@ -63,6 +63,36 @@ final class StorageController: ProfileSectionBaseController, StorageModule {
         button.backgroundColor = .red
         return button
     }()
+    
+    // MARK: - Storage Module Methods Implementation
+    
+    func receiveMemoryUsage(by app: Float, total: Float) {
+        print(app, total)
+        let appView = UIView()
+        appView.backgroundColor = .red
+        let totalView = UIView()
+        totalView.backgroundColor = .orange
+        usedMemoryView.addSubview(appView)
+        usedMemoryView.addSubview(totalView)
+        
+        appView.translatesAutoresizingMaskIntoConstraints = false
+        totalView.translatesAutoresizingMaskIntoConstraints = false
+        let proportion = app/total
+        NSLayoutConstraint.activate([
+            appView.topAnchor.constraint(equalTo: usedMemoryView.topAnchor),
+            appView.leadingAnchor.constraint(equalTo: usedMemoryView.leadingAnchor),
+            appView.bottomAnchor.constraint(equalTo: usedMemoryView.bottomAnchor),
+            appView.widthAnchor.constraint(
+                equalTo: usedMemoryView.widthAnchor,
+                multiplier: CGFloat(proportion)),
+        
+            totalView.topAnchor.constraint(equalTo: usedMemoryView.topAnchor),
+            totalView.leadingAnchor.constraint(equalTo: appView.trailingAnchor),
+            totalView.trailingAnchor.constraint(equalTo: usedMemoryView.trailingAnchor),
+            totalView.bottomAnchor.constraint(equalTo: usedMemoryView.bottomAnchor)])
+        storageUsedStack.removeArrangedSubview(whileLoadingUserMemoryView)
+        storageUsedStack.insertArrangedSubview(usedMemoryView, at: 0)
+    }
     
     // MARK: - View Life Cycle
     

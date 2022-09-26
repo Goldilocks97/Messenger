@@ -160,7 +160,7 @@ final class LoginController: UIViewController, LoginModule {
     @objc private func doRegister() {
         onRegistration?()
     }
-    
+
     // MARK: - Keyboard Events
     
     private func subscribeToKeyboardNotifications() {

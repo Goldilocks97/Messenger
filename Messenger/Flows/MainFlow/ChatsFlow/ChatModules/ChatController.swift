@@ -14,6 +14,7 @@ final class ChatController: UIViewController, ChatModule {
     // MARK: - ChatModule Implementation
     
     func receiveNewMessages(_ messages: [Message]) {
+        var animated = false
         if self.messages.isEmpty {
             let groupedMessage = Dictionary(grouping: messages) { (element) -> Date in
                 let dateFormat = DateFormatter()
@@ -31,7 +32,15 @@ final class ChatController: UIViewController, ChatModule {
             } else {
                 self.messages.append([message])
             }
+            animated = true
         }
+        tableView.reloadData()
+        tableView.scrollToRow(
+            at: IndexPath(
+                row: self.messages[self.messages.count-1].count-1,
+                section: self.messages.count-1),
+            at: .bottom,
+            animated: animated)
     }
 
     var onSendMessage: ((String, Int) -> Void)?
@@ -46,7 +55,7 @@ final class ChatController: UIViewController, ChatModule {
     
     private var messages = [[Message]]() {
         didSet {
-            tableView.reloadData()
+
 //            let indexPath = IndexPath(
 //                row: messages[messages.count-1].count-1,
 //                section: messages.count-1)
@@ -184,10 +193,14 @@ final class ChatController: UIViewController, ChatModule {
 
     @objc
     private func doSendMessage() {
-        if let text = messageField.text {
-            messageField.text = nil
-            onSendMessage?(text, chatID)
+        guard
+            let text = messageField.text,
+            !text.isEmpty
+        else {
+            return
         }
+        messageField.text = nil
+        onSendMessage?(text, chatID)
     }
 
 }
@@ -244,13 +257,13 @@ extension ChatController {
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
-//        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-//            view.contentOffset = CGPoint(x: 0, y: keyboardSize.height)
-//        }
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            //bottomContentView.conten = CGPoint(x: 0, y: keyboardSize.height)
+        }
     }
 
     @objc func keyboardWillHide(notification: NSNotification) {
-        //view.contentOffset = CGPoint.zero
+        //bottomContentView.contentOffset = CGPoint.zero
     }
     
 }

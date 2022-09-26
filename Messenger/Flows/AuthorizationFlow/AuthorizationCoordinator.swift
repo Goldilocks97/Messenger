@@ -49,11 +49,11 @@ final class AuthorizationCoordinator: BaseCoordinator, Authorizationable {
         module.onRegistration = { [weak self] (name, username, password) in
             self?.model.registration(name: name, username: username, password: password) {
                 [weak self] (result) in
-                if result.response == .success {
-                    // TODO: implement it in model???
-                    
-                    self?.model.user = Client(name: name, tag: username, password: password)
+                switch(result.response) {
+                case .success(_):
                     self?.onFinishing?()
+                default:
+                    break
                 }
             }
         }
@@ -65,8 +65,11 @@ final class AuthorizationCoordinator: BaseCoordinator, Authorizationable {
     private func setupLoginModule(_ module: LoginModule) {
         module.onLogin = { [weak self] (username, password) in
             self?.model.login(username: username, password: password) { [weak self] (result) in
-                if result.response == .success {
+                switch(result.response) {
+                case .success(_, _):
                     self?.onFinishing?()
+                default:
+                    break
                 }
             }
         }

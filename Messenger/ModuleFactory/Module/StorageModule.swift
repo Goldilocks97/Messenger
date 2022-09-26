@@ -7,4 +7,6 @@
 
 protocol StorageModule: ProfileSectionBaseModule {
     
+    func receiveMemoryUsage(by app: Float, total: Float)
+    
 }

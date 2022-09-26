@@ -73,14 +73,17 @@ final class SceneCoordinator: BaseCoordinator {
     // MARK: - Private methods
     
     private func defineScenario() {
-        let login = "pinya2012"
-        let password = "123"
-        model.login(username: login, password: password) { [weak self] (response) in
-            if response.response == .success {
-                self?.scenario = .main
-            } else {
-                self?.scenario = .authorization
+        if let (login, password) = model.currentClient {
+            model.login(username: login, password: password) { [weak self] (response) in
+                switch (response.response) {
+                case .success(_, _):
+                    self?.scenario = .main
+                default:
+                    self?.scenario = .authorization
+                }
             }
+        } else {
+            scenario = .authorization
         }
     }
     
